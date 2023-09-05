@@ -4,6 +4,7 @@
 
 package bella.tech.bellatech;
 
+import Model.Endereco;
 import view.JFrameMain;
 
 /**
@@ -16,6 +17,9 @@ public class BellaTech {
         System.out.println("Hello World!");
         JFrameMain jf = new JFrameMain();
         jf.setVisible(true);
-
+        Endereco e = new Endereco();
+        e.setBairro("lombok funcionando");
+        System.out.println(e.getBairro());
+        e.teste();
     }
 }

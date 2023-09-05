@@ -1,3 +1,4 @@
+Model\Endereco.class
 view\dialog\DlgHistoricoProcedimentos.class
 view\dialog\DlgReceberPagamento$1.class
 view\dialog\DlgCadastrarConsulta$1.class
