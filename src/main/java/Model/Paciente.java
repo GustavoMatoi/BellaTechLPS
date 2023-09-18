@@ -21,4 +21,5 @@ public class Paciente {
     private String cpf;
     private String telefone;
     private List listaProcedimentos;
+    private int enderecoId;
 }

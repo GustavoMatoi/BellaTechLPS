@@ -18,8 +18,6 @@ public class BellaTech {
         JFrameMain jf = new JFrameMain();
         jf.setVisible(true);
         Endereco e = new Endereco();
-        e.setBairro("lombok funcionando");
-        System.out.println(e.getBairro());
         e.teste();
     }
 }

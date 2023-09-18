@@ -4,6 +4,7 @@
  */
 package Model.DAO;
 
+import Model.Endereco;
 import Model.Paciente;
 import Model.Persistencia;
 import java.sql.Connection;
@@ -192,5 +193,29 @@ public class PacienteDAO implements IDAO {
         return p;
     }
     
+    public Endereco buscaTelefone(int pacienteId){
+        Endereco e = null;
+        sql = "SELECT * FROM Telefonte WHERE PacienteId = ?";
+        try{
+            conexao = Persistencia.getConnection();
+            statement = conexao.prepareStatement(sql);
+            statement.setInt(1, pacienteId);
+            ResultSet resultSet = statement.executeQuery();
+            e.setId(resultSet.getInt(1));
+            e.setEstado(resultSet.getString(2));
+            e.setCidade(resultSet.getString(3));
+            e.setRua(resultSet.getString(4));
+            e.setNumero(resultSet.getString(5));
+            
+           statement.execute();
+           statement.close();
+           
+       } catch (SQLException ex){
+            throw new RuntimeException(ex);
+        } finally {
+            Persistencia.closeConnection();
+        }
+        return e;
+    }
     
 }

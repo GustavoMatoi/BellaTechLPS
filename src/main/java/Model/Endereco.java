@@ -20,7 +20,6 @@ public class Endereco {
     private String cidade;
     private String rua;
     private String numero;
-    private String bairro;
     
     public void teste(){
         System.out.println("Combinando lonbok com método tradicional");

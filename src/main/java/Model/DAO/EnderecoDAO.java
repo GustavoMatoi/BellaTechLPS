@@ -33,7 +33,7 @@ public class EnderecoDAO implements IDAO {
         Endereco endereco = new Endereco();
         
         sql = "INSERT INTO" + 
-                "Endereco(estado, cidade, bairro, rua, numero)" + "VALUES(?,?,?,?,?,?)";
+                "Endereco(estado, cidade, bairro, rua, numero)" + "VALUES(?,?,?,?,?)";
         try{
             conexao = Persistencia.getConnection();
             statement = conexao.prepareStatement(sql);
@@ -41,9 +41,8 @@ public class EnderecoDAO implements IDAO {
             statement.setInt(1, endereco.getId());
             statement.setString(2, endereco.getEstado());
             statement.setString(3, endereco.getCidade());
-            statement.setString(4, endereco.getBairro());
-            statement.setString(5, endereco.getRua());
-            statement.setString(6, endereco.getNumero());
+            statement.setString(4, endereco.getRua());
+            statement.setString(5, endereco.getNumero());
             
             statement.execute();
             statement.close();
@@ -60,7 +59,7 @@ public class EnderecoDAO implements IDAO {
         Endereco endereco = (Endereco) objeto;
         
         sql = "UPDATE Endereco" + 
-                "SET estado=?, cidade=?, bairro=?, rua=?, numero=?" +
+                "SET estado=?, cidade=?, rua=?, numero=?" +
                 "WHERE id=?";
         
         try{
@@ -71,8 +70,8 @@ public class EnderecoDAO implements IDAO {
             statement.setString(2, endereco.getCidade());
             statement.setString(3, endereco.getRua());
             statement.setString(4, endereco.getNumero());
-            
-            statement.setInt(6, endereco.getId());
+      
+            statement.setInt(5, endereco.getId());
             
             statement.execute();
             statement.close();
@@ -100,9 +99,8 @@ public class EnderecoDAO implements IDAO {
                 e = new Endereco();
                 e.setEstado(resultSet.getString(2));
                 e.setCidade(resultSet.getString(3));
-                e.setBairro(resultSet.getString(4));
-                e.setRua(resultSet.getString(5));
-                e.setNumero(resultSet.getString(6));
+                e.setRua(resultSet.getString(4));
+                e.setNumero(resultSet.getString(5));
             }
             statement.close();
             return e;
@@ -127,9 +125,8 @@ public class EnderecoDAO implements IDAO {
                 Endereco e = new Endereco();
                 e.setEstado(resultSet.getString(2));
                 e.setCidade(resultSet.getString(3));
-                e.setBairro(resultSet.getString(4));
-                e.setRua(resultSet.getString(5));
-                e.setNumero(resultSet.getString(6));
+                e.setRua(resultSet.getString(4));
+                e.setNumero(resultSet.getString(5));
                 
                 list.add(e);
             }
@@ -164,8 +161,7 @@ public class EnderecoDAO implements IDAO {
         }
     }
 
-    @Override
-    public Object findById(int id) {
+    public Object findByRuaNumero(String rua, String numero) {
         sql = "SELECT * FROM Endereco as end WHERE end.id = ?";
         
         Endereco e = null;
@@ -173,8 +169,9 @@ public class EnderecoDAO implements IDAO {
         try {
             conexao = Persistencia.getConnection();
             statement = conexao.prepareStatement(sql);
-            statement.setInt(1, e.getId());
-            
+            statement.setString(1, e.getRua());
+            statement.setString(2, e.getNumero());
+
             ResultSet resultSet = statement.executeQuery();
             
             while(resultSet.next()){
@@ -182,9 +179,8 @@ public class EnderecoDAO implements IDAO {
                 e.setId(resultSet.getInt(1));
                 e.setEstado(resultSet.getString(2));
                 e.setCidade(resultSet.getString(3));
-                e.setBairro(resultSet.getString(4));
-                e.setRua(resultSet.getString(5));
-                e.setNumero(resultSet.getString(6));
+                e.setRua(resultSet.getString(4));
+                e.setNumero(resultSet.getString(5));
             }
             
             statement.close();
@@ -194,6 +190,11 @@ public class EnderecoDAO implements IDAO {
             Persistencia.closeConnection();
         }
         return e;
+    }
+
+    @Override
+    public Object findById(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
 }

@@ -51,30 +51,28 @@
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                  <Component id="edtRua" alignment="1" pref="610" max="32767" attributes="0"/>
-                                  <Component id="edtCPF" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="edtDataNascimento" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="edtIDPaciente" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="edtNomePaciente" alignment="1" max="32767" attributes="0"/>
-                                  <Component id="edtEstado" alignment="1" pref="610" max="32767" attributes="0"/>
-                                  <Component id="edtNumero" alignment="0" pref="610" max="32767" attributes="0"/>
-                              </Group>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="edtRua" alignment="1" pref="610" max="32767" attributes="0"/>
+                              <Component id="edtDataNascimento" alignment="1" max="32767" attributes="0"/>
+                              <Component id="edtIDPaciente" alignment="1" max="32767" attributes="0"/>
+                              <Component id="edtNomePaciente" alignment="1" max="32767" attributes="0"/>
+                              <Component id="edtEstado" alignment="1" pref="610" max="32767" attributes="0"/>
+                              <Component id="edtNumero" alignment="0" pref="610" max="32767" attributes="0"/>
                               <Component id="lblNome" alignment="0" min="-2" pref="158" max="-2" attributes="0"/>
                               <Component id="lblIDPaciente" alignment="0" min="-2" pref="138" max="-2" attributes="0"/>
                               <Component id="lblCPF" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="lblDataNascimento" alignment="0" min="-2" pref="168" max="-2" attributes="0"/>
-                              <Component id="edtContato" alignment="0" min="-2" pref="610" max="-2" attributes="0"/>
+                              <Component id="edtContato" alignment="0" pref="610" max="32767" attributes="0"/>
                               <Component id="lblRua" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="lblEstado" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="edtCidade" alignment="0" min="-2" pref="610" max="-2" attributes="0"/>
+                              <Component id="edtCidade" alignment="0" pref="610" max="32767" attributes="0"/>
                               <Component id="lblCidade" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="lblNumero" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="lblDadosParaContato" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="lblDadosPessoais" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="lblContato" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="lblEndereco1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="fEdtCpf" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="0" pref="59" max="32767" attributes="0"/>
                       </Group>
@@ -116,9 +114,9 @@
                   <Component id="edtDataNascimento" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblCPF" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
-                  <Component id="edtCPF" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                  <Component id="fEdtCpf" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="lblEndereco1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblEstado" min="-2" max="-2" attributes="0"/>
@@ -159,8 +157,6 @@
         <Component class="javax.swing.JTextField" name="edtIDPaciente">
         </Component>
         <Component class="javax.swing.JTextField" name="edtDataNascimento">
-        </Component>
-        <Component class="javax.swing.JTextField" name="edtCPF">
         </Component>
         <Component class="javax.swing.JTextField" name="edtRua">
           <Events>
@@ -359,6 +355,8 @@
             </Property>
             <Property name="text" type="java.lang.String" value="CANCELAR"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JFormattedTextField" name="fEdtCpf">
         </Component>
       </SubComponents>
     </Container>
