@@ -13,8 +13,8 @@ import java.util.List;
 public interface IDAO {
     public void save(Object objeto);
     public void update(Object objeto);
-    public void find(Object objeto);
+    public Object find(Object objeto);
     public List<Object> findAll(Object objeto);
-    public void delete(Object objeto);
-    
+    public boolean delete(Object objeto);
+    public Object findById(int id);
 }

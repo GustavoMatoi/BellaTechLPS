@@ -20,7 +20,7 @@ public class Persistencia {
     private Persistencia(){
         try{
             Class.forName("org.sqlite.JDBC");
-            this.connection = DriverManager.getConnection("jbdc:sqlite:dbBellaTech.sqlite");
+            this.connection = DriverManager.getConnection("jdbc:sqlite:dbBellaTech.sqlite");
         } catch (ClassNotFoundException e){
             System.err.println("Erro ao abrir conexão " + e.toString());
         } catch (SQLException e){

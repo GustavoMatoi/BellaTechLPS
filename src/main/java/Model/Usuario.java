@@ -23,4 +23,5 @@ public class Usuario {
     private String dataNascimento;
     private String telefone;
     private String cargo;
+    private float salario;
 }

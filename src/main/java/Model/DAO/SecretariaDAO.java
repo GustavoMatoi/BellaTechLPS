@@ -2,17 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Model;
+package Model.DAO;
 
 /**
  *
  * @author gutei
  */
-
-public class Funcionario extends Usuario {
-    private float salario;
+public class SecretariaDAO {
     
-    public void cadastroPaciente(Paciente novoPaciente){
-        
-    }
 }
