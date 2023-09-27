@@ -156,7 +156,7 @@ public class MedicoDAO implements IDAO {
     public boolean delete(Object objeto) {
         Medico m = (Medico) objeto;
         
-        sql = "DELETE FROM Feedback WHERE id = ?";
+        sql = "DELETE FROM Medico WHERE id = ?";
         
         try {
             conexao = Persistencia.getConnection();

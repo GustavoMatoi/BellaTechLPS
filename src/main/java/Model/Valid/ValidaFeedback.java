@@ -18,7 +18,7 @@ public class ValidaFeedback {
         if(data.isEmpty()) throw new FeedbackException("Data inválida");
         novoFeedback.setData(data);
         if(procedimento.getId() == -1)throw new FeedbackException("Procedimento inválido");
-        novoFeedback.setProcedimentoRealizado(procedimento);
+        novoFeedback.setIdProcedimento(procedimento.getId());
         if(avaliacao.isEmpty()) throw new FeedbackException("Avaliação inválida");
         novoFeedback.setAvaliacao(avaliacao);
         if(comentarios.isEmpty()) throw new FeedbackException("Comentários inválidos");

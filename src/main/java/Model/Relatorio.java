@@ -18,4 +18,5 @@ public class Relatorio {
     private String protocolo;
     private String justificativa;
     private String medicoResponsavel;
+    private int id;
 }
