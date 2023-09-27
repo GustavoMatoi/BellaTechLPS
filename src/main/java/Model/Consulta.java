@@ -14,8 +14,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Consulta {
-    Paciente pacienteDaConsulta;
-    Medico medicoDaConsulta;
-    String horarioDaConsulta;
-    String motivoDaConsulta;
+    private int id;
+    private Paciente pacienteDaConsulta;
+    private Medico medicoDaConsulta;
+    private String horarioDaConsulta;
+    private String motivoDaConsulta;
 }

@@ -4,6 +4,10 @@
  */
 package view.dialog;
 
+import Model.Endereco;
+import Model.Paciente;
+import controller.EnderecoController;
+import controller.PacienteController;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,7 +18,8 @@ import javax.swing.text.MaskFormatter;
  * @author gutei
  */
 public class DlgCadastroPaciente extends javax.swing.JDialog {
-
+    PacienteController pacienteController;
+    EnderecoController enderecoController;
     /**
      * Creates new form DlgCadastroPaciente
      */
@@ -22,6 +27,8 @@ public class DlgCadastroPaciente extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.adicionarMascaraNosCampos();
+        pacienteController = new PacienteController();
+        enderecoController = new EnderecoController();
     }
 
     /**
@@ -47,7 +54,7 @@ public class DlgCadastroPaciente extends javax.swing.JDialog {
         edtIDPaciente = new javax.swing.JTextField();
         edtDataNascimento = new javax.swing.JTextField();
         edtRua = new javax.swing.JTextField();
-        edtContato = new javax.swing.JTextField();
+        edtTelefone = new javax.swing.JTextField();
         lblDadosPessoais = new javax.swing.JLabel();
         lblNome = new javax.swing.JLabel();
         lblIDPaciente = new javax.swing.JLabel();
@@ -111,6 +118,11 @@ public class DlgCadastroPaciente extends javax.swing.JDialog {
         btnSalvar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSalvar.setForeground(new java.awt.Color(255, 255, 255));
         btnSalvar.setText("SALVAR");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         lblLogo.setFont(new java.awt.Font("Monotype Corsiva", 0, 14)); // NOI18N
         lblLogo.setForeground(new java.awt.Color(255, 121, 165));
@@ -178,7 +190,7 @@ public class DlgCadastroPaciente extends javax.swing.JDialog {
                             .addComponent(lblIDPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblCPF)
                             .addComponent(lblDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(edtContato, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
+                            .addComponent(edtTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
                             .addComponent(lblRua)
                             .addComponent(lblEstado)
                             .addComponent(edtCidade, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
@@ -248,7 +260,7 @@ public class DlgCadastroPaciente extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblContato, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(edtContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(edtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
@@ -283,59 +295,29 @@ public class DlgCadastroPaciente extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_edtRuaActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DlgCadastroPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DlgCadastroPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DlgCadastroPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DlgCadastroPaciente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        Endereco e = new Endereco();
+        //enderecoController.cadastrarEndereco(edtEstado.getText(), edtCidade.getText(), edtRua.getText(), edtNumero.getText());
+        e.setEstado(edtEstado.getText());
+        e.setCidade(edtCidade.getText());
+        e.setNumero(edtNumero.getText());
+        e.setRua(edtRua.getText());
+        System.out.println(edtNomePaciente.getText()+ " " + Integer.parseInt(edtIDPaciente.getText()) + " " + edtDataNascimento.getText() + " " + fEdtCpf.getText() + " " + edtTelefone.getText());
+        pacienteController.cadastrarPaciente(edtNomePaciente.getText(), Integer.parseInt(edtIDPaciente.getText()), edtDataNascimento.getText(), fEdtCpf.getText(), e, edtTelefone.getText());
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DlgCadastroPaciente dialog = new DlgCadastroPaciente(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JTextField edtCidade;
-    private javax.swing.JTextField edtContato;
     private javax.swing.JTextField edtDataNascimento;
     private javax.swing.JTextField edtEstado;
     private javax.swing.JTextField edtIDPaciente;
     private javax.swing.JTextField edtNomePaciente;
     private javax.swing.JTextField edtNumero;
     private javax.swing.JTextField edtRua;
+    private javax.swing.JTextField edtTelefone;
     private javax.swing.JFormattedTextField fEdtCpf;
     private javax.swing.JLabel lblCPF;
     private javax.swing.JLabel lblCidade;

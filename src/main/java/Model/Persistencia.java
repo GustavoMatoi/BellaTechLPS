@@ -37,12 +37,12 @@ public class Persistencia {
     
     public static void closeConnection(){
         try{
-            connection.close();
-            connection = null;
+            if (connection != null) {
+                connection.close();
+                connection = null;
+            }
         } catch (SQLException e){
             Logger.getLogger(Persistencia.class.getName()).log(Level.SEVERE, null, e);
         }
     }
-    
-    
 }

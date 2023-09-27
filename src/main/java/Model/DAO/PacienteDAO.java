@@ -28,9 +28,9 @@ public class PacienteDAO implements IDAO {
     }
     @Override
     public void save(Object objeto) {
-        Paciente paciente = new Paciente();
+        Paciente paciente = (Paciente) objeto;
         
-        sql = "INSERT INTO" + "Paciente(id, nome, dataNascimento, cpf, telefone)" + "VALUES(?,?,?,?,?)";
+        sql = "INSERT INTO" + " Paciente(id, nome, dataNascimento, cpf, telefone, endereco_id)" + "VALUES(?,?,?,?,?)";
         
         try {
             conexao = Persistencia.getConnection();
@@ -41,7 +41,8 @@ public class PacienteDAO implements IDAO {
             statement.setString(3, paciente.getDataNascimento());
             statement.setString(4, paciente.getCpf());
             statement.setString(5, paciente.getTelefone());
-            
+            statement.setInt(6, paciente.getEnderecoId());
+
             statement.execute();
             statement.close();
         } catch (SQLException ex){

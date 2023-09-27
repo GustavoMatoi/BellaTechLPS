@@ -20,11 +20,11 @@ public class EnderecoController {
         this.repositorio = new EnderecoDAO();
     }
     
-    public void cadastrarEndereco(String estado, String cidade, String rua, String numero){
+    public void cadastrarEndereco(int id, String estado, String cidade, String rua, String numero){
         ValidaEndereco valid = new ValidaEndereco();
         Endereco novoEndereco = valid.validaCamposEntrada(estado, cidade, rua, numero);
         
-        if(repositorio.findByRuaNumero(rua, numero) == null){ 
+        if(repositorio.findById(id) == null){ 
             repositorio.save(novoEndereco);
         } else {
             throw new EnderecoException("Error - Já existe esse endereço");
@@ -38,12 +38,12 @@ public class EnderecoController {
         repositorio.update(novoEndereco);
     }
     
-    public Endereco buscarEndereco(String rua, String numero){
-        return (Endereco) this.repositorio.findByRuaNumero(rua, numero);
+    public Endereco buscarEndereco(int id){
+        return (Endereco) this.repositorio.findById(id);
     }
     
-    public void excluirEndereco(String rua, String numero){
-        Object endereco = (Endereco) repositorio.findByRuaNumero(rua, numero);
+    public void excluirEndereco(int id){
+        Object endereco = (Endereco) repositorio.findById(id);
         
         if(endereco != null){
             repositorio.delete(endereco);

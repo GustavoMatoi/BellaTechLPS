@@ -115,7 +115,7 @@ public class EnderecoDAO implements IDAO {
     public List<Object> findAll(Object objeto) {
         List <Object> list = new ArrayList<>();
         
-        sql = "SELECT * FROM Endereco ORDER BY upper(estado)";
+        sql = "SELECT * FROM Endereco ORDER BY upper(id)";
         
         try{
             statement = Persistencia.getConnection().prepareStatement(sql);
@@ -161,17 +161,18 @@ public class EnderecoDAO implements IDAO {
         }
     }
 
-    public Object findByRuaNumero(String rua, String numero) {
-        sql = "SELECT * FROM Endereco as end WHERE end.id = ?";
+    @Override
+    public Object findById(int id) {
+        sql = "SELECT * FROM Endereco as p WHERE e.id = ?";
         
         Endereco e = null;
         
         try {
             conexao = Persistencia.getConnection();
             statement = conexao.prepareStatement(sql);
-            statement.setString(1, e.getRua());
-            statement.setString(2, e.getNumero());
-
+            
+            statement.setInt(1, id);
+            
             ResultSet resultSet = statement.executeQuery();
             
             while(resultSet.next()){
@@ -182,9 +183,7 @@ public class EnderecoDAO implements IDAO {
                 e.setRua(resultSet.getString(4));
                 e.setNumero(resultSet.getString(5));
             }
-            
-            statement.close();
-        } catch (SQLException ex){
+        } catch (Exception ex) {
             throw new RuntimeException(ex);
         } finally {
             Persistencia.closeConnection();
@@ -192,9 +191,5 @@ public class EnderecoDAO implements IDAO {
         return e;
     }
 
-    @Override
-    public Object findById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
     
 }

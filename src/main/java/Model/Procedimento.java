@@ -16,6 +16,8 @@ import lombok.Setter;
 public class Procedimento {
     private int id;
     private String nome;
-    private String dataNascimento;
+    private String dataHora;
+    private Medico medicoResponsavel;
+    private String descricao;
    
 }

@@ -16,7 +16,7 @@ import lombok.Setter;
 
 public class Pagamento {
     private int id;
-    private float pagamento;
+    private float valor;
     private String metodo;
     private String data;
     private String comentarios;

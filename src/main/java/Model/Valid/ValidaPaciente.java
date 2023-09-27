@@ -22,7 +22,7 @@ public class ValidaPaciente {
         novoPaciente.setId(id);
         if(dataNascimento.isEmpty()) throw new PacienteException("Data de Nascimento inválida");
         novoPaciente.setDataNascimento(dataNascimento);
-        if(valida.validaCPF(cpf)) throw new PacienteException("CPF inválido");
+        if(!valida.validaCPF(cpf)) throw new PacienteException("CPF inválido");
         novoPaciente.setCpf(cpf);
         if(endereco == null) throw new PacienteException("Endereço inválido");
         novoPaciente.setEnderecoId(endereco.getId());

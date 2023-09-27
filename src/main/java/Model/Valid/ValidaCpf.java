@@ -31,7 +31,7 @@ public class ValidaCpf {
         if(cpf.length() == 14){
             cpf = cpf.replaceAll("\\.", "");
             cpf = cpf.replaceAll("-", "");
-        }
+        }   
         
         //se tem tamanho 11 e so possui digitos
         if(cpf.length() == 11 && cpf.matches("[0-9]*")){
@@ -40,7 +40,8 @@ public class ValidaCpf {
             
             int digito1 = Integer.parseInt(vet[9]);
             int digito2 = Integer.parseInt(vet[10]);
-            
+                        System.out.println("Chegou aqui 1");
+
             //vamos calcular o primeiro verificador
             int soma1 = 0;
             int fator1 = 10;
@@ -57,6 +58,7 @@ public class ValidaCpf {
             if(resultado1 != digito1){
                 return false;
             }
+            System.out.println("Chegou aqui 2");
             
             //vamos calcular o segundo verificador
             int soma2 = 0;
@@ -74,14 +76,18 @@ public class ValidaCpf {
             if(resultado2 != digito2){
                return false;
             }                    
-            
+                        System.out.println("Chegou aqui 3");
+
             //agora so basta verificar se todos são iguais
             for(int i=0; i <= 9; i++){
                 int val = Integer.parseInt(vet[i]);
                 int valProx = Integer.parseInt(vet[i+1]);
                 if(val != valProx)
+                    System.out.println("Chegou aqui 4");
                     return true;
+
             }
+
         }
                         
         return false;    

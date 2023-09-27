@@ -14,8 +14,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Feedback {
+    private int id;
     private String data;
-    private Procedimento procedimentoRealizado;
+    private int idProcedimento;
     private String avaliacao;
     private String comentarios;
 }
