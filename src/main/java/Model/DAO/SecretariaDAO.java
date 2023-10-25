@@ -12,6 +12,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -23,14 +26,32 @@ public class SecretariaDAO implements IDAO {
     private PreparedStatement statement;
     private String sql;
     
+    
+    EntityManagerFactory factory;
+    EntityManager entityManager;
+    
     public SecretariaDAO(){
         this.sql = "";
+        factory = Persistence.createEntityManagerFactory("bellatech");
+        entityManager = factory.createEntityManager();
     }
     
     @Override
     public void save(Object objeto) {
         Secretaria secretaria = new Secretaria();
+        try {
+              Secretaria secretariaManaged = entityManager.merge(secretaria);
+              entityManager.getTransaction().begin();
+              entityManager.persist(secretariaManaged);
+              entityManager.getTransaction().commit();
+        } catch (Error e){
+            System.out.println(e);
+        } finally {
+            entityManager.close();
+            factory.close();
+        } 
         
+        /*
         sql = "INSERT INTO" + 
                 "Secretaria(nome, cpf, login, senha, dataNascimento, telefone, cargo, salario)" + "VALUES(?,?,?,?,?,?,?,?)";
         try{
@@ -52,8 +73,8 @@ public class SecretariaDAO implements IDAO {
             throw new RuntimeException (ex);
         } finally {
             Persistencia.closeConnection();
-        }
-    
+        } */
+        
     }   
 
     @Override
@@ -122,7 +143,7 @@ public class SecretariaDAO implements IDAO {
     }
 
     @Override
-    public List<Object> findAll(Object objeto) {
+    public List<Object> findAll() {
         List <Object> list = new ArrayList<>();
         
         sql = "SELECT * FROM Secretaria ORDER BY upper(id)";

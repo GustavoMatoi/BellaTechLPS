@@ -25,7 +25,7 @@ public class ValidaPaciente {
         if(!valida.validaCPF(cpf)) throw new PacienteException("CPF inválido");
         novoPaciente.setCpf(cpf);
         if(endereco == null) throw new PacienteException("Endereço inválido");
-        novoPaciente.setEnderecoId(endereco.getId());
+        novoPaciente.setEndereco(endereco);
         if(telefone.isEmpty()) throw new PacienteException("Telefone inválido");
         novoPaciente.setTelefone(telefone);
         return novoPaciente;

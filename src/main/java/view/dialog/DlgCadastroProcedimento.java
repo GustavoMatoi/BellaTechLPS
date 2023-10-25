@@ -4,18 +4,24 @@
  */
 package view.dialog;
 
+import Model.Medico;
+import controller.ProcedimentoController;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.text.MaskFormatter;
+
 /**
  *
  * @author gutei
  */
 public class DlgCadastroProcedimento extends javax.swing.JDialog {
-
-    /**
-     * Creates new form DlgCadastroProcedimento
-     */
+    ProcedimentoController procedimentoController;
     public DlgCadastroProcedimento(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.adicionarMascaraNosCampos();
+        procedimentoController = new ProcedimentoController();
     }
 
     /**
@@ -29,18 +35,16 @@ public class DlgCadastroProcedimento extends javax.swing.JDialog {
 
         pnlBackground = new javax.swing.JPanel();
         edtNomeProcedimento = new javax.swing.JTextField();
-        edtIDProcedimento = new javax.swing.JTextField();
-        edtDataHora = new javax.swing.JTextField();
         edtMedicoResponsavel = new javax.swing.JTextField();
         edtDescricao = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         lblNome = new javax.swing.JLabel();
-        lblNomePaciente = new javax.swing.JLabel();
         lblDataHora = new javax.swing.JLabel();
         lblNomeMedico = new javax.swing.JLabel();
         lblDescricao = new javax.swing.JLabel();
         btnSalvar = new javax.swing.JButton();
         lblLogo1 = new javax.swing.JLabel();
+        fEdtDataHora = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -53,10 +57,6 @@ public class DlgCadastroProcedimento extends javax.swing.JDialog {
         lblNome.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblNome.setForeground(new java.awt.Color(255, 121, 165));
         lblNome.setText("NOME DO PROCEDIMENTO:");
-
-        lblNomePaciente.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblNomePaciente.setForeground(new java.awt.Color(255, 121, 165));
-        lblNomePaciente.setText("ID DO PROCEDIMENTO");
 
         lblDataHora.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblDataHora.setForeground(new java.awt.Color(255, 121, 165));
@@ -74,6 +74,11 @@ public class DlgCadastroProcedimento extends javax.swing.JDialog {
         btnSalvar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSalvar.setForeground(new java.awt.Color(255, 255, 255));
         btnSalvar.setText("SALVAR");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         lblLogo1.setFont(new java.awt.Font("Monotype Corsiva", 0, 14)); // NOI18N
         lblLogo1.setForeground(new java.awt.Color(255, 121, 165));
@@ -86,31 +91,27 @@ public class DlgCadastroProcedimento extends javax.swing.JDialog {
             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                        .addGap(240, 240, 240)
+                        .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblLogo1))
+                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                                 .addGap(19, 19, 19)
-                                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                        .addComponent(edtMedicoResponsavel)
-                                        .addComponent(edtDataHora)
-                                        .addComponent(edtIDProcedimento)
-                                        .addComponent(edtNomeProcedimento)
-                                        .addComponent(edtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 610, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(edtMedicoResponsavel, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(edtNomeProcedimento, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(edtDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
                                     .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblNomePaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblDataHora, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lblNomeMedico)
-                                    .addComponent(lblDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(lblDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(fEdtDataHora)))
                             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                                 .addGap(48, 48, 48)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                                .addGap(240, 240, 240)
-                                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 59, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBackgroundLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lblLogo1)))
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 59, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         pnlBackgroundLayout.setVerticalGroup(
@@ -122,14 +123,10 @@ public class DlgCadastroProcedimento extends javax.swing.JDialog {
                 .addComponent(lblNome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(edtNomeProcedimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblNomePaciente)
-                .addGap(5, 5, 5)
-                .addComponent(edtIDProcedimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblDataHora)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(edtDataHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(fEdtDataHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblNomeMedico)
                 .addGap(11, 11, 11)
@@ -138,10 +135,11 @@ public class DlgCadastroProcedimento extends javax.swing.JDialog {
                 .addComponent(lblDescricao)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(edtDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnSalvar)
-                .addGap(2, 2, 2)
-                .addComponent(lblLogo1))
+                .addGap(18, 18, 18)
+                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSalvar)
+                    .addComponent(lblLogo1))
+                .addGap(68, 68, 68))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -160,62 +158,33 @@ public class DlgCadastroProcedimento extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        Medico m = new Medico();
+        m.setNome(edtMedicoResponsavel.getText());
+        System.out.println(fEdtDataHora.getText());
+        procedimentoController.cadastrarProcedimento(edtNomeProcedimento.getText(), fEdtDataHora.getText(), m, edtDescricao.getText());
+    }//GEN-LAST:event_btnSalvarActionPerformed
+        public void adicionarMascaraNosCampos(){
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DlgCadastroProcedimento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DlgCadastroProcedimento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DlgCadastroProcedimento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DlgCadastroProcedimento.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            MaskFormatter mascaraCPF = new MaskFormatter("##/## ##:##");
+            mascaraCPF.install(fEdtDataHora);
+        } catch (ParseException e){
+            Logger.getLogger(DlgCadastroPaciente.class.getName()).log(Level.SEVERE, null, e);
         }
-        //</editor-fold>
-
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DlgCadastroProcedimento dialog = new DlgCadastroProcedimento(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JTextField edtDataHora;
     private javax.swing.JTextField edtDescricao;
-    private javax.swing.JTextField edtIDProcedimento;
     private javax.swing.JTextField edtMedicoResponsavel;
     private javax.swing.JTextField edtNomeProcedimento;
+    private javax.swing.JFormattedTextField fEdtDataHora;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblDataHora;
     private javax.swing.JLabel lblDescricao;
     private javax.swing.JLabel lblLogo1;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblNomeMedico;
-    private javax.swing.JLabel lblNomePaciente;
     private javax.swing.JPanel pnlBackground;
     // End of variables declaration//GEN-END:variables
 }

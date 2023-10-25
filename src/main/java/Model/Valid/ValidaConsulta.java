@@ -19,7 +19,7 @@ public class ValidaConsulta {
         if(p.getCpf().isEmpty()) throw new ConsultaException("Paciente inválido"); 
         consultaValidada.setPacienteDaConsulta(p);
         if(m.getCpf().isEmpty()) throw new ConsultaException("Médico inválido");
-        consultaValidada.setMedicoDaConsulta(m);
+        //consultaValidada.setMedicoDaConsulta(m);
         if(horario.isEmpty()) throw new ConsultaException("Horário inválido");
         consultaValidada.setHorarioDaConsulta(horario);
         if(motivo.isEmpty()) throw new ConsultaException("Motivo inválido");

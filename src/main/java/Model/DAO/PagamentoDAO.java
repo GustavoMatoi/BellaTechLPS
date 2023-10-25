@@ -13,6 +13,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -22,15 +25,32 @@ public class PagamentoDAO implements IDAO {
     protected Connection conexao;
     private PreparedStatement statement;
     private String sql;
+    //
     
+    EntityManagerFactory factory;
+    EntityManager entityManager;
     public PagamentoDAO (){
-        this.sql = "";
+        //this.sql = "";
+        factory = Persistence.createEntityManagerFactory("bellatech");
+        entityManager = factory.createEntityManager();
     }
     
     @Override
     public void save(Object objeto) {
         Pagamento pagamento = new Pagamento();
+        try {
+              Pagamento pagamentoManaged = entityManager.merge(pagamento);
+              entityManager.getTransaction().begin();
+              entityManager.persist(pagamentoManaged);
+              entityManager.getTransaction().commit();
+        } catch (Error e){
+            System.out.println(e);
+        } finally {
+            entityManager.close();
+            factory.close();
+        } 
         
+        /*
         sql = "INSERT INTO" + 
                 "Pagamento(valor, metodo, data, comentarios)" + "VALUES(?,?,?,?)";
         try{
@@ -48,7 +68,7 @@ public class PagamentoDAO implements IDAO {
             throw new RuntimeException (ex);
         } finally {
             Persistencia.closeConnection();
-        }
+        }*/
     
     }   
 
@@ -106,7 +126,7 @@ public class PagamentoDAO implements IDAO {
     }
 
     @Override
-    public List<Object> findAll(Object objeto) {
+    public List<Object> findAll() {
         List <Object> list = new ArrayList<>();
         
         sql = "SELECT * FROM Pagamento ORDER BY upper(id)";

@@ -6,6 +6,7 @@ package controller;
 
 import Model.DAO.EnderecoDAO;
 import Model.Endereco;
+import Model.Paciente;
 import Model.Valid.ValidaEndereco;
 import Model.exceptions.EnderecoException;
 
@@ -20,20 +21,17 @@ public class EnderecoController {
         this.repositorio = new EnderecoDAO();
     }
     
-    public void cadastrarEndereco(int id, String estado, String cidade, String rua, String numero){
+    public void cadastrarEndereco(int id, String estado, String cidade, String rua, String numero, Paciente id_paciente){
         ValidaEndereco valid = new ValidaEndereco();
-        Endereco novoEndereco = valid.validaCamposEntrada(estado, cidade, rua, numero);
-        
-        if(repositorio.findById(id) == null){ 
-            repositorio.save(novoEndereco);
-        } else {
-            throw new EnderecoException("Error - Já existe esse endereço");
-        }
+        Endereco novoEndereco = valid.validaCamposEntrada(estado, cidade, rua, numero, id_paciente);
+        System.out.println(id_paciente.getId() + " <- ID PACIENTE");
+        repositorio.save(novoEndereco);
+
     }
     
-    public void atualizarEndereco(String estado, String cidade, String rua, String numero){
+    public void atualizarEndereco(String estado, String cidade, String rua, String numero, Paciente id_paciente){
         ValidaEndereco valid = new ValidaEndereco();
-        Endereco novoEndereco = valid.validaCamposEntrada(estado, cidade, rua, numero);
+        Endereco novoEndereco = valid.validaCamposEntrada(estado, cidade, rua, numero, id_paciente);
         
         repositorio.update(novoEndereco);
     }

@@ -6,6 +6,8 @@ import Model.Endereco;
 import Model.Paciente;
 import Model.Valid.ValidaPaciente;
 import Model.exceptions.PacienteException;
+import java.util.List;
+import javax.swing.JTable;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -52,6 +54,12 @@ public class PacienteController {
         } else {
             throw new PacienteException("Paciente inexistente");
         }
+    }
+    
+    public void atualizarTabela(JTable grd){
+        List lst = repositorio.findAll();
+        TMPaciente tableModel = new TMPaciente(lst);
+        grd.setModel(tableModel);
     }
     
     

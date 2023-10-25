@@ -25,11 +25,8 @@ public class MedicoController {
         ValidaMedico valida = new ValidaMedico();
         Medico novoPaciente = valida.validaMedico(id, nome, cpf, login, senha, dataNascimento, telefone,cargo, salario);
         
-        if(repositorio.findById(id) == null){
             repositorio.save(novoPaciente);
-        } else {
-            throw new MedicoException("Medico já existnete");
-        }
+
         return true;
     }
     

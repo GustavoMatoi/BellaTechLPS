@@ -4,18 +4,20 @@
  */
 package view.dialog;
 
+import controller.ProcedimentoController;
+
 /**
  *
  * @author gutei
  */
 public class DlgHistoricoProcedimentos extends javax.swing.JDialog {
-
-    /**
-     * Creates new form DlgHistoricoProcedimentos
-     */
+    ProcedimentoController procedimentoController;
     public DlgHistoricoProcedimentos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        procedimentoController = new ProcedimentoController();
+        
+        procedimentoController.atualizarTabela(tblHistorico);
     }
 
     /**
@@ -42,13 +44,13 @@ public class DlgHistoricoProcedimentos extends javax.swing.JDialog {
 
         tblHistorico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "PROCEDIMENTO", "ID", "DATA E HORA", "MÉDICO:", "PACIENTE:", "DESCRIÇÃO:"
+
             }
         ));
         jScrollPane1.setViewportView(tblHistorico);
@@ -71,7 +73,7 @@ public class DlgHistoricoProcedimentos extends javax.swing.JDialog {
             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(21, 21, 21))
         );

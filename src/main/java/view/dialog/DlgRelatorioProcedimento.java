@@ -4,18 +4,25 @@
  */
 package view.dialog;
 
+import Model.Paciente;
+import Model.Relatorio;
+import Model.Valid.ValidaRelatorio;
+import controller.PacienteController;
+import controller.RelatorioController;
+
 /**
  *
  * @author gutei
  */
 public class DlgRelatorioProcedimento extends javax.swing.JDialog {
-
-    /**
-     * Creates new form DlgRelatorioProcedimento
-     */
+    RelatorioController relatorioController;
+    PacienteController pacienteController;
     public DlgRelatorioProcedimento(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        pacienteController = new PacienteController();
+        relatorioController = new RelatorioController();
+        pacienteController.atualizarTabela(grdPacientes);
     }
 
     /**
@@ -28,7 +35,6 @@ public class DlgRelatorioProcedimento extends javax.swing.JDialog {
     private void initComponents() {
 
         pnlBackground = new javax.swing.JPanel();
-        edtNomePaciente = new javax.swing.JTextField();
         edtProtocolo = new javax.swing.JTextField();
         edtJustificativa = new javax.swing.JTextField();
         edtResponsavel = new javax.swing.JTextField();
@@ -40,6 +46,8 @@ public class DlgRelatorioProcedimento extends javax.swing.JDialog {
         lblLogo = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        grdPacientes = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -65,6 +73,11 @@ public class DlgRelatorioProcedimento extends javax.swing.JDialog {
         btnSalvar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnSalvar.setForeground(new java.awt.Color(255, 255, 255));
         btnSalvar.setText("SALVAR");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         lblLogo.setFont(new java.awt.Font("Monotype Corsiva", 0, 14)); // NOI18N
         lblLogo.setForeground(new java.awt.Color(255, 121, 165));
@@ -78,6 +91,19 @@ public class DlgRelatorioProcedimento extends javax.swing.JDialog {
         btnCancelar.setForeground(new java.awt.Color(255, 121, 165));
         btnCancelar.setText("CANCELAR");
 
+        grdPacientes.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(grdPacientes);
+
         javax.swing.GroupLayout pnlBackgroundLayout = new javax.swing.GroupLayout(pnlBackground);
         pnlBackground.setLayout(pnlBackgroundLayout);
         pnlBackgroundLayout.setHorizontalGroup(
@@ -88,29 +114,33 @@ public class DlgRelatorioProcedimento extends javax.swing.JDialog {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(lblLogo))
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(edtResponsavel, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
-                                .addComponent(edtJustificativa)
-                                .addComponent(edtNomePaciente)
-                                .addComponent(edtProtocolo, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblProtocolo, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblResponsavel)
-                            .addComponent(lblJustificativa, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 59, Short.MAX_VALUE))
-                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
                         .addGap(124, 124, 124)
                         .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(128, 128, 128)))
+                        .addGap(128, 128, 128))
+                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                                .addGap(19, 19, 19)
+                                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(edtResponsavel, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
+                                        .addComponent(edtJustificativa)
+                                        .addComponent(edtProtocolo, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lblProtocolo, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblResponsavel)
+                                    .addComponent(lblJustificativa, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                                    .addContainerGap()
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlBackgroundLayout.createSequentialGroup()
+                                    .addGap(76, 76, 76)
+                                    .addComponent(lblTitulo))))
+                        .addGap(0, 59, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                .addGap(76, 76, 76)
-                .addComponent(lblTitulo)
-                .addContainerGap(75, Short.MAX_VALUE))
         );
         pnlBackgroundLayout.setVerticalGroup(
             pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -120,25 +150,26 @@ public class DlgRelatorioProcedimento extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblNome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(edtNomePaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblProtocolo)
-                .addGap(5, 5, 5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(edtProtocolo, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblJustificativa)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(edtJustificativa, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblResponsavel)
-                .addGap(4, 4, 4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(edtResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnCancelar))
                 .addGap(2, 2, 2)
-                .addComponent(lblLogo))
+                .addComponent(lblLogo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -154,6 +185,11 @@ public class DlgRelatorioProcedimento extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        Paciente p = new Paciente();
+        relatorioController.cadastrarRelatorio(p, edtProtocolo.getText() , edtJustificativa.getText(), edtResponsavel.getText());
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -201,9 +237,10 @@ public class DlgRelatorioProcedimento extends javax.swing.JDialog {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JTextField edtJustificativa;
-    private javax.swing.JTextField edtNomePaciente;
     private javax.swing.JTextField edtProtocolo;
     private javax.swing.JTextField edtResponsavel;
+    private javax.swing.JTable grdPacientes;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblJustificativa;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblNome;

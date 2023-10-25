@@ -297,13 +297,24 @@ public class DlgCadastroPaciente extends javax.swing.JDialog {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         Endereco e = new Endereco();
-        //enderecoController.cadastrarEndereco(edtEstado.getText(), edtCidade.getText(), edtRua.getText(), edtNumero.getText());
+        e.setId(1);
         e.setEstado(edtEstado.getText());
         e.setCidade(edtCidade.getText());
         e.setNumero(edtNumero.getText());
         e.setRua(edtRua.getText());
+
         System.out.println(edtNomePaciente.getText()+ " " + Integer.parseInt(edtIDPaciente.getText()) + " " + edtDataNascimento.getText() + " " + fEdtCpf.getText() + " " + edtTelefone.getText());
         pacienteController.cadastrarPaciente(edtNomePaciente.getText(), Integer.parseInt(edtIDPaciente.getText()), edtDataNascimento.getText(), fEdtCpf.getText(), e, edtTelefone.getText());
+        Paciente p = new Paciente();
+        p.setCpf(fEdtCpf.getText());
+        p.setDataNascimento(edtDataNascimento.getText());
+        p.setId(Integer.parseInt(edtIDPaciente.getText()));
+        p.setNome(edtNomePaciente.getText());
+        p.setTelefone(edtTelefone.getText());
+        
+        
+        enderecoController.cadastrarEndereco(e.getId(),edtEstado.getText(), edtCidade.getText(), edtRua.getText(), edtNumero.getText(),p);
+
     }//GEN-LAST:event_btnSalvarActionPerformed
 
 

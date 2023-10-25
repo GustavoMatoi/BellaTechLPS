@@ -12,6 +12,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -22,16 +25,33 @@ public class MedicoDAO implements IDAO {
     protected Connection conexao;
     private PreparedStatement statement;
     private String sql;
+    //
+    
+    EntityManagerFactory factory;
+    EntityManager entityManager;
     
     public MedicoDAO(){
-        this.sql = "";
+        //this.sql = "";
+        factory = Persistence.createEntityManagerFactory("bellatech");
+        entityManager = factory.createEntityManager();
     }
     
     @Override
     public void save(Object objeto) {
         Medico medico = new Medico();
-        
-        sql = "INSERT INTO" + 
+
+        try {
+              Medico medicoManaged = entityManager.merge(medico);
+              entityManager.getTransaction().begin();
+              entityManager.persist(medicoManaged);
+              entityManager.getTransaction().commit();
+        } catch (Error e){
+            System.out.println(e);
+        } finally {
+            entityManager.close();
+            factory.close();
+        } 
+        /*sql = "INSERT INTO" + 
                 "Medico(nome, cpf, login, senha, dataNascimento, telefone, cargo, salario)" + "VALUES(?,?,?,?,?,?,?,?)";
         try{
             conexao = Persistencia.getConnection();
@@ -52,7 +72,7 @@ public class MedicoDAO implements IDAO {
             throw new RuntimeException (ex);
         } finally {
             Persistencia.closeConnection();
-        }
+        }*/
     
     }   
 
@@ -122,7 +142,7 @@ public class MedicoDAO implements IDAO {
     }
 
     @Override
-    public List<Object> findAll(Object objeto) {
+    public List<Object> findAll() {
         List <Object> list = new ArrayList<>();
         
         sql = "SELECT * FROM Medico ORDER BY upper(id)";

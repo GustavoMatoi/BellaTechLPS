@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -24,15 +27,30 @@ public class EnderecoDAO implements IDAO {
     private PreparedStatement statement;
     private String sql;
     
+    EntityManagerFactory factory;
+    EntityManager entityManager;
+    
     public EnderecoDAO(){
         this.sql = "";
+        factory = Persistence.createEntityManagerFactory("bellatech");
+        entityManager = factory.createEntityManager();
     }
     
     @Override
     public void save(Object objeto) {
-        Endereco endereco = new Endereco();
-        
-        sql = "INSERT INTO" + 
+        Endereco endereco = (Endereco) objeto;
+        try {
+              Endereco enderecoManged = entityManager.merge(endereco);
+              entityManager.getTransaction().begin();
+              entityManager.persist(enderecoManged);
+              entityManager.getTransaction().commit();
+        } catch (Error e){
+            System.out.println(e);
+        } finally {
+            entityManager.close();
+            factory.close();
+        } 
+       /* sql = "INSERT INTO" + 
                 "Endereco(estado, cidade, bairro, rua, numero)" + "VALUES(?,?,?,?,?)";
         try{
             conexao = Persistencia.getConnection();
@@ -50,7 +68,7 @@ public class EnderecoDAO implements IDAO {
             throw new RuntimeException (ex);
         } finally {
             Persistencia.closeConnection();
-        }
+        } */
     
     }   
 
@@ -112,7 +130,7 @@ public class EnderecoDAO implements IDAO {
     }
 
     @Override
-    public List<Object> findAll(Object objeto) {
+    public List<Object> findAll() {
         List <Object> list = new ArrayList<>();
         
         sql = "SELECT * FROM Endereco ORDER BY upper(id)";

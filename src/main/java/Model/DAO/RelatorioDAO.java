@@ -6,30 +6,97 @@ package Model.DAO;
 
 import Model.Persistencia;
 import Model.Relatorio;
+import factory.DatabaseJPA;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 /**
  *
  * @author gutei
  */
 public class RelatorioDAO implements IDAO {
+    String jpql;
+    EntityManagerFactory factory;
+    EntityManager entityManager;
+    public RelatorioDAO(){
+        //this.sql = "";
+        this.jpql = "";
+    }
+    @Override
+    public void save(Object objeto) {
+        this.entityManager = DatabaseJPA.getInstance().getEntityManager();
+        Object objetoManaged = this.entityManager.merge(objeto);
+        this.entityManager.getTransaction().begin();
+        this.entityManager.persist(objetoManaged);
+        this.entityManager.getTransaction().commit();
+        this.entityManager.close();
+    }
+
+    @Override
+    public void update(Object objeto) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Object find(Object objeto) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<Object> findAll() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public boolean delete(Object objeto) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Object findById(int id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    
+    
+    /*
     protected Connection conexao;
     private PreparedStatement statement;
-    private String sql;
+    private String sql; 
+    //
+    EntityManagerFactory factory;
+    EntityManager entityManager;
     
     public RelatorioDAO(){
         this.sql = "";
+        factory = Persistence.createEntityManagerFactory("bellatech");
+        entityManager = factory.createEntityManager();
     }
     
     @Override
     public void save(Object objeto) {
         Relatorio relatorio = new Relatorio();
         
+        try {
+              Relatorio relatorioManaged = entityManager.merge(relatorio);
+              entityManager.getTransaction().begin();
+              entityManager.persist(relatorioManaged);
+              entityManager.getTransaction().commit();
+        } catch (Error e){
+            System.out.println(e);
+        } finally {
+            entityManager.close();
+            factory.close();
+        } 
+        
+        /*
         sql = "INSERT INTO" + 
                 "Relatorio(nomePaciente, protocolo, justificativa, medicoResponsavel)" + "VALUES(?,?,?,?)";
         try{
@@ -46,7 +113,7 @@ public class RelatorioDAO implements IDAO {
             throw new RuntimeException (ex);
         } finally {
             Persistencia.closeConnection();
-        }
+        } 
     
     }   
 
@@ -62,10 +129,10 @@ public class RelatorioDAO implements IDAO {
             conexao = Persistencia.getConnection();
             statement = conexao.prepareStatement(sql);
             
-            statement.setString(1, relatorio.getNomePaciente());
+            //statement.setInt(1, relatorio.getPacienteId());
             statement.setString(2, relatorio.getProtocolo());
             statement.setString(3, relatorio.getJustificativa());
-            statement.setString(4, relatorio.getMedicoResponsavel());
+            //statement.setInt(4, relatorio.getMedicoId());
       
             statement.setInt(5, relatorio.getId());
             
@@ -93,10 +160,10 @@ public class RelatorioDAO implements IDAO {
             
             while (resultSet.next()){
                 r = new Relatorio();
-                r.setNomePaciente(resultSet.getString(2));
+                //r.setPacienteId(resultSet.getInt(2));
                 r.setProtocolo(resultSet.getString(3));
                 r.setJustificativa(resultSet.getString(4));
-                r.setMedicoResponsavel(resultSet.getString(5));
+                //r.setMedicoId(resultSet.getInt(5));
             }
             statement.close();
             return r;
@@ -119,10 +186,10 @@ public class RelatorioDAO implements IDAO {
             
             while (resultSet.next()){
                 Relatorio r = new Relatorio();
-                r.setNomePaciente(resultSet.getString(2));
+                //r.setPacienteId(resultSet.getInt(2));
                 r.setProtocolo(resultSet.getString(3));
                 r.setJustificativa(resultSet.getString(4));
-                r.setMedicoResponsavel(resultSet.getString(5));
+                //r.setMedicoId(resultSet.getInt(5));
                 
                 list.add(r);
             }
@@ -174,10 +241,10 @@ public class RelatorioDAO implements IDAO {
             while(resultSet.next()){
                 r = new Relatorio();
                 r.setId(resultSet.getInt(1));
-                r.setNomePaciente(resultSet.getString(2));
+               // r.setPacienteId(resultSet.getInt(2));
                 r.setProtocolo(resultSet.getString(3));
                 r.setJustificativa(resultSet.getString(4));
-                r.setMedicoResponsavel(resultSet.getString(5));
+                //r.setMedicoId(resultSet.getInt(5));
             }
         } catch (Exception ex) {
             throw new RuntimeException(ex);
@@ -186,5 +253,6 @@ public class RelatorioDAO implements IDAO {
         }
         return r;
     }
+*/
 
 }

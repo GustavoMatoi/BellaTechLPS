@@ -4,12 +4,23 @@
  */
 package Model;
 
+import javax.persistence.Entity;
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  *
  * @author gutei
  */
-public class Medico extends Usuario implements IFuncionario {
+@Getter
+@Setter
+@Entity
 
+public class Medico extends Usuario implements IFuncionario {
+    
+    public Medico(){
+        
+    }
     @Override
     public void cadastrarProcedimento(Procedimento novoProcedimento) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

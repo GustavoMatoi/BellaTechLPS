@@ -7,216 +7,98 @@ package Model.DAO;
 import Model.Endereco;
 import Model.Paciente;
 import Model.Persistencia;
+import factory.DatabaseJPA;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 /**
  *
  * @author gutei
  */
 public class PacienteDAO implements IDAO {
-    protected Connection conexao;
-    private PreparedStatement statement;
-    private String sql;
-    
+    private String jpql;
+    private Query qry;
+    EntityManagerFactory factory;
+    EntityManager entityManager;
     public PacienteDAO(){
-        this.sql = "";
+        this.jpql = "";
     }
     @Override
     public void save(Object objeto) {
-        Paciente paciente = (Paciente) objeto;
-        
-        sql = "INSERT INTO" + " Paciente(id, nome, dataNascimento, cpf, telefone, endereco_id)" + "VALUES(?,?,?,?,?)";
-        
-        try {
-            conexao = Persistencia.getConnection();
-            statement = conexao.prepareStatement(sql);
-        
-            statement.setInt(1, paciente.getId());
-            statement.setString(2, paciente.getNome());
-            statement.setString(3, paciente.getDataNascimento());
-            statement.setString(4, paciente.getCpf());
-            statement.setString(5, paciente.getTelefone());
-            statement.setInt(6, paciente.getEnderecoId());
-
-            statement.execute();
-            statement.close();
-        } catch (SQLException ex){
-            throw new RuntimeException(ex);
-        } finally {
-            Persistencia.closeConnection();
-        }
-
+        this.entityManager = DatabaseJPA.getInstance().getEntityManager();
+        Object objetoManaged = this.entityManager.merge(objeto);
+        this.entityManager.getTransaction().begin();
+        this.entityManager.persist(objetoManaged);
+        this.entityManager.getTransaction().commit();
+        this.entityManager.close();
     }
 
     @Override
     public void update(Object objeto) {
-        Paciente paciente = (Paciente) objeto;
-        
-        sql = "UPDATE Paciente" + 
-                "SET nome=?, dataNascimento=?, cpf=?, telefone=?" + "WHERE id=?";
-        
-        try {
-            conexao = Persistencia.getConnection();
-            statement = conexao.prepareStatement(sql);
-            
-            statement.setString(1, paciente.getNome());
-            statement.setString(2, paciente.getDataNascimento());
-            statement.setString(3, paciente.getCpf());
-            statement.setString(4, paciente.getTelefone());
-            
-            statement.execute();
-            statement.close();
-        } catch(SQLException ex){
-            throw new RuntimeException(ex);
-        } finally {
-            Persistencia.closeConnection();
-        }
-
+        this.entityManager = DatabaseJPA.getInstance().getEntityManager();
+        this.entityManager.getTransaction().begin();
+        this.entityManager.merge(objeto);
+        this.entityManager.getTransaction().commit();
+        this.entityManager.close();
     }
 
     @Override
     public Object find(Object objeto) {
+        this.entityManager = DatabaseJPA.getInstance().getEntityManager();
         Paciente paciente = (Paciente) objeto;
         
-        sql = "SELECT * FROM Paciente WHERE id = ?";
-        
-        try{
-            statement = Persistencia.getConnection().prepareStatement(sql);
-            statement.setInt(1, paciente.getId());
-            
-            ResultSet resultSet = statement.executeQuery();
-            Paciente p = null;
-            
-            
-            while (resultSet.next()){
-                p = new Paciente();
-                p.setNome(resultSet.getString(2));
-                p.setDataNascimento(resultSet.getString(3));
-                p.setCpf(resultSet.getString(4));
-                p.setTelefone(resultSet.getString(5));
-            }
-            
-            statement.close();
-            return p;
-            
-        } catch (SQLException ex){
-            throw new RuntimeException(ex);
-        } finally {
-            Persistencia.closeConnection();
-        }
+        Paciente p = this.entityManager.find(Paciente.class, paciente.getId());
+        this.entityManager.close();
+        return p;
     }
 
     @Override
-    public List<Object> findAll(Object objeto) {
-        List <Object> list  = new ArrayList<>();
+    public List<Object> findAll() {
+        this.entityManager = DatabaseJPA.getInstance().getEntityManager();
+        jpql = " SELECT p " + "FROM Paciente p";
         
-        sql = "SELECT * FROM Paciente ORDER BY upper(id)";
+        qry = this.entityManager.createQuery(jpql);
+        List lst = qry.getResultList();
         
-        try {
-            statement = Persistencia.getConnection().prepareStatement(sql);
-            ResultSet resultSet = statement.executeQuery();
-            
-            while(resultSet.next()){
-                Paciente p = new Paciente();
-                p.setId(resultSet.getInt(1));
-                p.setNome(resultSet.getString(2));
-                p.setDataNascimento(resultSet.getString(3));
-                p.setCpf(resultSet.getString(4));
-                p.setTelefone(resultSet.getString(5));
-           
-                list.add(p);
-            } 
-            statement.close();
-            } catch (SQLException ex){
-                throw new RuntimeException(ex);
-            } finally {
-                Persistencia.closeConnection();
-        }
-        return list;
+        this.entityManager.close();
+        return (List<Object>) lst;
        }
     
 
     @Override
     public boolean delete(Object objeto) {
-       Paciente p = (Paciente) objeto;
-       
-       sql = "DELETE FROM Paciente WHERE id = ?";
-       
-       try{
-           conexao = Persistencia.getConnection();
-           statement = conexao.prepareStatement(sql);
-           
-           statement.setInt(1, p.getId());
-           
-           statement.execute();
-           statement.close();
-           return true;
-           
-       } catch (SQLException ex){
-           throw new RuntimeException(ex);
-       } finally {
-           Persistencia.closeConnection();
-       }
+        this.entityManager = DatabaseJPA.getInstance().getEntityManager();
+        this.entityManager.getTransaction().begin();
+        this.entityManager.remove(objeto);
+        this.entityManager.getTransaction().commit();
+        return true;
     }
 
     @Override
     public Object findById(int id) {
-        sql = "SELECT * FROM Paciente as p WHERE p.id = ?";
+        this.entityManager = DatabaseJPA.getInstance().getEntityManager();
         
-        Paciente p = null;
+        jpql = "SELECT p " + " FROM paciente p" + " WHERE p.id like :id";
+        qry = this.entityManager.createQuery(jpql);
+        qry.setParameter("id", id);
         
-        try {
-            conexao = Persistencia.getConnection();
-            statement = conexao.prepareStatement(sql);
-            
-            statement.setInt(1, id);
-            
-            ResultSet resultSet = statement.executeQuery();
-            
-            while(resultSet.next()){
-                p = new Paciente();
-                p.setId(resultSet.getInt(1));
-                p.setNome(resultSet.getString(2));
-                p.setDataNascimento(resultSet.getString(3));
-                p.setCpf(resultSet.getString(4));
-                p.setTelefone(resultSet.getString(5));
-            }
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
-        } finally {
-            Persistencia.closeConnection();
+        List lst = qry.getResultList();
+        
+        this.entityManager.close();
+        
+        if(lst.isEmpty()){
+            return null;
+        } else { 
+            return (Paciente) lst.get(0);
         }
-        return p;
-    }
-    
-    public Endereco buscaTelefone(int pacienteId){
-        Endereco e = null;
-        sql = "SELECT * FROM Telefonte WHERE PacienteId = ?";
-        try{
-            conexao = Persistencia.getConnection();
-            statement = conexao.prepareStatement(sql);
-            statement.setInt(1, pacienteId);
-            ResultSet resultSet = statement.executeQuery();
-            e.setId(resultSet.getInt(1));
-            e.setEstado(resultSet.getString(2));
-            e.setCidade(resultSet.getString(3));
-            e.setRua(resultSet.getString(4));
-            e.setNumero(resultSet.getString(5));
-            
-           statement.execute();
-           statement.close();
-           
-       } catch (SQLException ex){
-            throw new RuntimeException(ex);
-        } finally {
-            Persistencia.closeConnection();
-        }
-        return e;
     }
     
 }

@@ -8,14 +8,27 @@ package Model;
  *
  * @author gutei
  */
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Entity
 public class Procedimento {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int Id;
     private String nome;
+    private String dataHora;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "medico_id")
     private Medico medicoResponsavel;
     private String descricao;
    

@@ -12,6 +12,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 /**
  *
@@ -21,16 +24,30 @@ public class FeedbackDAO implements IDAO{
     protected Connection conexao;
     private PreparedStatement statement;
     private String sql;
+    //
+    EntityManagerFactory factory;
+    EntityManager entityManager;
     
     public FeedbackDAO(){
-        this.sql = "";
+        factory = Persistence.createEntityManagerFactory("bellatech");
+        entityManager = factory.createEntityManager();
     }
     
     @Override
     public void save(Object objeto) {
-        Feedback feedback = new Feedback();
-        
-        sql = "INSERT INTO" + 
+        Feedback feedback = (Feedback) objeto;
+        try {
+              Feedback feedbackManaged = entityManager.merge(feedback);
+              entityManager.getTransaction().begin();
+              entityManager.persist(feedbackManaged);
+              entityManager.getTransaction().commit();
+        } catch (Error e){
+            System.out.println(e);
+        } finally {
+            entityManager.close();
+            factory.close();
+        } 
+      /*  sql = "INSERT INTO" + 
                 "Feedback(data, id_procedimento, avaliacao, comentarios)" + "VALUES(?,?,?,?)";
         try{
             conexao = Persistencia.getConnection();
@@ -48,7 +65,7 @@ public class FeedbackDAO implements IDAO{
         } finally {
             Persistencia.closeConnection();
         }
-    
+    */
     }   
 
     @Override
@@ -62,7 +79,7 @@ public class FeedbackDAO implements IDAO{
             conexao = Persistencia.getConnection();
             statement = conexao.prepareStatement(sql);
             statement.setString(1, feedback.getData());
-            statement.setInt(2, feedback.getIdProcedimento());
+            statement.setInt(2, feedback.getId());
             statement.setString(3, feedback.getAvaliacao());
             statement.setString(4, feedback.getComentarios());
       
@@ -93,7 +110,7 @@ public class FeedbackDAO implements IDAO{
             while (resultSet.next()){
                 f= new Feedback();
                 f.setData(resultSet.getString(2));
-                f.setIdProcedimento(resultSet.getInt(3));
+                //f.setProcedimento(resultSet.getInt(3));
                 f.setAvaliacao(resultSet.getString(4));
                 f.setComentarios(resultSet.getString(5));
             }
@@ -107,7 +124,7 @@ public class FeedbackDAO implements IDAO{
     }
 
     @Override
-    public List<Object> findAll(Object objeto) {
+    public List<Object> findAll() {
         List <Object> list = new ArrayList<>();
         
         sql = "SELECT * FROM Feedback ORDER BY upper(id)";
@@ -119,7 +136,7 @@ public class FeedbackDAO implements IDAO{
             while (resultSet.next()){
                 Feedback f = new Feedback();
                 f.setData(resultSet.getString(2));
-                f.setIdProcedimento(resultSet.getInt(3));
+                //f.setProcedimento(resultSet.getInt(3));
                 f.setAvaliacao(resultSet.getString(4));
                 f.setComentarios(resultSet.getString(5));
                 
@@ -174,7 +191,7 @@ public class FeedbackDAO implements IDAO{
                 f = new Feedback();
                 f.setId(resultSet.getInt(1));
                 f.setData(resultSet.getString(2));
-                f.setIdProcedimento(resultSet.getInt(3));
+                //f.setProcedimento(resultSet.getInt(3));
                 f.setAvaliacao(resultSet.getString(4));
                 f.setComentarios(resultSet.getString(5));
             }
