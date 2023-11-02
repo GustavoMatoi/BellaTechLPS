@@ -6,6 +6,7 @@ package Model.DAO;
 
 import Model.Persistencia;
 import Model.Secretaria;
+import factory.DatabaseJPA;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +16,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 /**
  *
@@ -38,7 +40,7 @@ public class SecretariaDAO implements IDAO {
     
     @Override
     public void save(Object objeto) {
-        Secretaria secretaria = new Secretaria();
+        Secretaria secretaria = (Secretaria) objeto;
         try {
               Secretaria secretariaManaged = entityManager.merge(secretaria);
               entityManager.getTransaction().begin();
@@ -227,4 +229,23 @@ public class SecretariaDAO implements IDAO {
         }
         return m;
     }
+    
+        public Object findByLogin(String id) {
+        this.entityManager = DatabaseJPA.getInstance().getEntityManager();
+        
+        String jpql = "SELECT s " + " FROM Secretaria s" + " WHERE s.login like :login";
+        Query qry = this.entityManager.createQuery(jpql);
+        qry.setParameter("login", id);
+        
+        List lst = qry.getResultList();
+        
+        this.entityManager.close();
+        
+        if(lst.isEmpty()){
+            return null;
+        } else { 
+            return (Secretaria) lst.get(0);
+        }
+    }
+    
 }

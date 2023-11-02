@@ -4,6 +4,12 @@
  */
 package view;
 
+import Model.Medico;
+import Model.Secretaria;
+import Model.Usuario;
+import controller.MedicoController;
+import controller.UsuarioController;
+import javax.swing.JOptionPane;
 import view.dialog.DlgMedico;
 import view.dialog.DlgProprietario;
 import view.dialog.DlgSecretaria;
@@ -77,6 +83,15 @@ public class JFrameMain extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(243, 243, 243))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblSubtitulo)
+                        .addGap(274, 274, 274))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -92,15 +107,6 @@ public class JFrameMain extends javax.swing.JFrame {
                             .addComponent(edtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(64, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(243, 243, 243))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblSubtitulo)
-                        .addGap(274, 274, 274))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,16 +145,40 @@ public class JFrameMain extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        System.out.println(edtLogin.getText());
-        if(edtLogin.getText().equals("medico")){
-            DlgMedico telaMedico = new DlgMedico(this, true);
-            telaMedico.setVisible(true);
-        } else if(edtLogin.getText().equals("secretaria")){
-            DlgSecretaria telaSecretaria = new DlgSecretaria(this, true);
-            telaSecretaria.setVisible(true);
+        if(edtSenha.getText().isEmpty() || edtLogin.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Campos de login não preenchidos.");
         } else {
-            DlgProprietario telaProprietario = new DlgProprietario(this, true);
-            telaProprietario.setVisible(true);
+            if(edtSenha.getText().equals("admin") && edtLogin.getText().equals("admin")){
+                DlgProprietario telaProprietario = new DlgProprietario(this, true);
+                telaProprietario.setVisible(true);
+            } else {
+                UsuarioController uc = new UsuarioController();        
+                Usuario usuarioLogado = uc.buscarLoginUsuario(edtLogin.getText());
+                System.out.println(usuarioLogado.getCargo());
+                if(usuarioLogado.getCargo().equals("inexistente")){
+                    JOptionPane.showMessageDialog(null, "Usuário inexistente na base de dados.");
+                } else {
+                    if(usuarioLogado.getCargo().equals("medico")){
+                        Medico medicoLogado = (Medico) usuarioLogado;
+                        if (edtSenha.getText().equals(medicoLogado.getSenha())) {
+                            JOptionPane.showMessageDialog(null, "Boas vindas, " + medicoLogado.getNome());
+                            DlgMedico telaMedico = new DlgMedico(this, true);
+                            telaMedico.setVisible(true);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Senha inválida");
+                        }
+                    } else {
+                        Secretaria secretariaLogada = (Secretaria) usuarioLogado;
+                        if (edtSenha.getText().equals(secretariaLogada.getSenha())) {
+                            JOptionPane.showMessageDialog(null, "Boas vindas, " + secretariaLogada.getNome());
+                            DlgMedico telaMedico = new DlgMedico(this, true);
+                            telaMedico.setVisible(true);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Senha inválida");
+                        }
+                    }
+                }
+            }
         }
         
     }//GEN-LAST:event_btnLoginActionPerformed

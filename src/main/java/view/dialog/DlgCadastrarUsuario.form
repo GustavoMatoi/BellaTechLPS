@@ -54,21 +54,19 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="fEdtCpf" pref="322" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="lblCargo" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblNomeUsuario" alignment="0" min="-2" pref="158" max="-2" attributes="0"/>
-                          <Component id="lblCpf" alignment="0" min="-2" pref="138" max="-2" attributes="0"/>
-                          <Component id="lblSenha" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblLogin" alignment="0" min="-2" pref="168" max="-2" attributes="0"/>
-                          <Component id="lblDadosPessoais" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="lblDataNascimento" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="edtCargo" alignment="0" pref="322" max="32767" attributes="0"/>
-                          <Component id="edtDataNascimento" alignment="0" max="32767" attributes="0"/>
-                          <Component id="edtSenha" alignment="0" max="32767" attributes="0"/>
-                          <Component id="edtLogin" alignment="0" max="32767" attributes="0"/>
-                          <Component id="edtNomeUsuario" alignment="0" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="fEdtDataNascimento" max="32767" attributes="0"/>
+                      <Component id="lblCargo" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblNomeUsuario" alignment="0" min="-2" pref="158" max="-2" attributes="0"/>
+                      <Component id="lblCpf" alignment="0" min="-2" pref="138" max="-2" attributes="0"/>
+                      <Component id="lblSenha" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblLogin" alignment="0" min="-2" pref="168" max="-2" attributes="0"/>
+                      <Component id="lblDadosPessoais" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblDataNascimento" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="edtCargo" alignment="0" pref="322" max="32767" attributes="0"/>
+                      <Component id="edtSenha" alignment="0" max="32767" attributes="0"/>
+                      <Component id="edtLogin" alignment="0" max="32767" attributes="0"/>
+                      <Component id="edtNomeUsuario" alignment="0" max="32767" attributes="0"/>
+                      <Component id="fEdtCpf" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -82,7 +80,7 @@
                       </Group>
                       <Component id="lblDadosParaContato" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="lblContato" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="edtContato" alignment="0" min="-2" pref="278" max="-2" attributes="0"/>
+                      <Component id="fEdtTelefone" alignment="0" min="-2" pref="233" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="71" max="32767" attributes="0"/>
               </Group>
@@ -98,7 +96,10 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="lblNomeUsuario" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="edtNomeUsuario" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="edtNomeUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="fEdtTelefone" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="lblCpf" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -109,8 +110,6 @@
                           <Component id="lblDadosParaContato" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="lblContato" min="-2" pref="16" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="edtContato" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -126,7 +125,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblDataNascimento" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="edtDataNascimento" min="-2" max="-2" attributes="0"/>
+                  <Component id="fEdtDataNascimento" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="lblCargo" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -149,8 +148,6 @@
         <Component class="javax.swing.JTextField" name="edtLogin">
         </Component>
         <Component class="javax.swing.JTextField" name="edtSenha">
-        </Component>
-        <Component class="javax.swing.JTextField" name="edtContato">
         </Component>
         <Component class="javax.swing.JLabel" name="lblDadosPessoais">
           <Properties>
@@ -279,8 +276,6 @@
             <Property name="text" type="java.lang.String" value="CANCELAR"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="edtDataNascimento">
-        </Component>
         <Component class="javax.swing.JLabel" name="lblDataNascimento">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -306,6 +301,10 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="fEdtCpf">
+        </Component>
+        <Component class="javax.swing.JFormattedTextField" name="fEdtDataNascimento">
+        </Component>
+        <Component class="javax.swing.JFormattedTextField" name="fEdtTelefone">
         </Component>
       </SubComponents>
     </Container>

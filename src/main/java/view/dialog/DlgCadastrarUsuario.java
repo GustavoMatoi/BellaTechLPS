@@ -6,20 +6,23 @@ package view.dialog;
 
 import Model.Usuario;
 import controller.MedicoController;
+import controller.SecretariaController;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 
 
 public class DlgCadastrarUsuario extends javax.swing.JDialog {
 
-    //SecretariaController sc;
+    SecretariaController sc;
     MedicoController mc;
+    
     public DlgCadastrarUsuario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        //sc = new SecretariaController();
+        sc = new SecretariaController();
         mc = new MedicoController();
         this.adicionarMascaraNosCampos();
     }
@@ -27,7 +30,11 @@ public class DlgCadastrarUsuario extends javax.swing.JDialog {
     public void adicionarMascaraNosCampos(){
         try {
             MaskFormatter mascaraCPF = new MaskFormatter("###.###.###-##");
+            MaskFormatter mascaraDataNascimento = new MaskFormatter("##/##/####");
+            MaskFormatter mascaraTelefone = new MaskFormatter("(##)####-####");
             mascaraCPF.install(fEdtCpf);
+            mascaraDataNascimento.install(fEdtDataNascimento);
+            mascaraTelefone.install(fEdtTelefone);
         } catch (ParseException e){
             Logger.getLogger(DlgCadastroPaciente.class.getName()).log(Level.SEVERE, null, e);
         }
@@ -40,7 +47,6 @@ public class DlgCadastrarUsuario extends javax.swing.JDialog {
         edtNomeUsuario = new javax.swing.JTextField();
         edtLogin = new javax.swing.JTextField();
         edtSenha = new javax.swing.JTextField();
-        edtContato = new javax.swing.JTextField();
         lblDadosPessoais = new javax.swing.JLabel();
         lblNomeUsuario = new javax.swing.JLabel();
         lblCpf = new javax.swing.JLabel();
@@ -52,11 +58,12 @@ public class DlgCadastrarUsuario extends javax.swing.JDialog {
         lblLogo = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
-        edtDataNascimento = new javax.swing.JTextField();
         lblDataNascimento = new javax.swing.JLabel();
         edtCargo = new javax.swing.JTextField();
         lblCargo = new javax.swing.JLabel();
         fEdtCpf = new javax.swing.JFormattedTextField();
+        fEdtDataNascimento = new javax.swing.JFormattedTextField();
+        fEdtTelefone = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -131,20 +138,19 @@ public class DlgCadastrarUsuario extends javax.swing.JDialog {
             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(fEdtCpf, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
-                    .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lblCargo)
-                        .addComponent(lblNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblSenha)
-                        .addComponent(lblLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lblDadosPessoais)
-                        .addComponent(lblDataNascimento)
-                        .addComponent(edtCargo, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
-                        .addComponent(edtDataNascimento)
-                        .addComponent(edtSenha)
-                        .addComponent(edtLogin)
-                        .addComponent(edtNomeUsuario)))
+                    .addComponent(fEdtDataNascimento)
+                    .addComponent(lblCargo)
+                    .addComponent(lblNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSenha)
+                    .addComponent(lblLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblDadosPessoais)
+                    .addComponent(lblDataNascimento)
+                    .addComponent(edtCargo, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+                    .addComponent(edtSenha)
+                    .addComponent(edtLogin)
+                    .addComponent(edtNomeUsuario)
+                    .addComponent(fEdtCpf))
                 .addGap(18, 18, 18)
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -155,7 +161,7 @@ public class DlgCadastrarUsuario extends javax.swing.JDialog {
                             .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(lblDadosParaContato)
                     .addComponent(lblContato)
-                    .addComponent(edtContato, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fEdtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(71, Short.MAX_VALUE))
         );
         pnlBackgroundLayout.setVerticalGroup(
@@ -168,7 +174,9 @@ public class DlgCadastrarUsuario extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblNomeUsuario)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(edtNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(edtNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(fEdtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lblCpf))
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
@@ -177,9 +185,7 @@ public class DlgCadastrarUsuario extends javax.swing.JDialog {
                         .addGap(29, 29, 29)
                         .addComponent(lblDadosParaContato)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblContato, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(edtContato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblContato, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(fEdtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -193,7 +199,7 @@ public class DlgCadastrarUsuario extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblDataNascimento)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(edtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(fEdtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblCargo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -225,9 +231,15 @@ public class DlgCadastrarUsuario extends javax.swing.JDialog {
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
        if(edtCargo.getText().equals("medico") || edtCargo.getText().equals("Medico")){
-           System.out.println(edtNomeUsuario.getText());
-           float salario = (float) 999.99;
-           
+            System.out.println(edtNomeUsuario.getText());
+            float salario = (float) 999.99;
+            mc.cadastrarMedico(0, edtNomeUsuario.getText(), fEdtCpf.getText(), edtLogin.getText(), edtSenha.getText(), fEdtDataNascimento.getText(), fEdtTelefone.getText(), edtCargo.getText(), (float) 999);
+            JOptionPane.showMessageDialog(null, "Médico cadastrado com sucesso");
+            this.dispose();
+       } else {
+            sc.cadastrarSecretaria(0, edtNomeUsuario.getText(), fEdtCpf.getText(), edtLogin.getText(), edtSenha.getText(), fEdtDataNascimento.getText(), fEdtTelefone.getText(), edtCargo.getText(), (float) 999);
+            JOptionPane.showMessageDialog(null, "Secretária cadastrada com sucesso!");
+            this.dispose();
        }
 
     }//GEN-LAST:event_btnSalvarActionPerformed
@@ -238,12 +250,12 @@ public class DlgCadastrarUsuario extends javax.swing.JDialog {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JTextField edtCargo;
-    private javax.swing.JTextField edtContato;
-    private javax.swing.JTextField edtDataNascimento;
     private javax.swing.JTextField edtLogin;
     private javax.swing.JTextField edtNomeUsuario;
     private javax.swing.JTextField edtSenha;
     private javax.swing.JFormattedTextField fEdtCpf;
+    private javax.swing.JFormattedTextField fEdtDataNascimento;
+    private javax.swing.JFormattedTextField fEdtTelefone;
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblContato;
     private javax.swing.JLabel lblCpf;

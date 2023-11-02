@@ -12,7 +12,7 @@ import Model.Secretaria;
  * @author gutei
  */
 public class ValidaSecretaria {
-        public Secretaria validaMedico(int id, String nome, String cpf, String login, String senha, String dataNascimento, String telefone, String cargo, Float salario){
+        public Secretaria validaSecretaria(int id, String nome, String cpf, String login, String senha, String dataNascimento, String telefone, String cargo, Float salario){
         Secretaria m = new Secretaria();
         if(id == -1) throw new SecretariaException("Id inválido");
         m.setId(id);

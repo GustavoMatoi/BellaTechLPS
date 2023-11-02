@@ -36,8 +36,12 @@ public class MedicoController {
         repositorio.update(novoMedico);        
     }
     
-    public Medico buscarPaciente(int id){
+    public Medico buscarMedico(int id){
         return (Medico) this.repositorio.findById(id);
+    }
+    
+    public Medico buscarMedicoLogin(String login){
+        return (Medico) this.repositorio.findByLogin(login);
     }
     
     public void excluirPaciente(int id){

@@ -4,10 +4,20 @@
  */
 package Model;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  *
  * @author gutei
  */
+@Getter
+@Setter
+@Entity
+@DiscriminatorValue("SECRETARIA")
+
 public class Secretaria extends Usuario implements IFuncionario {
 
     @Override

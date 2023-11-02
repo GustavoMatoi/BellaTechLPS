@@ -5,6 +5,7 @@ Model\DAO\EnderecoDAO.class
 controller\TMPaciente.class
 view\dialog\DlgCadastroPaciente$4.class
 controller\EnderecoController.class
+controller\UsuarioController.class
 Model\Feedback.class
 controller\FeedbackController.class
 Model\Valid\ValidaConsulta.class
@@ -19,18 +20,21 @@ Model\Usuario.class
 Model\DAO\PacienteDAO.class
 Model\Relatorio.class
 view\dialog\DlgProprietario.class
+view\dialog\DlgEditarPaciente$3.class
 view\dialog\DlgSecretaria$2.class
 controller\ProcedimentoController.class
 Model\Consulta.class
 view\dialog\DlgVisualizarLucros.class
 view\dialog\DlgMedico$4.class
 Model\DAO\IDAO.class
+Model\Valid\ValidaUsuario.class
 view\dialog\DlgCadastroPaciente.class
 view\dialog\DlgProprietario$8.class
 view\dialog\DlgMedico$1.class
 view\dialog\DlgReceberFeedback.class
 Model\DAO\ConsultaDAO.class
 view\dialog\DlgProprietario$2.class
+controller\SecretariaController.class
 view\dialog\DlgSecretaria$8.class
 view\dialog\DlgReceberFeedback$2$1.class
 view\dialog\DlgSecretaria$5.class
@@ -40,6 +44,7 @@ factory\DatabaseJPA.class
 view\dialog\DlgProprietario$3.class
 Model\Valid\ValidaSecretaria.class
 view\dialog\DlgHistoricoProcedimentos$1$1.class
+view\dialog\DlgEditarPaciente$3$1.class
 view\dialog\DlgCadastroPaciente$2.class
 view\dialog\DlgVisualizarAgendaDeConsultas$1$1.class
 view\dialog\DlgSecretaria$4.class
@@ -75,6 +80,7 @@ Model\Valid\ValidaPaciente.class
 view\dialog\DlgReceberFeedback$1.class
 view\dialog\DlgRelatorioProcedimento$2$1.class
 view\dialog\DlgCadastroProcedimento.class
+view\dialog\DlgEditarPaciente$2.class
 view\dialog\DlgReceberPagamento.class
 Model\Medico.class
 view\dialog\DlgProprietario$1.class
@@ -84,6 +90,8 @@ Model\exceptions\MedicoException.class
 controller\ConsultaController.class
 controller\PacienteController.class
 Model\DAO\PagamentoDAO.class
+Model\exceptions\UsuarioException.class
+Model\DAO\UsuarioDAO.class
 Model\Valid\ValidaPagamento.class
 view\dialog\DlgVisualizarLucros$1$1.class
 view\dialog\DlgVisualizarAgendaDeConsultas$1.class
@@ -95,6 +103,7 @@ controller\MedicoController.class
 view\dialog\DlgVisualizarLucros$1.class
 Model\DAO\ProcedimentoDAO.class
 view\dialog\DlgCadastroProcedimento$1.class
+view\dialog\DlgEditarPaciente.class
 view\JFrameMain$1.class
 view\dialog\DlgProprietario$6.class
 controller\PagamentoController.class
@@ -102,6 +111,7 @@ Model\Secretaria.class
 Model\Valid\ValidaEndereco.class
 Model\exceptions\PacienteException.class
 view\dialog\DlgSecretaria$7.class
+view\dialog\DlgEditarPaciente$1.class
 Model\DAO\SecretariaDAO.class
 view\dialog\DlgMedico$6.class
 view\dialog\DlgProprietario$7.class

@@ -51,13 +51,11 @@ public class DlgCadastroPaciente extends javax.swing.JDialog {
 
         pnlBackground = new javax.swing.JPanel();
         edtNomePaciente = new javax.swing.JTextField();
-        edtIDPaciente = new javax.swing.JTextField();
         edtDataNascimento = new javax.swing.JTextField();
         edtRua = new javax.swing.JTextField();
         edtTelefone = new javax.swing.JTextField();
         lblDadosPessoais = new javax.swing.JLabel();
         lblNome = new javax.swing.JLabel();
-        lblIDPaciente = new javax.swing.JLabel();
         lblDataNascimento = new javax.swing.JLabel();
         lblCPF = new javax.swing.JLabel();
         lblDadosParaContato = new javax.swing.JLabel();
@@ -93,10 +91,6 @@ public class DlgCadastroPaciente extends javax.swing.JDialog {
         lblNome.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblNome.setForeground(new java.awt.Color(255, 121, 165));
         lblNome.setText("NOME DO PACIENTE:");
-
-        lblIDPaciente.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblIDPaciente.setForeground(new java.awt.Color(255, 121, 165));
-        lblIDPaciente.setText("ID DO PACIENTE:");
 
         lblDataNascimento.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblDataNascimento.setForeground(new java.awt.Color(255, 121, 165));
@@ -182,32 +176,31 @@ public class DlgCadastroPaciente extends javax.swing.JDialog {
                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(edtRua, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
                             .addComponent(edtDataNascimento, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(edtIDPaciente, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(edtNomePaciente, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(edtEstado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
                             .addComponent(edtNumero, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
                             .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblIDPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblCPF)
                             .addComponent(lblDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(edtTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
                             .addComponent(lblRua)
                             .addComponent(lblEstado)
                             .addComponent(edtCidade, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
                             .addComponent(lblCidade)
                             .addComponent(lblNumero)
-                            .addComponent(lblDadosParaContato)
                             .addComponent(lblDadosPessoais)
-                            .addComponent(lblContato)
                             .addComponent(lblEndereco1)
-                            .addComponent(fEdtCpf))
-                        .addGap(0, 59, Short.MAX_VALUE))
-                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                        .addGap(124, 124, 124)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(128, 128, 128)))
+                            .addComponent(fEdtCpf)
+                            .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(edtTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
+                                .addComponent(lblDadosParaContato)
+                                .addComponent(lblContato))
+                            .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                                .addGap(105, 105, 105)
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(69, 69, 69)))
+                        .addGap(0, 59, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBackgroundLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -225,10 +218,6 @@ public class DlgCadastroPaciente extends javax.swing.JDialog {
                 .addComponent(lblNome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(edtNomePaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblIDPaciente)
-                .addGap(5, 5, 5)
-                .addComponent(edtIDPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblDataNascimento)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -265,7 +254,7 @@ public class DlgCadastroPaciente extends javax.swing.JDialog {
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnCancelar))
-                .addGap(2, 2, 2)
+                .addGap(57, 57, 57)
                 .addComponent(lblLogo))
         );
 
@@ -303,12 +292,11 @@ public class DlgCadastroPaciente extends javax.swing.JDialog {
         e.setNumero(edtNumero.getText());
         e.setRua(edtRua.getText());
 
-        System.out.println(edtNomePaciente.getText()+ " " + Integer.parseInt(edtIDPaciente.getText()) + " " + edtDataNascimento.getText() + " " + fEdtCpf.getText() + " " + edtTelefone.getText());
-        pacienteController.cadastrarPaciente(edtNomePaciente.getText(), Integer.parseInt(edtIDPaciente.getText()), edtDataNascimento.getText(), fEdtCpf.getText(), e, edtTelefone.getText());
+        pacienteController.cadastrarPaciente(edtNomePaciente.getText(), 0, edtDataNascimento.getText(), fEdtCpf.getText(), e, edtTelefone.getText());
         Paciente p = new Paciente();
         p.setCpf(fEdtCpf.getText());
         p.setDataNascimento(edtDataNascimento.getText());
-        p.setId(Integer.parseInt(edtIDPaciente.getText()));
+        p.setId(0);
         p.setNome(edtNomePaciente.getText());
         p.setTelefone(edtTelefone.getText());
         
@@ -324,7 +312,6 @@ public class DlgCadastroPaciente extends javax.swing.JDialog {
     private javax.swing.JTextField edtCidade;
     private javax.swing.JTextField edtDataNascimento;
     private javax.swing.JTextField edtEstado;
-    private javax.swing.JTextField edtIDPaciente;
     private javax.swing.JTextField edtNomePaciente;
     private javax.swing.JTextField edtNumero;
     private javax.swing.JTextField edtRua;
@@ -338,7 +325,6 @@ public class DlgCadastroPaciente extends javax.swing.JDialog {
     private javax.swing.JLabel lblDataNascimento;
     private javax.swing.JLabel lblEndereco1;
     private javax.swing.JLabel lblEstado;
-    private javax.swing.JLabel lblIDPaciente;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblNumero;

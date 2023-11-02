@@ -54,34 +54,34 @@
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="edtRua" alignment="1" pref="610" max="32767" attributes="0"/>
                               <Component id="edtDataNascimento" alignment="1" max="32767" attributes="0"/>
-                              <Component id="edtIDPaciente" alignment="1" max="32767" attributes="0"/>
                               <Component id="edtNomePaciente" alignment="1" max="32767" attributes="0"/>
                               <Component id="edtEstado" alignment="1" pref="610" max="32767" attributes="0"/>
                               <Component id="edtNumero" alignment="0" pref="610" max="32767" attributes="0"/>
                               <Component id="lblNome" alignment="0" min="-2" pref="158" max="-2" attributes="0"/>
-                              <Component id="lblIDPaciente" alignment="0" min="-2" pref="138" max="-2" attributes="0"/>
                               <Component id="lblCPF" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="lblDataNascimento" alignment="0" min="-2" pref="168" max="-2" attributes="0"/>
-                              <Component id="edtTelefone" alignment="0" pref="610" max="32767" attributes="0"/>
                               <Component id="lblRua" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="lblEstado" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="edtCidade" alignment="0" pref="610" max="32767" attributes="0"/>
                               <Component id="lblCidade" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="lblNumero" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblDadosParaContato" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="lblDadosPessoais" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="lblContato" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="lblEndereco1" alignment="0" min="-2" max="-2" attributes="0"/>
                               <Component id="fEdtCpf" alignment="0" max="32767" attributes="0"/>
+                              <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="edtTelefone" alignment="0" pref="610" max="32767" attributes="0"/>
+                                  <Component id="lblDadosParaContato" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="lblContato" alignment="0" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="105" max="-2" attributes="0"/>
+                                  <Component id="btnCancelar" min="-2" pref="147" max="-2" attributes="0"/>
+                                  <EmptySpace max="32767" attributes="0"/>
+                                  <Component id="btnSalvar" min="-2" pref="147" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace min="0" pref="59" max="32767" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
-                          <Component id="btnCancelar" min="-2" pref="147" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="btnSalvar" min="-2" pref="147" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="128" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -104,10 +104,6 @@
                   <Component id="lblNome" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="edtNomePaciente" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="lblIDPaciente" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="5" max="-2" attributes="0"/>
-                  <Component id="edtIDPaciente" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="lblDataNascimento" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -145,7 +141,7 @@
                       <Component id="btnSalvar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
                   <Component id="lblLogo" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -153,8 +149,6 @@
       </Layout>
       <SubComponents>
         <Component class="javax.swing.JTextField" name="edtNomePaciente">
-        </Component>
-        <Component class="javax.swing.JTextField" name="edtIDPaciente">
         </Component>
         <Component class="javax.swing.JTextField" name="edtDataNascimento">
         </Component>
@@ -185,17 +179,6 @@
               <Color blue="a5" green="79" red="ff" type="rgb"/>
             </Property>
             <Property name="text" type="java.lang.String" value="NOME DO PACIENTE:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblIDPaciente">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Segoe UI" size="12" style="1"/>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="a5" green="79" red="ff" type="rgb"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="ID DO PACIENTE:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblDataNascimento">

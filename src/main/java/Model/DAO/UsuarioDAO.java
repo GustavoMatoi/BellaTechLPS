@@ -7,6 +7,7 @@ package Model.DAO;
 import Model.Medico;
 import Model.Paciente;
 import Model.Persistencia;
+import Model.Usuario;
 import factory.DatabaseJPA;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -23,7 +24,7 @@ import javax.persistence.Query;
  *
  * @author gutei
  */
-public class MedicoDAO implements IDAO {
+public class UsuarioDAO implements IDAO {
 
     protected Connection conexao;
     private PreparedStatement statement;
@@ -33,7 +34,7 @@ public class MedicoDAO implements IDAO {
     EntityManagerFactory factory;
     EntityManager entityManager;
     
-    public MedicoDAO(){
+    public UsuarioDAO(){
         //this.sql = "";
         factory = Persistence.createEntityManagerFactory("bellatech");
         entityManager = factory.createEntityManager();
@@ -41,12 +42,12 @@ public class MedicoDAO implements IDAO {
     
     @Override
     public void save(Object objeto) {
-        Medico medico = (Medico) objeto;
+        Usuario usuario = (Usuario) objeto;
 
         try {
-              Medico medicoManaged = entityManager.merge(medico);
+              Usuario usuarioManaged = entityManager.merge(usuario);
               entityManager.getTransaction().begin();
-              entityManager.persist(medicoManaged);
+              entityManager.persist(usuarioManaged);
               entityManager.getTransaction().commit();
         } catch (Error e){
             System.out.println(e);
@@ -92,19 +93,19 @@ public class MedicoDAO implements IDAO {
     @Override
     public Object find(Object objeto) {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
-        Medico medico = (Medico) objeto;
+        Usuario usuario = (Usuario) objeto;
         
-        Medico m = this.entityManager.find(Medico.class, medico.getId());
+        Usuario u = this.entityManager.find(Usuario.class, usuario.getId());
         this.entityManager.close();
-        System.out.println(m.getNome());
-        return m;
+        System.out.println(u.getNome());
+        return u;
     }
 
     @Override
     public List<Object> findAll() {
         List <Object> list = new ArrayList<>();
         
-        sql = "SELECT * FROM Medico ORDER BY upper(id)";
+        /*sql = "SELECT * FROM Usuario ORDER BY upper(id)";
         
         try{
             statement = Persistencia.getConnection().prepareStatement(sql);
@@ -127,15 +128,15 @@ public class MedicoDAO implements IDAO {
             throw new RuntimeException(ex);
         } finally{
             Persistencia.closeConnection();
-        }
+        } */
         return list;
        }
 
     @Override
     public boolean delete(Object objeto) {
-        Medico m = (Medico) objeto;
+        Usuario m = (Usuario) objeto;
         
-        sql = "DELETE FROM Medico WHERE id = ?";
+        sql = "DELETE FROM Usuario WHERE id = ?";
         
         try {
             conexao = Persistencia.getConnection();
@@ -157,7 +158,7 @@ public class MedicoDAO implements IDAO {
     public Object findById(int id) {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
         
-        String jpql = "SELECT m " + " FROM Medico m" + " WHERE m.login like :login";
+        String jpql = "SELECT u " + " FROM Usuario u" + " WHERE u.login like :login";
         Query qry = this.entityManager.createQuery(jpql);
         qry.setParameter("login", id);
         
@@ -168,14 +169,14 @@ public class MedicoDAO implements IDAO {
         if(lst.isEmpty()){
             return null;
         } else { 
-            return (Medico) lst.get(0);
+            return (Usuario) lst.get(0);
         }
     }
     
         public Object findByLogin(String id) {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
         
-        String jpql = "SELECT m " + " FROM Medico m" + " WHERE m.login like :login";
+        String jpql = "SELECT u " + " FROM Usuario u" + " WHERE u.login like :login";
         Query qry = this.entityManager.createQuery(jpql);
         qry.setParameter("login", id);
         
@@ -184,9 +185,11 @@ public class MedicoDAO implements IDAO {
         this.entityManager.close();
         
         if(lst.isEmpty()){
-            return null;
+            Usuario inexistente = new Usuario();
+            inexistente.setCargo("inexistente");
+            return inexistente;
         } else { 
-            return (Medico) lst.get(0);
+            return (Usuario) lst.get(0);
         }
     }
     

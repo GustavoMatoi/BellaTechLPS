@@ -86,7 +86,7 @@ public class PacienteDAO implements IDAO {
     public Object findById(int id) {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
         
-        jpql = "SELECT p " + " FROM paciente p" + " WHERE p.id like :id";
+        jpql = "SELECT p " + " FROM Paciente p" + " WHERE p.id like :id";
         qry = this.entityManager.createQuery(jpql);
         qry.setParameter("id", id);
         

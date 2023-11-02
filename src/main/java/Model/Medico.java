@@ -4,6 +4,7 @@
  */
 package Model;
 
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +16,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
+@DiscriminatorValue("MEDICO")
 
 public class Medico extends Usuario implements IFuncionario {
     
