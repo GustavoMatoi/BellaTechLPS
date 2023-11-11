@@ -39,8 +39,8 @@ public class Paciente {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id")
     private Endereco endereco;  
-    //@OneToMany(mappedBy = "Paciente",cascade = CascadeType.ALL)
-    //List<Consulta> consultas;
+    //@OneToMany(mappedBy = "paciente",cascade = CascadeType.ALL)
+    //List<Consulta> consulta;
     //@OneToMany(mappedBy = "Paciente",cascade = CascadeType.ALL)
     //List<Pagamento> pagamentos;
     //@OneToMany(mappedBy = "Paciente",cascade = CascadeType.ALL)

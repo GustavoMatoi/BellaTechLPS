@@ -102,34 +102,16 @@ public class MedicoDAO implements IDAO {
 
     @Override
     public List<Object> findAll() {
-        List <Object> list = new ArrayList<>();
+        this.entityManager = DatabaseJPA.getInstance().getEntityManager();
+        String jpql = " SELECT u " + "FROM Usuario u " + " WHERE u.cargo='medico'";
         
-        sql = "SELECT * FROM Medico ORDER BY upper(id)";
+        Query qry = this.entityManager.createQuery(jpql);
+        List lst = qry.getResultList();
         
-        try{
-            statement = Persistencia.getConnection().prepareStatement(sql);
-            ResultSet resultSet = statement.executeQuery();
-            
-            while (resultSet.next()){
-                Medico m = new Medico();
-                m.setNome(resultSet.getString(2));
-                m.setCpf(resultSet.getString(3));
-                m.setLogin(resultSet.getString(4));
-                m.setSenha(resultSet.getString(5));
-                m.setDataNascimento(resultSet.getString(6));
-                m.setTelefone(resultSet.getString(7));
-                m.setCargo(resultSet.getString(8));
-                m.setSalario(resultSet.getFloat(9));
-                list.add(m);
-            }
-            statement.close();
-        } catch (SQLException ex){
-            throw new RuntimeException(ex);
-        } finally{
-            Persistencia.closeConnection();
-        }
-        return list;
+        this.entityManager.close();
+        return (List<Object>) lst;
        }
+       
 
     @Override
     public boolean delete(Object objeto) {

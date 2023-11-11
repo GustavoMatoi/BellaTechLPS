@@ -9,6 +9,8 @@ import Model.Endereco;
 import Model.Medico;
 import Model.Valid.ValidaMedico;
 import Model.exceptions.MedicoException;
+import java.util.List;
+import javax.swing.JTable;
 
 /**
  *
@@ -53,5 +55,9 @@ public class MedicoController {
         }
     }
     
-    
+        public void atualizarTabela(JTable grd){
+        List lst = repositorio.findAll();
+        TMMEdico tableModel = new TMMEdico(lst);
+        grd.setModel(tableModel);
+    }
 }

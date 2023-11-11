@@ -7,10 +7,12 @@ package view.dialog;
 import Model.Medico;
 import Model.Paciente;
 import controller.ConsultaController;
+import controller.MedicoController;
 import controller.PacienteController;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 
 /**
@@ -21,12 +23,19 @@ public class DlgCadastrarConsulta extends javax.swing.JDialog {
 
     PacienteController pacienteController;
     ConsultaController consultaController;
+    Paciente pacienteConsulta;
+    Medico medicoConsulta;
+    MedicoController medicoController;
     public DlgCadastrarConsulta(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         pacienteController = new PacienteController();
         consultaController = new ConsultaController();
         pacienteController.atualizarTabela(grdPacientes);
+        pacienteConsulta = new Paciente();
+        medicoController = new MedicoController();
+        medicoConsulta = new Medico();
+        medicoController.atualizarTabela(grdMedico);
         this.adicionarMascaraNosCampos();
     }
 
@@ -44,7 +53,6 @@ public class DlgCadastrarConsulta extends javax.swing.JDialog {
     private void initComponents() {
 
         pnlBackground = new javax.swing.JPanel();
-        edtMedico = new javax.swing.JTextField();
         edtMotivoConsulta = new javax.swing.JTextField();
         lblTitulo = new javax.swing.JLabel();
         lblPaciente = new javax.swing.JLabel();
@@ -57,6 +65,8 @@ public class DlgCadastrarConsulta extends javax.swing.JDialog {
         jScrollPane1 = new javax.swing.JScrollPane();
         grdPacientes = new javax.swing.JTable();
         fEdtDataHora = new javax.swing.JFormattedTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        grdMedico = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -99,6 +109,11 @@ public class DlgCadastrarConsulta extends javax.swing.JDialog {
         btnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnCancelar.setForeground(new java.awt.Color(255, 121, 165));
         btnCancelar.setText("CANCELAR");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         grdPacientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -111,43 +126,75 @@ public class DlgCadastrarConsulta extends javax.swing.JDialog {
 
             }
         ));
+        grdPacientes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                grdPacientesMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(grdPacientes);
+
+        grdMedico.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        grdMedico.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                grdMedicoMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(grdMedico);
 
         javax.swing.GroupLayout pnlBackgroundLayout = new javax.swing.GroupLayout(pnlBackground);
         pnlBackground.setLayout(pnlBackgroundLayout);
         pnlBackgroundLayout.setHorizontalGroup(
             pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBackgroundLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBackgroundLayout.createSequentialGroup()
+                        .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBackgroundLayout.createSequentialGroup()
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(121, 121, 121)
+                        .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(228, 228, 228))))
             .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                .addGap(19, 19, 19)
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                        .addGap(19, 19, 19)
-                        .addComponent(lblPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 511, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBackgroundLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(lblLogo1)))
+                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                                .addComponent(lblPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(28, 28, 28)
+                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(fEdtDataHora, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDataHora, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblMotivoConsulta)
+                            .addComponent(edtMotivoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBackgroundLayout.createSequentialGroup()
-                .addGap(103, 103, 103)
-                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(170, 170, 170))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBackgroundLayout.createSequentialGroup()
-                .addContainerGap(105, Short.MAX_VALUE)
-                .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32))
-            .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
-                    .addComponent(edtMotivoConsulta)
-                    .addComponent(edtMedico, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
-                    .addComponent(lblMedico, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblDataHora, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblMotivoConsulta, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(fEdtDataHora))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblLogo1)
+                .addGap(34, 34, 34))
         );
         pnlBackgroundLayout.setVerticalGroup(
             pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,26 +202,26 @@ public class DlgCadastrarConsulta extends javax.swing.JDialog {
                 .addGap(22, 22, 22)
                 .addComponent(lblTitulo)
                 .addGap(18, 18, 18)
-                .addComponent(lblPaciente)
+                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPaciente)
+                    .addComponent(lblMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addComponent(lblMedico)
-                .addGap(5, 5, 5)
-                .addComponent(edtMedico, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblDataHora)
+                    .addComponent(lblMotivoConsulta))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblDataHora)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(fEdtDataHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(3, 3, 3)
-                .addComponent(lblMotivoConsulta)
-                .addGap(11, 11, 11)
-                .addComponent(edtMotivoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fEdtDataHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(edtMotivoConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnCancelar))
-                .addGap(36, 36, 36)
+                .addGap(60, 60, 60)
                 .addComponent(lblLogo1))
         );
 
@@ -182,35 +229,66 @@ public class DlgCadastrarConsulta extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlBackground, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlBackground, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(pnlBackground, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(pnlBackground, javax.swing.GroupLayout.PREFERRED_SIZE, 585, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        Paciente p = new Paciente();
-        p.setCpf("123456789");
-        Medico m = new Medico();
-        m.setCpf("123456789");
-        consultaController.cadastrarConsulta(0, p,m, fEdtDataHora.getText(), edtMotivoConsulta.getText());
+        if(pacienteConsulta.getNome().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Selecione um paciente antes de prosseguir.");
+        }
+        if(medicoConsulta.getNome().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Selecione um médico antes de prosseguir.");
+        }
+        consultaController.cadastrarConsulta(0, pacienteConsulta,medicoConsulta, fEdtDataHora.getText(), edtMotivoConsulta.getText());
+        JOptionPane.showMessageDialog(null, "Consulta cadastrada com sucesso.");
+        this.dispose();
+     
+
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void grdPacientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grdPacientesMouseClicked
+        int indexSelecionado = grdPacientes.getSelectedRow();
+        pacienteConsulta.setNome(grdPacientes.getValueAt(indexSelecionado, 1).toString());
+        pacienteConsulta.setCpf(grdPacientes.getValueAt(indexSelecionado, 2).toString());
+        pacienteConsulta.setId(Integer.parseInt(grdPacientes.getValueAt(indexSelecionado,0).toString()));
+        pacienteConsulta.setTelefone(grdPacientes.getValueAt(indexSelecionado, 1).toString());
+    }//GEN-LAST:event_grdPacientesMouseClicked
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void grdMedicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grdMedicoMouseClicked
+        int indexSelecionado = grdMedico.getSelectedRow();
+        medicoConsulta.setNome(grdMedico.getValueAt(indexSelecionado, 1).toString());
+        medicoConsulta.setCpf(grdMedico.getValueAt(indexSelecionado, 2).toString());
+        medicoConsulta.setId(Integer.parseInt(grdMedico.getValueAt(indexSelecionado,0).toString()));
+        medicoConsulta.setTelefone(grdMedico.getValueAt(indexSelecionado, 1).toString());
+    }//GEN-LAST:event_grdMedicoMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JTextField edtMedico;
     private javax.swing.JTextField edtMotivoConsulta;
     private javax.swing.JFormattedTextField fEdtDataHora;
+    private javax.swing.JTable grdMedico;
     private javax.swing.JTable grdPacientes;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblDataHora;
     private javax.swing.JLabel lblLogo1;
     private javax.swing.JLabel lblMedico;

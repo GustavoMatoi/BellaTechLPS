@@ -3,11 +3,13 @@ view\dialog\DlgHistoricoProcedimentos.class
 view\dialog\DlgCadastrarConsulta$1.class
 Model\DAO\EnderecoDAO.class
 controller\TMPaciente.class
+controller\TMMEdico.class
 view\dialog\DlgCadastroPaciente$4.class
 controller\EnderecoController.class
 controller\UsuarioController.class
 Model\Feedback.class
 controller\FeedbackController.class
+view\dialog\DlgCadastrarConsulta$4.class
 Model\Valid\ValidaConsulta.class
 view\dialog\DlgRelatorioProcedimento.class
 view\dialog\DlgRelatorioProcedimento$1.class
@@ -100,6 +102,7 @@ Model\DAO\RelatorioDAO.class
 view\dialog\DlgSecretaria$1.class
 view\dialog\DlgMedico$5.class
 controller\MedicoController.class
+view\dialog\DlgCadastrarConsulta$3.class
 view\dialog\DlgVisualizarLucros$1.class
 Model\DAO\ProcedimentoDAO.class
 view\dialog\DlgCadastroProcedimento$1.class
@@ -111,6 +114,7 @@ Model\Secretaria.class
 Model\Valid\ValidaEndereco.class
 Model\exceptions\PacienteException.class
 view\dialog\DlgSecretaria$7.class
+view\dialog\DlgCadastrarConsulta$2.class
 view\dialog\DlgEditarPaciente$1.class
 Model\DAO\SecretariaDAO.class
 view\dialog\DlgMedico$6.class

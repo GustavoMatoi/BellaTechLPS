@@ -29,6 +29,7 @@ public class DlgCadastroPaciente extends javax.swing.JDialog {
         this.adicionarMascaraNosCampos();
         pacienteController = new PacienteController();
         enderecoController = new EnderecoController();
+        
     }
 
     /**
@@ -39,7 +40,11 @@ public class DlgCadastroPaciente extends javax.swing.JDialog {
     public void adicionarMascaraNosCampos(){
         try {
             MaskFormatter mascaraCPF = new MaskFormatter("###.###.###-##");
+            MaskFormatter mascaraData = new MaskFormatter("##/##/####");
+            MaskFormatter mascaraTelefone = new MaskFormatter("(##)####-####");
             mascaraCPF.install(fEdtCpf);
+            mascaraData.install(fEdtDataNascimento);
+            mascaraTelefone.install(fEdtTelefone);
         } catch (ParseException e){
             Logger.getLogger(DlgCadastroPaciente.class.getName()).log(Level.SEVERE, null, e);
         }
@@ -51,9 +56,7 @@ public class DlgCadastroPaciente extends javax.swing.JDialog {
 
         pnlBackground = new javax.swing.JPanel();
         edtNomePaciente = new javax.swing.JTextField();
-        edtDataNascimento = new javax.swing.JTextField();
         edtRua = new javax.swing.JTextField();
-        edtTelefone = new javax.swing.JTextField();
         lblDadosPessoais = new javax.swing.JLabel();
         lblNome = new javax.swing.JLabel();
         lblDataNascimento = new javax.swing.JLabel();
@@ -73,6 +76,8 @@ public class DlgCadastroPaciente extends javax.swing.JDialog {
         lblEndereco1 = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
         fEdtCpf = new javax.swing.JFormattedTextField();
+        fEdtDataNascimento = new javax.swing.JFormattedTextField();
+        fEdtTelefone = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -175,7 +180,6 @@ public class DlgCadastroPaciente extends javax.swing.JDialog {
                         .addGap(19, 19, 19)
                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(edtRua, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
-                            .addComponent(edtDataNascimento, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(edtNomePaciente, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(edtEstado, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
                             .addComponent(edtNumero, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
@@ -190,20 +194,20 @@ public class DlgCadastroPaciente extends javax.swing.JDialog {
                             .addComponent(lblDadosPessoais)
                             .addComponent(lblEndereco1)
                             .addComponent(fEdtCpf)
-                            .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(edtTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
-                                .addComponent(lblDadosParaContato)
-                                .addComponent(lblContato))
+                            .addComponent(lblDadosParaContato)
+                            .addComponent(lblContato)
                             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                                 .addGap(105, 105, 105)
                                 .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(69, 69, 69)))
-                        .addGap(0, 59, Short.MAX_VALUE)))
+                                .addGap(69, 69, 69))
+                            .addComponent(fEdtDataNascimento)
+                            .addComponent(fEdtTelefone))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBackgroundLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 140, Short.MAX_VALUE)
                 .addComponent(lblTitulo)
                 .addGap(128, 128, 128))
         );
@@ -221,7 +225,7 @@ public class DlgCadastroPaciente extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblDataNascimento)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(edtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(fEdtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblCPF)
                 .addGap(3, 3, 3)
@@ -249,7 +253,7 @@ public class DlgCadastroPaciente extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblContato, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(edtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(fEdtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
@@ -292,13 +296,13 @@ public class DlgCadastroPaciente extends javax.swing.JDialog {
         e.setNumero(edtNumero.getText());
         e.setRua(edtRua.getText());
 
-        pacienteController.cadastrarPaciente(edtNomePaciente.getText(), 0, edtDataNascimento.getText(), fEdtCpf.getText(), e, edtTelefone.getText());
+        pacienteController.cadastrarPaciente(edtNomePaciente.getText(), 0, fEdtDataNascimento.getText(), fEdtCpf.getText(), e, fEdtTelefone.getText());
         Paciente p = new Paciente();
         p.setCpf(fEdtCpf.getText());
-        p.setDataNascimento(edtDataNascimento.getText());
+        p.setDataNascimento(fEdtDataNascimento.getText());
         p.setId(0);
         p.setNome(edtNomePaciente.getText());
-        p.setTelefone(edtTelefone.getText());
+        p.setTelefone(fEdtTelefone.getText());
         
         
         enderecoController.cadastrarEndereco(e.getId(),edtEstado.getText(), edtCidade.getText(), edtRua.getText(), edtNumero.getText(),p);
@@ -310,13 +314,13 @@ public class DlgCadastroPaciente extends javax.swing.JDialog {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JTextField edtCidade;
-    private javax.swing.JTextField edtDataNascimento;
     private javax.swing.JTextField edtEstado;
     private javax.swing.JTextField edtNomePaciente;
     private javax.swing.JTextField edtNumero;
     private javax.swing.JTextField edtRua;
-    private javax.swing.JTextField edtTelefone;
     private javax.swing.JFormattedTextField fEdtCpf;
+    private javax.swing.JFormattedTextField fEdtDataNascimento;
+    private javax.swing.JFormattedTextField fEdtTelefone;
     private javax.swing.JLabel lblCPF;
     private javax.swing.JLabel lblCidade;
     private javax.swing.JLabel lblContato;
