@@ -10,6 +10,9 @@ import Model.Paciente;
 import Model.Medico;
 import Model.Valid.ValidaConsulta;
 import Model.exceptions.ConsultaException;
+import java.util.List;
+import javax.swing.JTable;
+import Model.Procedimento;
 /**
  *
  * @author gutei
@@ -21,18 +24,18 @@ public class ConsultaController {
         this.repositorio = new ConsultaDAO();
     }
 
-    public void cadastrarConsulta(int id, Paciente p, Medico m, String horario, String motivo){
+    public void cadastrarConsulta(int id, Paciente p, Medico m, String horario, String motivo, Procedimento procedimento){
         ValidaConsulta valida = new ValidaConsulta();
-        Consulta novaConsulta = valida.validaConsulta(p, m, horario, motivo);
+        Consulta novaConsulta = valida.validaConsulta(p, m, horario, motivo, procedimento );
         if(repositorio.findById(id) == null){ 
             repositorio.save(novaConsulta);
         } else {
             throw new ConsultaException("Error - Já existe esse endereço");
         }
     }
-    public void atualizarConsulta(Paciente p, Medico m, String horario, String motivo){
+    public void atualizarConsulta(Paciente p, Medico m, String horario, String motivo, Procedimento procedimento){
         ValidaConsulta valid = new ValidaConsulta();
-        Consulta novaConsulta = valid.validaConsulta(p, m, horario, motivo);
+        Consulta novaConsulta = valid.validaConsulta(p, m, horario, motivo, procedimento);
         
         repositorio.update(novaConsulta);
     }
@@ -49,5 +52,10 @@ public class ConsultaController {
         } else {
             throw new ConsultaException("Erro - Endereço inexistente");
         }
+    }
+    public void atualizarTabela(JTable grd){
+        List lst = repositorio.findAll();
+        TMAgenda tableModel = new TMAgenda(lst);
+        grd.setModel(tableModel);
     }
 }

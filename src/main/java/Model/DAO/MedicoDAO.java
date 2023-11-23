@@ -41,21 +41,13 @@ public class MedicoDAO implements IDAO {
     
     @Override
     public void save(Object objeto) {
-        Medico medico = (Medico) objeto;
-
-        try {
-              Medico medicoManaged = entityManager.merge(medico);
-              entityManager.getTransaction().begin();
-              entityManager.persist(medicoManaged);
-              entityManager.getTransaction().commit();
-        } catch (Error e){
-            System.out.println(e);
-        } finally {
-            entityManager.close();
-            factory.close();
-        } 
-
-    
+        
+        this.entityManager = DatabaseJPA.getInstance().getEntityManager();
+        this.entityManager.getTransaction().begin();
+        this.entityManager.persist(objeto);
+        this.entityManager.getTransaction().commit();
+        this.entityManager.close();
+      
     }   
 
     @Override
@@ -103,8 +95,7 @@ public class MedicoDAO implements IDAO {
     @Override
     public List<Object> findAll() {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
-        String jpql = " SELECT u " + "FROM Usuario u " + " WHERE u.cargo='medico'";
-        
+        String jpql = "SELECT u FROM Usuario u WHERE u.cargo = 'medico'";
         Query qry = this.entityManager.createQuery(jpql);
         List lst = qry.getResultList();
         

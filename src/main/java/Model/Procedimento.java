@@ -26,10 +26,6 @@ public class Procedimento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
     private String nome;
-    private String dataHora;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "medico_id")
-    private Medico medicoResponsavel;
     private String descricao;
    
 }

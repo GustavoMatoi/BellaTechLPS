@@ -4,6 +4,7 @@
  */
 package Model;
 
+import controller.PacienteController;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import lombok.Getter;
@@ -27,18 +28,14 @@ public class Secretaria extends Usuario implements IFuncionario {
 
     @Override
     public void cadastrarPaciente(Paciente novoPaciente) {
-        System.out.println("Cadastrou novo paciente");
+        PacienteController pacienteController = new PacienteController();
+        pacienteController.cadastrarPaciente(novoPaciente.getNome(), 0, novoPaciente.getDataNascimento(), novoPaciente.getCpf(), novoPaciente.getEndereco(), novoPaciente.getTelefone());
     }
 
     @Override
     public void cadastrarConsulta(Consulta novaConsulta) {
         System.out.println("Cadastrou nova consulta");
 
-    }
-
-    @Override
-    public void fazerRelatorioDeProcedimentos(Relatorio novoRelatorio) {
-        System.out.println("Fez relatório de procedimentos");
     }
     
 }

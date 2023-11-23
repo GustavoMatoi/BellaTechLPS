@@ -5,7 +5,9 @@
 package Model.DAO;
 
 import Model.Feedback;
+import Model.Paciente;
 import Model.Persistencia;
+import factory.DatabaseJPA;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +17,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 /**
  *
@@ -35,37 +38,12 @@ public class FeedbackDAO implements IDAO{
     
     @Override
     public void save(Object objeto) {
-        Feedback feedback = (Feedback) objeto;
-        try {
-              Feedback feedbackManaged = entityManager.merge(feedback);
-              entityManager.getTransaction().begin();
-              entityManager.persist(feedbackManaged);
-              entityManager.getTransaction().commit();
-        } catch (Error e){
-            System.out.println(e);
-        } finally {
-            entityManager.close();
-            factory.close();
-        } 
-      /*  sql = "INSERT INTO" + 
-                "Feedback(data, id_procedimento, avaliacao, comentarios)" + "VALUES(?,?,?,?)";
-        try{
-            conexao = Persistencia.getConnection();
-            statement = conexao.prepareStatement(sql);
-            
-            statement.setString(1, feedback.getData());
-            statement.setInt(2, feedback.getIdProcedimento());
-            statement.setString(3, feedback.getAvaliacao());
-            statement.setString(4, feedback.getComentarios());
-            
-            statement.execute();
-            statement.close();
-        } catch (SQLException ex) {
-            throw new RuntimeException (ex);
-        } finally {
-            Persistencia.closeConnection();
-        }
-    */
+        this.entityManager = DatabaseJPA.getInstance().getEntityManager();
+        Object objetoManaged = this.entityManager.merge(objeto);
+        this.entityManager.getTransaction().begin();
+        this.entityManager.persist(objetoManaged);
+        this.entityManager.getTransaction().commit();
+        this.entityManager.close();
     }   
 
     @Override
@@ -96,59 +74,23 @@ public class FeedbackDAO implements IDAO{
 
     @Override
     public Object find(Object objeto) {
-        Feedback feedback = (Feedback) objeto;
-        
-        sql = "SELECT * FROM Feedback WHERE id = ?";
-        
-        try {
-            statement = Persistencia.getConnection().prepareStatement(sql);
-            statement.setInt(1, feedback.getId());
-            
-            ResultSet resultSet = statement.executeQuery();
-            Feedback f = null;
-            
-            while (resultSet.next()){
-                f= new Feedback();
-                f.setData(resultSet.getString(2));
-                //f.setProcedimento(resultSet.getInt(3));
-                f.setAvaliacao(resultSet.getString(4));
-                f.setComentarios(resultSet.getString(5));
-            }
-            statement.close();
-            return f;
-        } catch (SQLException ex){
-            throw new RuntimeException (ex);
-        } finally {
-            Persistencia.closeConnection();
-        }
+        this.entityManager = DatabaseJPA.getInstance().getEntityManager();
+        Feedback paciente = (Feedback) objeto;
+        Feedback p = this.entityManager.find(Feedback.class, paciente.getId());
+        this.entityManager.close();
+        return p;
     }
 
     @Override
     public List<Object> findAll() {
-        List <Object> list = new ArrayList<>();
+        this.entityManager = DatabaseJPA.getInstance().getEntityManager();
+        String jpql = " SELECT f " + "FROM Feedback f";
         
-        sql = "SELECT * FROM Feedback ORDER BY upper(id)";
+        Query qry = this.entityManager.createQuery(jpql);
+        List lst = qry.getResultList();
         
-        try{
-            statement = Persistencia.getConnection().prepareStatement(sql);
-            ResultSet resultSet = statement.executeQuery();
-            
-            while (resultSet.next()){
-                Feedback f = new Feedback();
-                f.setData(resultSet.getString(2));
-                //f.setProcedimento(resultSet.getInt(3));
-                f.setAvaliacao(resultSet.getString(4));
-                f.setComentarios(resultSet.getString(5));
-                
-                list.add(f);
-            }
-            statement.close();
-        } catch (SQLException ex){
-            throw new RuntimeException(ex);
-        } finally{
-            Persistencia.closeConnection();
-        }
-        return list;
+        this.entityManager.close();
+        return (List<Object>) lst;
        }
 
     @Override
@@ -175,32 +117,21 @@ public class FeedbackDAO implements IDAO{
 
     @Override
     public Object findById(int id) {
-        sql = "SELECT * FROM Feedback as p WHERE e.id = ?";
+        this.entityManager = DatabaseJPA.getInstance().getEntityManager();
         
-        Feedback f = null;
+        String jpql = "SELECT p " + " FROM Feedback p" + " WHERE p.id like :id";
+        Query qry = this.entityManager.createQuery(jpql);
+        qry.setParameter("id", id);
         
-        try {
-            conexao = Persistencia.getConnection();
-            statement = conexao.prepareStatement(sql);
-            
-            statement.setInt(1, id);
-            
-            ResultSet resultSet = statement.executeQuery();
-            
-            while(resultSet.next()){
-                f = new Feedback();
-                f.setId(resultSet.getInt(1));
-                f.setData(resultSet.getString(2));
-                //f.setProcedimento(resultSet.getInt(3));
-                f.setAvaliacao(resultSet.getString(4));
-                f.setComentarios(resultSet.getString(5));
-            }
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
-        } finally {
-            Persistencia.closeConnection();
+        List lst = qry.getResultList();
+        
+        this.entityManager.close();
+        
+        if(lst.isEmpty()){
+            return null;
+        } else { 
+            return (Feedback) lst.get(0);
         }
-        return f;
     }
 
 }

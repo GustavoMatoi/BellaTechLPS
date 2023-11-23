@@ -4,20 +4,21 @@
  */
 package view.dialog;
 
+import controller.FeedbackController;
 import controller.ProcedimentoController;
 
 /**
  *
  * @author gutei
  */
-public class DlgHistoricoProcedimentos extends javax.swing.JDialog {
-    ProcedimentoController procedimentoController;
-    public DlgHistoricoProcedimentos(java.awt.Frame parent, boolean modal) {
+public class DlgHistoricoFeedback extends javax.swing.JDialog {
+    FeedbackController feedbackController;
+    public DlgHistoricoFeedback(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        procedimentoController = new ProcedimentoController();
+        feedbackController = new FeedbackController();
         
-        procedimentoController.atualizarTabela(tblHistorico);
+        feedbackController.atualizarTabela(tblHistorico);
     }
 
     /**
@@ -109,20 +110,21 @@ public class DlgHistoricoProcedimentos extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DlgHistoricoProcedimentos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgHistoricoFeedback.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DlgHistoricoProcedimentos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgHistoricoFeedback.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DlgHistoricoProcedimentos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgHistoricoFeedback.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DlgHistoricoProcedimentos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(DlgHistoricoFeedback.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                DlgHistoricoProcedimentos dialog = new DlgHistoricoProcedimentos(new javax.swing.JFrame(), true);
+                DlgHistoricoFeedback dialog = new DlgHistoricoFeedback(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

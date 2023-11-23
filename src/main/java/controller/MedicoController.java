@@ -58,6 +58,7 @@ public class MedicoController {
         public void atualizarTabela(JTable grd){
         List lst = repositorio.findAll();
         TMMEdico tableModel = new TMMEdico(lst);
+        System.out.println(lst.size());
         grd.setModel(tableModel);
     }
 }

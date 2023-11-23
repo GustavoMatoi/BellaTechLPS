@@ -19,7 +19,7 @@ public class TMPaciente extends AbstractTableModel{
     private final int COL_NOME = 1;
     private final int COL_CPF = 2;
     private final int COL_TELEFONE = 3;
-    
+    private final int COL_DATANASCIMENTO = 4;
     public TMPaciente(List<Paciente> lista){
         this.lst = lista;
     }
@@ -31,7 +31,7 @@ public class TMPaciente extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-        return 4;
+        return 5;
     }
 
     @Override
@@ -46,6 +46,8 @@ public class TMPaciente extends AbstractTableModel{
             return p.getCpf();
         } else if (columnIndex == COL_TELEFONE){
             return p.getTelefone();
+        } else if (columnIndex == COL_DATANASCIMENTO){
+            return p.getDataNascimento();
         }
         return "-";
     }
@@ -61,6 +63,8 @@ public class TMPaciente extends AbstractTableModel{
             return "CPF";
         } else if (columnIndex == COL_TELEFONE){
             return "Telefone";
+        } else if (columnIndex == COL_DATANASCIMENTO){
+            return "Data de Nascimento";
         }
         return "-";
       }

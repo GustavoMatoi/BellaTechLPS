@@ -36,13 +36,13 @@ public class Paciente {
     private String cpf;
     private String telefone;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "endereco_id")
-    private Endereco endereco;  
-    //@OneToMany(mappedBy = "paciente",cascade = CascadeType.ALL)
-    //List<Consulta> consulta;
-    //@OneToMany(mappedBy = "Paciente",cascade = CascadeType.ALL)
-    //List<Pagamento> pagamentos;
-    //@OneToMany(mappedBy = "Paciente",cascade = CascadeType.ALL)
-    //List<Feedback> feedbacks;
+@OneToOne(cascade = CascadeType.ALL, mappedBy = "paciente")
+private Endereco endereco;
+
+    @OneToMany(mappedBy = "paciente",cascade = CascadeType.ALL)
+    List<Consulta> consulta;
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
+    private List<Pagamento> pagamentos;
+    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
+    private List<Feedback> feedbacks;
 }

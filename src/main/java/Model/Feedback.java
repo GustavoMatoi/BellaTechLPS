@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,9 +27,15 @@ public class Feedback {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;
     private String data;
-    @ManyToOne
-    @JoinColumn(name = "procedimento_id") // Assuming you have a foreign key column in Feedback table
+    @OneToOne
+    @JoinColumn(name = "procedimento_id")
     private Procedimento procedimento;
     private String avaliacao;
     private String comentarios;
+    @OneToOne
+    @JoinColumn(name = "medico_id")
+    private Medico medico;
+    @ManyToOne
+    @JoinColumn(name = "paciente_id")
+    private Paciente paciente;
 }

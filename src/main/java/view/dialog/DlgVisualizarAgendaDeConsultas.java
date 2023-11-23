@@ -4,18 +4,24 @@
  */
 package view.dialog;
 
+import Model.Consulta;
+import controller.ConsultaController;
+import javax.swing.JFrame;
+
 /**
  *
  * @author gutei
  */
 public class DlgVisualizarAgendaDeConsultas extends javax.swing.JDialog {
 
-    /**
-     * Creates new form DlgVisualizarAgendaDeConsultas
-     */
+    Consulta consultaEditando;
+    ConsultaController consultaController;
     public DlgVisualizarAgendaDeConsultas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        consultaController = new ConsultaController();
+        consultaController.atualizarTabela(grdAgenda);
+        consultaEditando = new Consulta();
     }
 
     /**
@@ -30,7 +36,8 @@ public class DlgVisualizarAgendaDeConsultas extends javax.swing.JDialog {
         pnlBackground = new javax.swing.JPanel();
         lblTitulo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblAgenda = new javax.swing.JTable();
+        grdAgenda = new javax.swing.JTable();
+        btnEditar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -38,42 +45,64 @@ public class DlgVisualizarAgendaDeConsultas extends javax.swing.JDialog {
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         lblTitulo.setForeground(new java.awt.Color(255, 121, 165));
-        lblTitulo.setText("VISUALIZAR AGENDA DE CONSULTAS");
+        lblTitulo.setText("AGENDA DE CONSULTAS");
 
-        tblAgenda.setModel(new javax.swing.table.DefaultTableModel(
+        grdAgenda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "PACIENTE", "MÉDICO", "DATA E HORA", "MOTIVO DA CONSULTA"
+
             }
         ));
-        jScrollPane1.setViewportView(tblAgenda);
+        grdAgenda.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                grdAgendaKeyPressed(evt);
+            }
+        });
+        jScrollPane1.setViewportView(grdAgenda);
+
+        btnEditar.setBackground(new java.awt.Color(255, 121, 165));
+        btnEditar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnEditar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditar.setText("EDITAR");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlBackgroundLayout = new javax.swing.GroupLayout(pnlBackground);
         pnlBackground.setLayout(pnlBackgroundLayout);
         pnlBackgroundLayout.setHorizontalGroup(
             pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBackgroundLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblTitulo)
-                .addGap(65, 65, 65))
             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                 .addGap(17, 17, 17)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 826, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBackgroundLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBackgroundLayout.createSequentialGroup()
+                        .addComponent(lblTitulo)
+                        .addGap(206, 206, 206))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBackgroundLayout.createSequentialGroup()
+                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(272, 272, 272))))
         );
         pnlBackgroundLayout.setVerticalGroup(
             pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21))
+                .addGap(29, 29, 29)
+                .addComponent(btnEditar)
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -90,52 +119,22 @@ public class DlgVisualizarAgendaDeConsultas extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DlgVisualizarAgendaDeConsultas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DlgVisualizarAgendaDeConsultas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DlgVisualizarAgendaDeConsultas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DlgVisualizarAgendaDeConsultas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        DlgCadastrarConsulta telaCadastroConsulta = new DlgCadastrarConsulta(new JFrame(), true, consultaEditando);
+        telaCadastroConsulta.setVisible(true);
+    }//GEN-LAST:event_btnEditarActionPerformed
 
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                DlgVisualizarAgendaDeConsultas dialog = new DlgVisualizarAgendaDeConsultas(new javax.swing.JFrame(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
+    private void grdAgendaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_grdAgendaKeyPressed
+        int rowIndex = grdAgenda.getSelectedRow();
+        consultaEditando.setHorarioDaConsulta((String) grdAgenda.getValueAt(rowIndex, 3));
+        consultaEditando.setId((int) grdAgenda.getValueAt(rowIndex, 0));
+    }//GEN-LAST:event_grdAgendaKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnEditar;
+    private javax.swing.JTable grdAgenda;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel pnlBackground;
-    private javax.swing.JTable tblAgenda;
     // End of variables declaration//GEN-END:variables
 }

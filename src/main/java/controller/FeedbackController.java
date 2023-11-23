@@ -6,9 +6,13 @@ package controller;
 
 import Model.DAO.FeedbackDAO;
 import Model.Feedback;
+import Model.Medico;
+import Model.Paciente;
 import Model.Procedimento;
 import Model.Valid.ValidaFeedback;
 import Model.exceptions.FeedbackException;
+import java.util.List;
+import javax.swing.JTable;
 
 /**
  *
@@ -21,9 +25,9 @@ public class FeedbackController {
         this.repositorio = new FeedbackDAO();
     }
     
-    public void cadastrarFeedback(int id, String data, Procedimento procedimento, String avaliacao, String comentarios){
+    public void cadastrarFeedback(int id, String data, Procedimento procedimento, String avaliacao, String comentarios, Medico medico, Paciente paciente){
         ValidaFeedback valid = new ValidaFeedback();
-        Feedback novoFeedback = valid.validaFeedback(data, procedimento, avaliacao, comentarios);
+        Feedback novoFeedback = valid.validaFeedback(data, procedimento, avaliacao, comentarios, medico, paciente);
         
         if(repositorio.findById(id) == null){ 
             repositorio.save(novoFeedback);
@@ -32,9 +36,9 @@ public class FeedbackController {
         }
     }
     
-    public void atualizarEndereco(int id, String data, Procedimento procedimento, String avaliacao, String comentarios){
+    public void atualizarEndereco(int id, String data, Procedimento procedimento, String avaliacao, String comentarios, Medico medico, Paciente paciente){
         ValidaFeedback valid = new ValidaFeedback();
-        Feedback novoFeedback = valid.validaFeedback(data, procedimento, avaliacao, comentarios);
+        Feedback novoFeedback = valid.validaFeedback(data, procedimento, avaliacao, comentarios, medico, paciente);
         
         repositorio.update(novoFeedback);
     }
@@ -53,4 +57,9 @@ public class FeedbackController {
         }
     }
     
+        public void atualizarTabela(JTable grd){
+        List lst = repositorio.findAll();
+        TMFeedback tableModel = new TMFeedback(lst);
+        grd.setModel(tableModel);
+    }
 }

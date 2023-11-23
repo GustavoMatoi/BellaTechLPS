@@ -69,7 +69,7 @@ public class ConsultaDAO implements IDAO{
     @Override
     public List<Object> findAll() {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
-        jpql = " SELECT c " + "FROM Consulta p";
+        jpql = " SELECT c " + "FROM Consulta c";
         
         qry = this.entityManager.createQuery(jpql);
         List lst = qry.getResultList();

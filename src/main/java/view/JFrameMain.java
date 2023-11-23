@@ -171,8 +171,8 @@ public class JFrameMain extends javax.swing.JFrame {
                         Secretaria secretariaLogada = (Secretaria) usuarioLogado;
                         if (edtSenha.getText().equals(secretariaLogada.getSenha())) {
                             JOptionPane.showMessageDialog(null, "Boas vindas, " + secretariaLogada.getNome());
-                            DlgMedico telaMedico = new DlgMedico(this, true);
-                            telaMedico.setVisible(true);
+                            DlgSecretaria telaSecretaria = new DlgSecretaria(this, true);
+                            telaSecretaria.setVisible(true);
                         } else {
                             JOptionPane.showMessageDialog(null, "Senha inválida");
                         }

@@ -6,11 +6,13 @@ package view.dialog;
 
 import Model.Endereco;
 import Model.Paciente;
+import Model.Secretaria;
 import controller.EnderecoController;
 import controller.PacienteController;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 
 /**
@@ -20,6 +22,7 @@ import javax.swing.text.MaskFormatter;
 public class DlgCadastroPaciente extends javax.swing.JDialog {
     PacienteController pacienteController;
     EnderecoController enderecoController;
+    Secretaria secretariaLogada;
     /**
      * Creates new form DlgCadastroPaciente
      */
@@ -29,7 +32,7 @@ public class DlgCadastroPaciente extends javax.swing.JDialog {
         this.adicionarMascaraNosCampos();
         pacienteController = new PacienteController();
         enderecoController = new EnderecoController();
-        
+        secretariaLogada = new Secretaria();
     }
 
     /**
@@ -166,6 +169,11 @@ public class DlgCadastroPaciente extends javax.swing.JDialog {
         btnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnCancelar.setForeground(new java.awt.Color(255, 121, 165));
         btnCancelar.setText("CANCELAR");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlBackgroundLayout = new javax.swing.GroupLayout(pnlBackground);
         pnlBackground.setLayout(pnlBackgroundLayout);
@@ -296,18 +304,24 @@ public class DlgCadastroPaciente extends javax.swing.JDialog {
         e.setNumero(edtNumero.getText());
         e.setRua(edtRua.getText());
 
-        pacienteController.cadastrarPaciente(edtNomePaciente.getText(), 0, fEdtDataNascimento.getText(), fEdtCpf.getText(), e, fEdtTelefone.getText());
         Paciente p = new Paciente();
         p.setCpf(fEdtCpf.getText());
         p.setDataNascimento(fEdtDataNascimento.getText());
         p.setId(0);
         p.setNome(edtNomePaciente.getText());
         p.setTelefone(fEdtTelefone.getText());
-        
+        p.setEndereco(e);
+        //secretariaLogada.cadastrarPaciente(p);
         
         enderecoController.cadastrarEndereco(e.getId(),edtEstado.getText(), edtCidade.getText(), edtRua.getText(), edtNumero.getText(),p);
+        JOptionPane.showMessageDialog(null, "Paciente cadastrado com sucesso.");
+        this.dispose();
 
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

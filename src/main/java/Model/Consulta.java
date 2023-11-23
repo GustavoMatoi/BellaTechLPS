@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,13 +30,15 @@ public class Consulta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int Id;    
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "paciente_id") 
-    private Paciente pacienteDaConsulta;
+    @ManyToOne
+    @JoinColumn(name = "paciente_id")
+    private Paciente paciente;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "medico_id") 
-    private Medico medicoDaConsulta;
+    private Medico medico;
     private String horarioDaConsulta;
     private String motivoDaConsulta;
-
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="procedimento_id")
+    Procedimento procedimento;
 }

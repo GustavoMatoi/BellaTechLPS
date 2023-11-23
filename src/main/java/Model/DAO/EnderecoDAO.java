@@ -5,7 +5,9 @@
 package Model.DAO;
 
 import Model.Endereco;
+import Model.Paciente;
 import Model.Persistencia;
+import factory.DatabaseJPA;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -17,6 +19,7 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 /**
  *
@@ -181,32 +184,23 @@ public class EnderecoDAO implements IDAO {
 
     @Override
     public Object findById(int id) {
-        sql = "SELECT * FROM Endereco as p WHERE e.id = ?";
+        this.entityManager = DatabaseJPA.getInstance().getEntityManager();
+        String jpql = "SELECT e " +
+                      "FROM Endereco e " +
+                      "JOIN e.paciente p " +
+                      "WHERE p.id = :id";
+        Query qry = this.entityManager.createQuery(jpql);
+        qry.setParameter("id", id);
         
-        Endereco e = null;
+        List lst = qry.getResultList();
         
-        try {
-            conexao = Persistencia.getConnection();
-            statement = conexao.prepareStatement(sql);
-            
-            statement.setInt(1, id);
-            
-            ResultSet resultSet = statement.executeQuery();
-            
-            while(resultSet.next()){
-                e = new Endereco();
-                e.setId(resultSet.getInt(1));
-                e.setEstado(resultSet.getString(2));
-                e.setCidade(resultSet.getString(3));
-                e.setRua(resultSet.getString(4));
-                e.setNumero(resultSet.getString(5));
-            }
-        } catch (Exception ex) {
-            throw new RuntimeException(ex);
-        } finally {
-            Persistencia.closeConnection();
+        this.entityManager.close();
+        
+        if(lst.isEmpty()){
+            return null;
+        } else { 
+            return (Endereco) lst.get(0);
         }
-        return e;
     }
 
     

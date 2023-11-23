@@ -24,31 +24,31 @@ import javax.persistence.Query;
  * @author gutei
  */
 public class PacienteDAO implements IDAO {
-    private String jpql;
+    private EntityManager entityManager;
     private Query qry;
-    EntityManagerFactory factory;
-    EntityManager entityManager;
-    public PacienteDAO(){
-        this.jpql = "";
-    }
+    private String jpql;
+    
     @Override
-    public void save(Object objeto) {
+    public void save(Object obj) {
+        
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
-        Object objetoManaged = this.entityManager.merge(objeto);
         this.entityManager.getTransaction().begin();
-        this.entityManager.persist(objetoManaged);
+        this.entityManager.persist(obj);
         this.entityManager.getTransaction().commit();
         this.entityManager.close();
+      
     }
+    
+    @Override
+public void update(Object obj) {
+    this.entityManager = DatabaseJPA.getInstance().getEntityManager();
+    this.entityManager.getTransaction().begin();
+    this.entityManager.merge(obj);
+    this.entityManager.getTransaction().commit();
+    this.entityManager.close();
+}
 
-    @Override
-    public void update(Object objeto) {
-        this.entityManager = DatabaseJPA.getInstance().getEntityManager();
-        this.entityManager.getTransaction().begin();
-        this.entityManager.merge(objeto);
-        this.entityManager.getTransaction().commit();
-        this.entityManager.close();
-    }
+
 
     @Override
     public Object find(Object objeto) {
@@ -63,9 +63,9 @@ public class PacienteDAO implements IDAO {
     @Override
     public List<Object> findAll() {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
-        jpql = " SELECT p " + "FROM Paciente p";
+        String jpql = " SELECT p " + " FROM Paciente p ";
         
-        qry = this.entityManager.createQuery(jpql);
+        Query qry = this.entityManager.createQuery(jpql);
         List lst = qry.getResultList();
         
         this.entityManager.close();
@@ -77,7 +77,9 @@ public class PacienteDAO implements IDAO {
     public boolean delete(Object objeto) {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
         this.entityManager.getTransaction().begin();
-        this.entityManager.remove(objeto);
+        Paciente paciente = (Paciente) objeto;
+        Paciente p = this.entityManager.find(Paciente.class, paciente.getId());
+        this.entityManager.remove(p);
         this.entityManager.getTransaction().commit();
         return true;
     }
@@ -86,8 +88,8 @@ public class PacienteDAO implements IDAO {
     public Object findById(int id) {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
         
-        jpql = "SELECT p " + " FROM Paciente p" + " WHERE p.id like :id";
-        qry = this.entityManager.createQuery(jpql);
+        String jpql = "SELECT p " + " FROM Paciente p" + " WHERE p.id like :id";
+        Query qry = this.entityManager.createQuery(jpql);
         qry.setParameter("id", id);
         
         List lst = qry.getResultList();

@@ -9,6 +9,7 @@ import controller.ProcedimentoController;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 
 /**
@@ -20,8 +21,8 @@ public class DlgCadastroProcedimento extends javax.swing.JDialog {
     public DlgCadastroProcedimento(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        this.adicionarMascaraNosCampos();
         procedimentoController = new ProcedimentoController();
+        procedimentoController.atualizarTabela(grdProcedimentosCadastrados);
     }
 
     /**
@@ -35,16 +36,16 @@ public class DlgCadastroProcedimento extends javax.swing.JDialog {
 
         pnlBackground = new javax.swing.JPanel();
         edtNomeProcedimento = new javax.swing.JTextField();
-        edtMedicoResponsavel = new javax.swing.JTextField();
         edtDescricao = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         lblNome = new javax.swing.JLabel();
-        lblDataHora = new javax.swing.JLabel();
-        lblNomeMedico = new javax.swing.JLabel();
         lblDescricao = new javax.swing.JLabel();
         btnSalvar = new javax.swing.JButton();
         lblLogo1 = new javax.swing.JLabel();
-        fEdtDataHora = new javax.swing.JFormattedTextField();
+        grdProcedimentos = new javax.swing.JScrollPane();
+        grdProcedimentosCadastrados = new javax.swing.JTable();
+        lblProcedimentosCadastrados = new javax.swing.JLabel();
+        btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -57,14 +58,6 @@ public class DlgCadastroProcedimento extends javax.swing.JDialog {
         lblNome.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblNome.setForeground(new java.awt.Color(255, 121, 165));
         lblNome.setText("NOME DO PROCEDIMENTO:");
-
-        lblDataHora.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblDataHora.setForeground(new java.awt.Color(255, 121, 165));
-        lblDataHora.setText("DATA E HORA:");
-
-        lblNomeMedico.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        lblNomeMedico.setForeground(new java.awt.Color(255, 121, 165));
-        lblNomeMedico.setText("NOME DO MÉDICO:");
 
         lblDescricao.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblDescricao.setForeground(new java.awt.Color(255, 121, 165));
@@ -84,107 +77,133 @@ public class DlgCadastroProcedimento extends javax.swing.JDialog {
         lblLogo1.setForeground(new java.awt.Color(255, 121, 165));
         lblLogo1.setText("BellaTech  ©2023");
 
+        grdProcedimentosCadastrados.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        grdProcedimentos.setViewportView(grdProcedimentosCadastrados);
+
+        lblProcedimentosCadastrados.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblProcedimentosCadastrados.setForeground(new java.awt.Color(255, 121, 165));
+        lblProcedimentosCadastrados.setText("PROCEDIMENTOS CADASTRADOS");
+
+        btnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(255, 121, 165));
+        btnCancelar.setText("CANCELAR");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlBackgroundLayout = new javax.swing.GroupLayout(pnlBackground);
         pnlBackground.setLayout(pnlBackgroundLayout);
         pnlBackgroundLayout.setHorizontalGroup(
             pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBackgroundLayout.createSequentialGroup()
+                .addContainerGap(204, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(98, 98, 98))
             .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                .addGap(24, 24, 24)
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                        .addGap(240, 240, 240)
-                        .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblLogo1))
+                        .addComponent(lblProcedimentosCadastrados, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(grdProcedimentos)
+                            .addComponent(edtDescricao)
                             .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(edtMedicoResponsavel, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(edtNomeProcedimento, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(edtDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
-                                    .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblDataHora, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblNomeMedico)
-                                    .addComponent(lblDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(fEdtDataHora)))
-                            .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                                .addGap(48, 48, 48)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 59, Short.MAX_VALUE)))
-                .addContainerGap())
+                                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                                            .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(lblDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addGap(452, 452, 452))
+                                        .addComponent(edtNomeProcedimento, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                                        .addGap(183, 183, 183)
+                                        .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(lblLogo1)))
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(19, 19, 19))))
         );
         pnlBackgroundLayout.setVerticalGroup(
             pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(20, 20, 20)
                 .addComponent(jLabel1)
+                .addGap(34, 34, 34)
+                .addComponent(lblProcedimentosCadastrados)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(grdProcedimentos, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblNome)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(edtNomeProcedimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblDataHora)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fEdtDataHora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblNomeMedico)
-                .addGap(11, 11, 11)
-                .addComponent(edtMedicoResponsavel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(lblDescricao)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(edtDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(edtDescricao, javax.swing.GroupLayout.DEFAULT_SIZE, 97, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
-                    .addComponent(lblLogo1))
-                .addGap(68, 68, 68))
+                    .addComponent(lblLogo1)
+                    .addComponent(btnCancelar))
+                .addGap(52, 52, 52))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlBackground, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(pnlBackground, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnlBackground, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        Medico m = new Medico();
-        m.setNome(edtMedicoResponsavel.getText());
-        System.out.println(fEdtDataHora.getText());
-        procedimentoController.cadastrarProcedimento(edtNomeProcedimento.getText(), fEdtDataHora.getText(), m, edtDescricao.getText());
+        procedimentoController.cadastrarProcedimento(edtNomeProcedimento.getText(), edtDescricao.getText());
+                JOptionPane.showMessageDialog(null, "Proceidmento cadastrado com sucesso.");
+        this.dispose();
     }//GEN-LAST:event_btnSalvarActionPerformed
-        public void adicionarMascaraNosCampos(){
-        try {
-            MaskFormatter mascaraCPF = new MaskFormatter("##/## ##:##");
-            mascaraCPF.install(fEdtDataHora);
-        } catch (ParseException e){
-            Logger.getLogger(DlgCadastroPaciente.class.getName()).log(Level.SEVERE, null, e);
-        }
-    }
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JTextField edtDescricao;
-    private javax.swing.JTextField edtMedicoResponsavel;
     private javax.swing.JTextField edtNomeProcedimento;
-    private javax.swing.JFormattedTextField fEdtDataHora;
+    private javax.swing.JScrollPane grdProcedimentos;
+    private javax.swing.JTable grdProcedimentosCadastrados;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel lblDataHora;
     private javax.swing.JLabel lblDescricao;
     private javax.swing.JLabel lblLogo1;
     private javax.swing.JLabel lblNome;
-    private javax.swing.JLabel lblNomeMedico;
+    private javax.swing.JLabel lblProcedimentosCadastrados;
     private javax.swing.JPanel pnlBackground;
     // End of variables declaration//GEN-END:variables
 }

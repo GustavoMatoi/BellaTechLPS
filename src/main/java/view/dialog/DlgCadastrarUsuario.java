@@ -233,11 +233,11 @@ public class DlgCadastrarUsuario extends javax.swing.JDialog {
        if(edtCargo.getText().equals("medico") || edtCargo.getText().equals("Medico")){
             System.out.println(edtNomeUsuario.getText());
             float salario = (float) 999.99;
-            mc.cadastrarMedico(0, edtNomeUsuario.getText(), fEdtCpf.getText(), edtLogin.getText(), edtSenha.getText(), fEdtDataNascimento.getText(), fEdtTelefone.getText(), edtCargo.getText(), (float) 999);
+            mc.cadastrarMedico(0, edtNomeUsuario.getText(), fEdtCpf.getText(), edtLogin.getText(), edtSenha.getText(), fEdtDataNascimento.getText(), fEdtTelefone.getText(), "medico", (float) 999);
             JOptionPane.showMessageDialog(null, "Médico cadastrado com sucesso");
             this.dispose();
        } else {
-            sc.cadastrarSecretaria(0, edtNomeUsuario.getText(), fEdtCpf.getText(), edtLogin.getText(), edtSenha.getText(), fEdtDataNascimento.getText(), fEdtTelefone.getText(), edtCargo.getText(), (float) 999);
+            sc.cadastrarSecretaria(0, edtNomeUsuario.getText(), fEdtCpf.getText(), edtLogin.getText(), edtSenha.getText(), fEdtDataNascimento.getText(), fEdtTelefone.getText(),"secretaria", (float) 999);
             JOptionPane.showMessageDialog(null, "Secretária cadastrada com sucesso!");
             this.dispose();
        }

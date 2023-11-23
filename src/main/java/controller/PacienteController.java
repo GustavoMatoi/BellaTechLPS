@@ -40,7 +40,10 @@ public class PacienteController {
     public void atualizarPaciente(String nome, int id, String dataNascimento, String cpf, Endereco endereco, String telefone){
         ValidaPaciente valida = new ValidaPaciente();
         Paciente novoPaciente = valida.validaCamposEntrada(nome, id, dataNascimento, cpf, endereco, telefone);
-        repositorio.update(novoPaciente);        
+        novoPaciente.setId(id);
+        
+        repositorio.update(novoPaciente);
+
     }
     
     public Paciente buscarPaciente(int id){

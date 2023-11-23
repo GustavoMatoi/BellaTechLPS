@@ -13,6 +13,5 @@ public interface IFuncionario {
     public void cadastrarProcedimento(Procedimento novoProcedimento);
     public void cadastrarPaciente(Paciente novoPaciente);
     public void cadastrarConsulta(Consulta novaConsulta);
-    public void fazerRelatorioDeProcedimentos(Relatorio novoRelatorio);
 
 }

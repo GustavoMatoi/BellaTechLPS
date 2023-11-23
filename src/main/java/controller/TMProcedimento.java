@@ -18,9 +18,7 @@ public class TMProcedimento extends AbstractTableModel{
     private List<Procedimento> lst;
     private final int COL_ID = 0;
     private final int COL_NOME = 1;
-    private final int COL_DATA = 2;
-    private final int COL_MEDICO = 3;
-    private final int COL_DESCRICAO = 4;
+    private final int COL_DESCRICAO = 2;
 
     public TMProcedimento(List<Procedimento> lista){
         this.lst = lista;
@@ -33,7 +31,7 @@ public class TMProcedimento extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-        return 5;
+        return 3;
     }
 
     @Override
@@ -44,10 +42,6 @@ public class TMProcedimento extends AbstractTableModel{
             return p.getId();
         } else if (columnIndex == COL_NOME){
             return p.getNome();
-        } else if (columnIndex == COL_DATA){
-            return p.getDataHora();
-        } else if (columnIndex == COL_MEDICO){
-            return p.getMedicoResponsavel();
         } else if (columnIndex == COL_DESCRICAO){
             return p.getDescricao();
         }
@@ -62,10 +56,6 @@ public class TMProcedimento extends AbstractTableModel{
             return "Id";
         } else if (columnIndex == COL_NOME){
             return "Nome";
-        } else if (columnIndex == COL_DATA){
-            return "Data e Hora";
-        } else if (columnIndex == COL_MEDICO){
-            return "Médico";
         } else if (columnIndex == COL_DESCRICAO){
             return "Descrição";
         }

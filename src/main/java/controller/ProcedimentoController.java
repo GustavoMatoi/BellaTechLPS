@@ -23,14 +23,14 @@ public class ProcedimentoController {
         this.repositorio = new ProcedimentoDAO();
     }
 
-    public void cadastrarProcedimento(String nome, String dataHora, Medico medico, String descricao){
+    public void cadastrarProcedimento(String nome, String descricao){
         ValidaProcedimento valida = new ValidaProcedimento();
-        Procedimento novoProcedimento = valida.validaProcedimento(nome,dataHora, medico.getNome(), descricao);
+        Procedimento novoProcedimento = valida.validaProcedimento(nome, descricao);
         repositorio.save(novoProcedimento);
     }
-    public void atualizarProcedimento(String nome, String dataHora, Medico medico, String descricao){
+    public void atualizarProcedimento(String nome, String descricao){
         ValidaProcedimento valida = new ValidaProcedimento();
-        Procedimento novoProcedimento = valida.validaProcedimento(nome,dataHora, medico.getNome(), descricao);
+        Procedimento novoProcedimento = valida.validaProcedimento(nome, descricao);
         repositorio.update(novoProcedimento);
     }
     
