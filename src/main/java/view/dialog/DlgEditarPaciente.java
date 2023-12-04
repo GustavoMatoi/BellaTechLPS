@@ -4,9 +4,7 @@
  */
 package view.dialog;
 
-import Model.Endereco;
 import Model.Paciente;
-import controller.EnderecoController;
 import controller.PacienteController;
 import java.text.ParseException;
 import java.util.logging.Level;
@@ -24,16 +22,12 @@ public class DlgEditarPaciente extends javax.swing.JDialog {
      * Creates new form DlgEditarPaciente
      */
     Paciente pacienteEditando;
-    Endereco endereco;
-    EnderecoController enderecoController;
     public DlgEditarPaciente(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         pacienteController = new PacienteController();
         pacienteController.atualizarTabela(grdPaciente);
         pacienteEditando = new Paciente();
-        endereco = new Endereco();
-        enderecoController = new EnderecoController();
     }
 
         public void adicionarMascaraNosCampos(){
@@ -67,6 +61,8 @@ public class DlgEditarPaciente extends javax.swing.JDialog {
         lblNome3 = new javax.swing.JLabel();
         fEdtDataNascimento = new javax.swing.JFormattedTextField();
         btnSalvar2 = new javax.swing.JButton();
+        lblNome4 = new javax.swing.JLabel();
+        edtEmail = new javax.swing.JFormattedTextField();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -176,6 +172,16 @@ public class DlgEditarPaciente extends javax.swing.JDialog {
             }
         });
 
+        lblNome4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblNome4.setForeground(new java.awt.Color(255, 121, 165));
+        lblNome4.setText("EMAIL DO PACIENTE");
+
+        edtEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                edtEmailActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -194,8 +200,6 @@ public class DlgEditarPaciente extends javax.swing.JDialog {
                                 .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(78, 78, 78)
                                 .addComponent(lblNome1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(fEdtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblNome3, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(edtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -209,7 +213,15 @@ public class DlgEditarPaciente extends javax.swing.JDialog {
                                         .addGap(18, 18, 18)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(lblNome2, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(fEdtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                            .addComponent(fEdtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(fEdtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblNome3, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(edtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblNome4, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -230,9 +242,15 @@ public class DlgEditarPaciente extends javax.swing.JDialog {
                     .addComponent(edtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fEdtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(lblNome3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fEdtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblNome3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fEdtDataNascimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblNome4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(edtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnExcluir)
@@ -263,15 +281,14 @@ public class DlgEditarPaciente extends javax.swing.JDialog {
     }//GEN-LAST:event_edtNomeActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        
-        pacienteController.atualizarPaciente(edtNome.getText(),pacienteEditando.getId(), fEdtDataNascimento.getText(), edtCpf.getText(), endereco, fEdtTelefone.getText());
+        pacienteController.atualizarPaciente(edtNome.getText(),pacienteEditando.getId(), fEdtDataNascimento.getText(), edtCpf.getText(), fEdtTelefone.getText(), edtEmail.getText());
         JOptionPane.showMessageDialog(null, "Usuário atualizado com sucesso.");
 
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         pacienteController.excluirPaciente(pacienteEditando.getId());
-                JOptionPane.showMessageDialog(null, "Paciente excluído com sucesso.");
+        JOptionPane.showMessageDialog(null, "Paciente excluído com sucesso.");
         this.dispose();
 
     }//GEN-LAST:event_btnExcluirActionPerformed
@@ -283,13 +300,13 @@ public class DlgEditarPaciente extends javax.swing.JDialog {
     pacienteEditando.setCpf((String) grdPaciente.getValueAt(rowIndex, 2));
     pacienteEditando.setTelefone((String) grdPaciente.getValueAt(rowIndex,3));
     pacienteEditando.setDataNascimento((String) grdPaciente.getValueAt(rowIndex,4));
-    endereco = enderecoController.buscarEndereco(pacienteEditando.getId());
+    pacienteEditando.setEmail((String) grdPaciente.getValueAt(rowIndex,5));
     
     edtNome.setText(pacienteEditando.getNome());
     edtCpf.setText(pacienteEditando.getCpf());
     fEdtTelefone.setText(pacienteEditando.getTelefone());
     fEdtDataNascimento.setText(pacienteEditando.getDataNascimento());
-    //System.out.println("Rua" + " " + endereco.getRua());
+    edtEmail.setText(pacienteEditando.getEmail());
     }//GEN-LAST:event_grdPacienteMouseClicked
 
     private void fEdtTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fEdtTelefoneActionPerformed
@@ -302,23 +319,25 @@ public class DlgEditarPaciente extends javax.swing.JDialog {
 
     private void btnSalvar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvar2ActionPerformed
     System.out.println("Id do paciente: " + pacienteEditando.getId());
-
     // Retrieve the managed entity from the database
     Paciente managedPaciente = pacienteController.buscarPaciente(pacienteEditando.getId());
 
-    // Update the fields of the managed entity
     managedPaciente.setNome(edtNome.getText());
     managedPaciente.setDataNascimento(fEdtDataNascimento.getText());
     managedPaciente.setCpf(edtCpf.getText());
-    managedPaciente.setEndereco(endereco);
     managedPaciente.setTelefone(fEdtTelefone.getText());
     managedPaciente.setId(pacienteEditando.getId());
+    managedPaciente.setEmail(edtEmail.getText());
     // Merge the updated entity
-    pacienteController.atualizarPaciente(managedPaciente.getNome(), managedPaciente.getId(), managedPaciente.getDataNascimento(), managedPaciente.getCpf(), endereco, managedPaciente.getTelefone());
+    pacienteController.atualizarPaciente(managedPaciente.getNome(), managedPaciente.getId(), managedPaciente.getDataNascimento(), managedPaciente.getCpf(), managedPaciente.getTelefone(), managedPaciente.getEmail());
 
     JOptionPane.showMessageDialog(null, "Usuário atualizado com sucesso.");
     this.dispose();
     }//GEN-LAST:event_btnSalvar2ActionPerformed
+
+    private void edtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edtEmailActionPerformed
 
 
 
@@ -327,6 +346,7 @@ public class DlgEditarPaciente extends javax.swing.JDialog {
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnSalvar2;
     private javax.swing.JTextField edtCpf;
+    private javax.swing.JFormattedTextField edtEmail;
     private javax.swing.JTextField edtNome;
     private javax.swing.JFormattedTextField fEdtDataNascimento;
     private javax.swing.JFormattedTextField fEdtTelefone;
@@ -339,6 +359,7 @@ public class DlgEditarPaciente extends javax.swing.JDialog {
     private javax.swing.JLabel lblNome1;
     private javax.swing.JLabel lblNome2;
     private javax.swing.JLabel lblNome3;
+    private javax.swing.JLabel lblNome4;
     private javax.swing.JLabel lblTitulo;
     // End of variables declaration//GEN-END:variables
 }

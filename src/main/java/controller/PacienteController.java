@@ -25,9 +25,9 @@ public class PacienteController {
         repositorio = new PacienteDAO();
     }
     
-    public boolean cadastrarPaciente(String nome, int id, String dataNascimento, String cpf, Endereco endereco, String telefone){
+    public boolean cadastrarPaciente(String nome, int id, String dataNascimento, String cpf, String telefone, String email){
         ValidaPaciente valida = new ValidaPaciente();
-        Paciente novoPaciente = valida.validaCamposEntrada(nome, id, dataNascimento, cpf, endereco, telefone);
+        Paciente novoPaciente = valida.validaCamposEntrada(nome, id, dataNascimento, cpf, telefone, email);
         
         if(repositorio.findById(id) == null){
             repositorio.save(novoPaciente);
@@ -37,11 +37,10 @@ public class PacienteController {
         return true;
     }
     
-    public void atualizarPaciente(String nome, int id, String dataNascimento, String cpf, Endereco endereco, String telefone){
+    public void atualizarPaciente(String nome, int id, String dataNascimento, String cpf, String telefone, String email){
         ValidaPaciente valida = new ValidaPaciente();
-        Paciente novoPaciente = valida.validaCamposEntrada(nome, id, dataNascimento, cpf, endereco, telefone);
+        Paciente novoPaciente = valida.validaCamposEntrada(nome, id, dataNascimento, cpf, telefone, email);
         novoPaciente.setId(id);
-        
         repositorio.update(novoPaciente);
 
     }

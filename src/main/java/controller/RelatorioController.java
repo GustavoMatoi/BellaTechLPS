@@ -8,6 +8,8 @@ import Model.DAO.RelatorioDAO;
 import Model.Paciente;
 import Model.Relatorio;
 import Model.Valid.ValidaRelatorio;
+import java.util.List;
+import javax.swing.JTable;
 
 /**
  *
@@ -20,17 +22,17 @@ public class RelatorioController {
         repositorio = new RelatorioDAO();
     }
     
-    public boolean cadastrarRelatorio(Paciente paciente, String protocolo, String justificativa, String responsavel){
+    public boolean cadastrarRelatorio(Paciente paciente, String protocolo, String justificativa){
         ValidaRelatorio valida = new ValidaRelatorio();
-        Relatorio novoRelatorio = valida.validaRelatorio(paciente, protocolo, justificativa, responsavel);
+        Relatorio novoRelatorio = valida.validaRelatorio(paciente, protocolo, justificativa);
         
         repositorio.save(novoRelatorio);
         return true;
     }
     
-    public void atualizarRelatorio(Paciente paciente, String protocolo, String justificativa, String responsavel){
+    public void atualizarRelatorio(Paciente paciente, String protocolo, String justificativa){
         ValidaRelatorio valida = new ValidaRelatorio();
-        Relatorio novoRelatorio = valida.validaRelatorio(paciente, protocolo, justificativa, responsavel);
+        Relatorio novoRelatorio = valida.validaRelatorio(paciente, protocolo, justificativa);
         repositorio.update(novoRelatorio);        
     }
     
@@ -43,11 +45,11 @@ public class RelatorioController {
         repositorio.delete(relatorio);
     }
     
-  /*  public void atualizarTabela(JTable grd){
+    public void atualizarTabela(JTable grd){
         List lst = repositorio.findAll();
-        TMPaciente tableModel = new TMPaciente(lst);
+        TMRelatorio tableModel = new TMRelatorio(lst);
         grd.setModel(tableModel);
-    }*/
+    }
     
     
 }

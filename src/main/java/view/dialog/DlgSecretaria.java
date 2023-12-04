@@ -29,6 +29,7 @@ public class DlgSecretaria extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnCadastrarPaciente1 = new javax.swing.JButton();
         pnlFundo = new javax.swing.JPanel();
         lblLogo = new javax.swing.JLabel();
         lblTitulo = new javax.swing.JLabel();
@@ -39,6 +40,12 @@ public class DlgSecretaria extends javax.swing.JDialog {
         btnVisualizarAgenda = new javax.swing.JButton();
         btnReceberFeedback = new javax.swing.JButton();
         btnReceberPagamento = new javax.swing.JButton();
+        btnCadastrarPaciente2 = new javax.swing.JButton();
+
+        btnCadastrarPaciente1.setBackground(new java.awt.Color(255, 121, 165));
+        btnCadastrarPaciente1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnCadastrarPaciente1.setForeground(new java.awt.Color(255, 255, 255));
+        btnCadastrarPaciente1.setText("EDITAR PACIENTE");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -123,29 +130,37 @@ public class DlgSecretaria extends javax.swing.JDialog {
             }
         });
 
+        btnCadastrarPaciente2.setBackground(new java.awt.Color(255, 121, 165));
+        btnCadastrarPaciente2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnCadastrarPaciente2.setForeground(new java.awt.Color(255, 255, 255));
+        btnCadastrarPaciente2.setText("EDITAR PACIENTE");
+        btnCadastrarPaciente2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarPaciente2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlFundoLayout = new javax.swing.GroupLayout(pnlFundo);
         pnlFundo.setLayout(pnlFundoLayout);
         pnlFundoLayout.setHorizontalGroup(
             pnlFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlFundoLayout.createSequentialGroup()
-                .addGroup(pnlFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnCadastroProcedimento, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCadastrarPaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnVisualizarHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCadastrarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnVisualizarAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnReceberPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(pnlFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(pnlFundoLayout.createSequentialGroup()
-                            .addGap(120, 120, 120)
-                            .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(pnlFundoLayout.createSequentialGroup()
-                            .addGap(34, 34, 34)
-                            .addGroup(pnlFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lblTitulo)
-                                .addGroup(pnlFundoLayout.createSequentialGroup()
-                                    .addGap(6, 6, 6)
-                                    .addComponent(btnReceberFeedback, javax.swing.GroupLayout.PREFERRED_SIZE, 322, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                .addGroup(pnlFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pnlFundoLayout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(pnlFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnCadastroProcedimento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+                            .addComponent(btnCadastrarPaciente, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+                            .addComponent(btnVisualizarHistorico, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+                            .addComponent(btnCadastrarConsulta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+                            .addComponent(btnVisualizarAgenda, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+                            .addComponent(lblTitulo, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnReceberPagamento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+                            .addComponent(btnCadastrarPaciente2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnReceberFeedback, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)))
+                    .addGroup(pnlFundoLayout.createSequentialGroup()
+                        .addGap(128, 128, 128)
+                        .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         pnlFundoLayout.setVerticalGroup(
@@ -163,13 +178,15 @@ public class DlgSecretaria extends javax.swing.JDialog {
                 .addComponent(btnCadastrarConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnVisualizarAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addGap(18, 18, 18)
                 .addComponent(btnReceberFeedback, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnReceberPagamento, javax.swing.GroupLayout.DEFAULT_SIZE, 47, Short.MAX_VALUE)
-                .addGap(48, 48, 48)
+                .addComponent(btnReceberPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnCadastrarPaciente2, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
                 .addComponent(lblLogo)
-                .addGap(47, 47, 47))
+                .addGap(19, 19, 19))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -192,7 +209,7 @@ public class DlgSecretaria extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCadastrarPacienteActionPerformed
 
     private void btnVisualizarAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarAgendaActionPerformed
-        DlgVisualizarAgendaDeConsultas telaAgendaConsultas = new DlgVisualizarAgendaDeConsultas(new JFrame(), true);
+        DlgVisualizarAgendaDeConsultas telaAgendaConsultas = new DlgVisualizarAgendaDeConsultas(new JFrame(), true, "secretaria");
         telaAgendaConsultas.setVisible(true); 
     }//GEN-LAST:event_btnVisualizarAgendaActionPerformed
 
@@ -223,11 +240,18 @@ public class DlgSecretaria extends javax.swing.JDialog {
 
     }//GEN-LAST:event_btnReceberPagamentoActionPerformed
 
+    private void btnCadastrarPaciente2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarPaciente2ActionPerformed
+        DlgEditarPaciente telaCadastroPaciente = new DlgEditarPaciente(new JFrame(), true);
+        telaCadastroPaciente.setVisible(true);
+    }//GEN-LAST:event_btnCadastrarPaciente2ActionPerformed
+
  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrarConsulta;
     private javax.swing.JButton btnCadastrarPaciente;
+    private javax.swing.JButton btnCadastrarPaciente1;
+    private javax.swing.JButton btnCadastrarPaciente2;
     private javax.swing.JButton btnCadastroProcedimento;
     private javax.swing.JButton btnReceberFeedback;
     private javax.swing.JButton btnReceberPagamento;

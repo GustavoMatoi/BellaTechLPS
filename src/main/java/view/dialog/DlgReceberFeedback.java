@@ -12,7 +12,11 @@ import controller.FeedbackController;
 import controller.MedicoController;
 import controller.PacienteController;
 import controller.ProcedimentoController;
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.text.MaskFormatter;
 
 /**
  *
@@ -39,13 +43,23 @@ public class DlgReceberFeedback extends javax.swing.JDialog {
         pacienteController.atualizarTabela(grdPaciente);
         medicoController.atualizarTabela(grdMedico);
 
-        paciente = new Paciente();
-        medico = new Medico();
-        procedimento = new Procedimento();
+        paciente = null;
+        medico = null;
+        procedimento = null;
         feedback = new Feedback();
         feedbackController = new FeedbackController();
+        this.adicionarMascaraNosCampos();
     }
 
+    
+        public void adicionarMascaraNosCampos(){
+        try {
+            MaskFormatter mascaraData = new MaskFormatter("##/##/####");
+            mascaraData.install(fEdtData);
+        } catch (ParseException e){
+            Logger.getLogger(DlgCadastroPaciente.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -56,7 +70,6 @@ public class DlgReceberFeedback extends javax.swing.JDialog {
         buttonGroup4 = new javax.swing.ButtonGroup();
         buttonGroup5 = new javax.swing.ButtonGroup();
         pnlBackground = new javax.swing.JPanel();
-        edtData = new javax.swing.JTextField();
         lblNome = new javax.swing.JLabel();
         lblData = new javax.swing.JLabel();
         lblProcedimento = new javax.swing.JLabel();
@@ -79,6 +92,7 @@ public class DlgReceberFeedback extends javax.swing.JDialog {
         grdPaciente = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
         grdProcedimento = new javax.swing.JTable();
+        fEdtData = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -121,6 +135,11 @@ public class DlgReceberFeedback extends javax.swing.JDialog {
         btnCancelar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnCancelar.setForeground(new java.awt.Color(255, 121, 165));
         btnCancelar.setText("CANCELAR");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         lblAvaliacao.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblAvaliacao.setForeground(new java.awt.Color(255, 121, 165));
@@ -234,7 +253,7 @@ public class DlgReceberFeedback extends javax.swing.JDialog {
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblData)
-                            .addComponent(edtData, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(fEdtData, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlBackgroundLayout.createSequentialGroup()
@@ -305,7 +324,7 @@ public class DlgReceberFeedback extends javax.swing.JDialog {
                             .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBackgroundLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                         .addComponent(lblNome)
                         .addGap(311, 311, 311)))
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -323,12 +342,12 @@ public class DlgReceberFeedback extends javax.swing.JDialog {
                         .addGap(8, 8, 8)
                         .addComponent(lblData)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(edtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fEdtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblComentarios)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(edtComentarios, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnCancelar))
@@ -363,6 +382,7 @@ public class DlgReceberFeedback extends javax.swing.JDialog {
 
     private void grdPacienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grdPacienteMouseClicked
         int rowIndex = grdPaciente.getSelectedRow();
+        paciente = new Paciente();
         paciente.setId((int) grdPaciente.getValueAt(rowIndex, 0));
         paciente.setNome((String) grdPaciente.getValueAt(rowIndex, 1));
         paciente.setCpf((String) grdPaciente.getValueAt(rowIndex, 2));
@@ -373,6 +393,7 @@ public class DlgReceberFeedback extends javax.swing.JDialog {
 
     private void grdProcedimentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grdProcedimentoMouseClicked
         int rowIndex = grdProcedimento.getSelectedRow();
+        procedimento = new Procedimento();
         procedimento.setId((int) grdProcedimento.getValueAt(rowIndex, 0));
         procedimento.setNome((String) grdProcedimento.getValueAt(rowIndex, 1));
         procedimento.setDescricao((String) grdProcedimento.getValueAt(rowIndex, 2));
@@ -381,6 +402,7 @@ public class DlgReceberFeedback extends javax.swing.JDialog {
 
     private void grdMedicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grdMedicoMouseClicked
         int rowIndex = grdMedico.getSelectedRow();
+        medico = new Medico();
         medico.setId((int) grdMedico.getValueAt(rowIndex, 0));
         medico.setNome((String) grdMedico.getValueAt(rowIndex, 1));
         medico.setCpf((String) grdMedico.getValueAt(rowIndex, 2));
@@ -406,15 +428,27 @@ public class DlgReceberFeedback extends javax.swing.JDialog {
     }//GEN-LAST:event_btnCincoEstrelasActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        feedback.setData(edtData.getText());
-        feedback.setComentarios(edtComentarios.getText());
-        feedback.setPaciente(paciente);
-        feedback.setMedico(medico);
-        feedback.setProcedimento(procedimento);
-        feedbackController.cadastrarFeedback(0, feedback.getData(), procedimento, feedback.getAvaliacao(), feedback.getComentarios(), medico, paciente);
-        JOptionPane.showMessageDialog(null, "Feedback cadastrado com sucesso.");
-        this.dispose();
+        if(paciente == null){
+            JOptionPane.showMessageDialog(null, "Informe um paciente antes de prosseguir.");            
+        } else if (medico == null){
+            JOptionPane.showMessageDialog(null, "Informe um médico antes de prosseguir.");
+        } else if (procedimento == null){
+            JOptionPane.showMessageDialog(null, "Informe um procedimento antes de prosseguir.");
+        } else {
+            feedback.setData(fEdtData.getText());
+            feedback.setComentarios(edtComentarios.getText());
+            feedback.setPaciente(paciente);
+            feedback.setMedico(medico);
+            feedback.setProcedimento(procedimento);
+            feedbackController.cadastrarFeedback(0, feedback.getData(), procedimento, feedback.getAvaliacao(), feedback.getComentarios(), medico, paciente);
+            JOptionPane.showMessageDialog(null, "Feedback cadastrado com sucesso.");
+            this.dispose();   
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
@@ -430,7 +464,7 @@ public class DlgReceberFeedback extends javax.swing.JDialog {
     private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.ButtonGroup buttonGroup5;
     private javax.swing.JTextField edtComentarios;
-    private javax.swing.JTextField edtData;
+    private javax.swing.JFormattedTextField fEdtData;
     private javax.swing.JTable grdMedico;
     private javax.swing.JTable grdPaciente;
     private javax.swing.JTable grdProcedimento;

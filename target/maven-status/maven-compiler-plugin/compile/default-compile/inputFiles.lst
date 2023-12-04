@@ -21,6 +21,7 @@ C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\Model\exceptio
 C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\Model\DAO\RelatorioDAO.java
 C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\Model\Valid\ValidaSecretaria.java
 C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\Model\Valid\ValidaFeedback.java
+C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\view\dialog\DlgHistoricoRelatorios.java
 C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\Model\exceptions\PacienteException.java
 C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\controller\ConsultaController.java
 C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\Model\Valid\ValidaEndereco.java
@@ -40,8 +41,10 @@ C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\controller\Pac
 C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\bella\tech\bellatech\BellaTech.java
 C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\Model\Usuario.java
 C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\Model\Secretaria.java
+C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\view\dialog\DlgPagarFuncionario.java
 C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\Model\exceptions\FeedbackException.java
 C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\view\dialog\DlgReceberFeedback.java
+C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\controller\TMFuncionario.java
 C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\Model\exceptions\ConsultaException.java
 C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\controller\PagamentoController.java
 C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\Model\DAO\MedicoDAO.java
@@ -57,6 +60,7 @@ C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\Model\exceptio
 C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\Model\exceptions\PagamentoException.java
 C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\controller\ProcedimentoController.java
 C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\view\dialog\DlgReceberPagamento.java
+C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\controller\TMRelatorio.java
 C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\Model\Endereco.java
 C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\Model\Valid\ValidaProcedimento.java
 C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\view\dialog\DlgCadastroProcedimento.java
@@ -65,6 +69,7 @@ C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\controller\Med
 C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\Model\DAO\UsuarioDAO.java
 C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\controller\SecretariaController.java
 C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\controller\RelatorioController.java
+C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\Model\Email.java
 C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\view\dialog\DlgVisualizarLucros.java
 C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\Model\DAO\PacienteDAO.java
 C:\Users\gutei\Documents\NetBeansProjects\BellaTech\src\main\java\Model\DAO\FeedbackDAO.java

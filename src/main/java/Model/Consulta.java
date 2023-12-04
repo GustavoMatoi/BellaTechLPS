@@ -33,12 +33,10 @@ public class Consulta {
     @ManyToOne
     @JoinColumn(name = "paciente_id")
     private Paciente paciente;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "medico_id") 
-    private Medico medico;
+    private int idMedico;
     private String horarioDaConsulta;
     private String motivoDaConsulta;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name="procedimento_id")
     Procedimento procedimento;
 }

@@ -50,11 +50,11 @@ public class ConsultaDAO implements IDAO{
 
     @Override
     public void update(Object objeto) {
-        this.entityManager = DatabaseJPA.getInstance().getEntityManager();
-        this.entityManager.getTransaction().begin();
-        this.entityManager.merge(objeto);
-        this.entityManager.getTransaction().commit();
-        this.entityManager.close();
+    this.entityManager = DatabaseJPA.getInstance().getEntityManager();
+    this.entityManager.getTransaction().begin();
+    this.entityManager.merge(objeto);
+    this.entityManager.getTransaction().commit();
+    this.entityManager.close();
     }
 
     @Override
@@ -82,7 +82,9 @@ public class ConsultaDAO implements IDAO{
     public boolean delete(Object objeto) {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
         this.entityManager.getTransaction().begin();
-        this.entityManager.remove(objeto);
+        Consulta consulta = (Consulta) objeto;
+        Consulta c = this.entityManager.find(Consulta.class, consulta.getId());
+        this.entityManager.remove(c);
         this.entityManager.getTransaction().commit();
         return true;
     }
@@ -102,7 +104,7 @@ public class ConsultaDAO implements IDAO{
         if(lst.isEmpty()){
             return null;
         } else { 
-            return (Paciente) lst.get(0);
+            return (Consulta) lst.get(0);
         }
     }
     

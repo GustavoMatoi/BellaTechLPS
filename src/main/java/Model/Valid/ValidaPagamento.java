@@ -12,7 +12,7 @@ import Model.Pagamento;
  * @author gutei
  */
 public class ValidaPagamento {
-    public Pagamento validaPagamento(float valor, String metodo, String data, String comentarios){
+    public Pagamento validaPagamento(int id, float valor, String metodo, String data, String recebedor, String pagador){
         Pagamento p = new Pagamento();
         if(valor == 0) throw new PagamentoException("Valor inválido");
         p.setValor(valor);
@@ -20,8 +20,12 @@ public class ValidaPagamento {
         p.setMetodo(metodo);
         if(data.isEmpty()) throw new PagamentoException("Data inválida");
         p.setData(data);
-        if(comentarios.isEmpty()) throw new PagamentoException("Comentário inválido");
-        p.setComentarios(comentarios);
+        if(recebedor.isEmpty()) throw new PagamentoException("Recebedor inválido");
+        p.setRecebedor(recebedor);
+        if(pagador.isEmpty()) throw new PagamentoException("Pagador inválido");
+        p.setPagador(pagador);
+        if(id == -1) throw new PagamentoException("Id inválido");
+        p.setId(id);
         return p;
     }
 }

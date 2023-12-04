@@ -4,7 +4,6 @@
  */
 package view.dialog;
 
-import Model.Medico;
 import javax.swing.JFrame;
 
 /**
@@ -14,7 +13,7 @@ import javax.swing.JFrame;
 public class DlgMedico extends javax.swing.JDialog {
 
     /**
-     * Creates new form DlgHomeFuncionarios
+     * Creates new form DlgMedico
      */
     public DlgMedico(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -32,10 +31,11 @@ public class DlgMedico extends javax.swing.JDialog {
 
         pnlFundo = new javax.swing.JPanel();
         lblLogo = new javax.swing.JLabel();
-        btnVisualizarHistorico = new javax.swing.JButton();
-        btnVisualizarAgenda = new javax.swing.JButton();
         lblTitulo = new javax.swing.JLabel();
-        btnRelatorioProcedimentos = new javax.swing.JButton();
+        btnHistoricoFeedback = new javax.swing.JButton();
+        btnVisualizarAgenda = new javax.swing.JButton();
+        btnFazerRelatorio = new javax.swing.JButton();
+        btnHistoricoRelatorio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -46,13 +46,17 @@ public class DlgMedico extends javax.swing.JDialog {
         lblLogo.setForeground(new java.awt.Color(255, 121, 165));
         lblLogo.setText("BellaTech  ©2023");
 
-        btnVisualizarHistorico.setBackground(new java.awt.Color(255, 121, 165));
-        btnVisualizarHistorico.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnVisualizarHistorico.setForeground(new java.awt.Color(255, 255, 255));
-        btnVisualizarHistorico.setText("VISUALIZAR HISTORICO DE FEEDBACKS");
-        btnVisualizarHistorico.addActionListener(new java.awt.event.ActionListener() {
+        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblTitulo.setForeground(new java.awt.Color(255, 121, 165));
+        lblTitulo.setText("SELECIONE UMA AÇÃO PARA PROSSEGUIR");
+
+        btnHistoricoFeedback.setBackground(new java.awt.Color(255, 121, 165));
+        btnHistoricoFeedback.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnHistoricoFeedback.setForeground(new java.awt.Color(255, 255, 255));
+        btnHistoricoFeedback.setText("VISUALIZAR HISTORICO DE FEEDBACKS");
+        btnHistoricoFeedback.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVisualizarHistoricoActionPerformed(evt);
+                btnHistoricoFeedbackActionPerformed(evt);
             }
         });
 
@@ -66,17 +70,23 @@ public class DlgMedico extends javax.swing.JDialog {
             }
         });
 
-        lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblTitulo.setForeground(new java.awt.Color(255, 121, 165));
-        lblTitulo.setText("SELECIONE UMA AÇÃO PARA PROSSEGUIR");
-
-        btnRelatorioProcedimentos.setBackground(new java.awt.Color(255, 121, 165));
-        btnRelatorioProcedimentos.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnRelatorioProcedimentos.setForeground(new java.awt.Color(255, 255, 255));
-        btnRelatorioProcedimentos.setText("FAZER RELATÓRIO DE PROCEDIMENTOS");
-        btnRelatorioProcedimentos.addActionListener(new java.awt.event.ActionListener() {
+        btnFazerRelatorio.setBackground(new java.awt.Color(255, 121, 165));
+        btnFazerRelatorio.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnFazerRelatorio.setForeground(new java.awt.Color(255, 255, 255));
+        btnFazerRelatorio.setText("FAZER RELATÓRIO DE PROCEDIMENTOS");
+        btnFazerRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRelatorioProcedimentosActionPerformed(evt);
+                btnFazerRelatorioActionPerformed(evt);
+            }
+        });
+
+        btnHistoricoRelatorio.setBackground(new java.awt.Color(255, 121, 165));
+        btnHistoricoRelatorio.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnHistoricoRelatorio.setForeground(new java.awt.Color(255, 255, 255));
+        btnHistoricoRelatorio.setText("HISTÓRIO DE RELATÓRIOS DE PROCEDIMENTO");
+        btnHistoricoRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHistoricoRelatorioActionPerformed(evt);
             }
         });
 
@@ -87,32 +97,34 @@ public class DlgMedico extends javax.swing.JDialog {
             .addGroup(pnlFundoLayout.createSequentialGroup()
                 .addGroup(pnlFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlFundoLayout.createSequentialGroup()
-                        .addGap(133, 133, 133)
-                        .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(34, 34, 34)
+                        .addGroup(pnlFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnHistoricoFeedback, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+                            .addComponent(lblTitulo, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnFazerRelatorio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)
+                            .addComponent(btnHistoricoRelatorio, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnVisualizarAgenda, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 328, Short.MAX_VALUE)))
                     .addGroup(pnlFundoLayout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addGroup(pnlFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTitulo)
-                            .addComponent(btnRelatorioProcedimentos, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(pnlFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(btnVisualizarHistorico, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnVisualizarAgenda, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)))))
-                .addContainerGap(62, Short.MAX_VALUE))
+                        .addGap(128, 128, 128)
+                        .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         pnlFundoLayout.setVerticalGroup(
             pnlFundoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlFundoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap()
                 .addComponent(lblTitulo)
-                .addGap(18, 18, 18)
-                .addComponent(btnVisualizarHistorico, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
+                .addGap(34, 34, 34)
+                .addComponent(btnHistoricoFeedback, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
                 .addComponent(btnVisualizarAgenda, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54)
-                .addComponent(btnRelatorioProcedimentos, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(256, 256, 256)
+                .addGap(29, 29, 29)
+                .addComponent(btnFazerRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(btnHistoricoRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(244, 244, 244)
                 .addComponent(lblLogo)
-                .addContainerGap())
+                .addGap(19, 19, 19))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -123,36 +135,79 @@ public class DlgMedico extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlFundo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(pnlFundo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRelatorioProcedimentosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioProcedimentosActionPerformed
-        DlgRelatorioProcedimento telaRelatorio = new DlgRelatorioProcedimento(new JFrame(), true);
-        telaRelatorio.setVisible(true);
-    }//GEN-LAST:event_btnRelatorioProcedimentosActionPerformed
+    private void btnHistoricoFeedbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoricoFeedbackActionPerformed
+        DlgHistoricoFeedback telaFeedback = new DlgHistoricoFeedback(new JFrame(), true);
+        telaFeedback.setVisible(true);
+    }//GEN-LAST:event_btnHistoricoFeedbackActionPerformed
 
     private void btnVisualizarAgendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarAgendaActionPerformed
-        DlgVisualizarAgendaDeConsultas telaAgendaConsultas = new DlgVisualizarAgendaDeConsultas(new JFrame(), true);
-        telaAgendaConsultas.setVisible(true);
+        DlgVisualizarAgendaDeConsultas telaConsultas = new DlgVisualizarAgendaDeConsultas(new JFrame(), true, "medico");
+        telaConsultas.setVisible(true);
     }//GEN-LAST:event_btnVisualizarAgendaActionPerformed
 
-    private void btnVisualizarHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVisualizarHistoricoActionPerformed
-        DlgHistoricoFeedback telaHistoricoProcedimentos = new DlgHistoricoFeedback(new JFrame(), true);
-        telaHistoricoProcedimentos.setVisible(true);
-    }//GEN-LAST:event_btnVisualizarHistoricoActionPerformed
+    private void btnFazerRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFazerRelatorioActionPerformed
+        DlgRelatorioProcedimento telaRelatorioProcedimento = new DlgRelatorioProcedimento(new JFrame(), true);
+        telaRelatorioProcedimento.setVisible(true);
+    }//GEN-LAST:event_btnFazerRelatorioActionPerformed
+
+    private void btnHistoricoRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoricoRelatorioActionPerformed
+        DlgHistoricoRelatorios telaHistoricoRelatorios = new DlgHistoricoRelatorios(new JFrame(), true);
+        telaHistoricoRelatorios.setVisible(true);
+    }//GEN-LAST:event_btnHistoricoRelatorioActionPerformed
 
     /**
      * @param args the command line arguments
      */
- 
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(DlgMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(DlgMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(DlgMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(DlgMedico.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the dialog */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                DlgMedico dialog = new DlgMedico(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnRelatorioProcedimentos;
+    private javax.swing.JButton btnFazerRelatorio;
+    private javax.swing.JButton btnHistoricoFeedback;
+    private javax.swing.JButton btnHistoricoRelatorio;
     private javax.swing.JButton btnVisualizarAgenda;
-    private javax.swing.JButton btnVisualizarHistorico;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel pnlFundo;

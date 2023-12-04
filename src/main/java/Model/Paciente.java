@@ -35,14 +35,9 @@ public class Paciente {
     private String dataNascimento;
     private String cpf;
     private String telefone;
-
-@OneToOne(cascade = CascadeType.ALL, mappedBy = "paciente")
-private Endereco endereco;
-
+    private String email;
     @OneToMany(mappedBy = "paciente",cascade = CascadeType.ALL)
     List<Consulta> consulta;
-    @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
-    private List<Pagamento> pagamentos;
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
     private List<Feedback> feedbacks;
 }

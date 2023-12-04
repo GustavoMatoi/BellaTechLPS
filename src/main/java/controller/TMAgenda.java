@@ -16,11 +16,12 @@ import javax.swing.table.AbstractTableModel;
 public class TMAgenda extends AbstractTableModel{
     
     private List<Consulta> lst;
-    private final int COL_PACIENTE = 0;
-    private final int COL_MEDICO = 1;
-    private final int COL_MOTIVO = 2;
-    private final int COL_DATA = 3;
-    private final int COL_PROCEDIMENTO = 4;
+    private final int COL_ID = 0;
+    private final int COL_PACIENTE = 1;
+    private final int COL_MEDICO = 2;
+    private final int COL_MOTIVO = 3;
+    private final int COL_DATA = 4;
+    private final int COL_PROCEDIMENTO = 5;
     
     public TMAgenda(List<Consulta> lista){
         this.lst = lista;
@@ -33,7 +34,7 @@ public class TMAgenda extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-        return 5;
+        return 6;
     }
 
     @Override
@@ -43,15 +44,15 @@ public class TMAgenda extends AbstractTableModel{
         if(columnIndex  == COL_PACIENTE){
             return c.getPaciente().getNome();
         } else if (columnIndex == COL_MEDICO){
-            System.out.println(c.getMedico().getNome());
-            System.out.println(c.getMedico().getNome());
-            return c.getMedico().getNome();
+            return c.getIdMedico();
         } else if (columnIndex == COL_MOTIVO){
             return c.getMotivoDaConsulta();
         } else if (columnIndex == COL_DATA){
             return c.getHorarioDaConsulta();
         } else if (columnIndex == COL_PROCEDIMENTO){
             return c.getProcedimento().getNome();
+        } else if (columnIndex == COL_ID){
+            return c.getId();
         }
         return "-";
     }
@@ -69,6 +70,8 @@ public class TMAgenda extends AbstractTableModel{
             return "Data";
         } else if (columnIndex == COL_PROCEDIMENTO){
             return "Procedimento";
+        } else if (columnIndex == COL_ID){
+            return "ID";
         }
         return "-";
       }

@@ -29,7 +29,7 @@ public class Secretaria extends Usuario implements IFuncionario {
     @Override
     public void cadastrarPaciente(Paciente novoPaciente) {
         PacienteController pacienteController = new PacienteController();
-        pacienteController.cadastrarPaciente(novoPaciente.getNome(), 0, novoPaciente.getDataNascimento(), novoPaciente.getCpf(), novoPaciente.getEndereco(), novoPaciente.getTelefone());
+        pacienteController.cadastrarPaciente(novoPaciente.getNome(), 0, novoPaciente.getDataNascimento(), novoPaciente.getCpf(), novoPaciente.getTelefone(), novoPaciente.getEmail());
     }
 
     @Override

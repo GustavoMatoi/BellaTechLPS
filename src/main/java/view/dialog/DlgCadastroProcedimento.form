@@ -64,15 +64,13 @@
                               <Component id="edtDescricao" alignment="0" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Group type="102" alignment="0" attributes="0">
-                                              <Group type="103" groupAlignment="0" attributes="0">
-                                                  <Component id="lblDescricao" alignment="0" min="-2" pref="92" max="-2" attributes="0"/>
-                                                  <Component id="lblNome" alignment="0" min="-2" pref="158" max="-2" attributes="0"/>
-                                              </Group>
-                                              <EmptySpace min="-2" pref="452" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="lblDescricao" alignment="0" min="-2" pref="92" max="-2" attributes="0"/>
+                                              <Component id="lblNome" alignment="0" min="-2" pref="158" max="-2" attributes="0"/>
+                                              <Component id="edtNomeProcedimento" alignment="0" min="-2" pref="292" max="-2" attributes="0"/>
                                           </Group>
-                                          <Component id="edtNomeProcedimento" alignment="0" min="-2" pref="292" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="318" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="1" attributes="0">
                                           <EmptySpace min="-2" pref="183" max="-2" attributes="0"/>
@@ -110,10 +108,12 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="edtDescricao" pref="97" max="32767" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="btnSalvar" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblLogo1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblLogo1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
               </Group>

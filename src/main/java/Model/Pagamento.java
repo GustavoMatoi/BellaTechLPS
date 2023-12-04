@@ -27,8 +27,6 @@ public class Pagamento {
     private float valor;
     private String metodo;
     private String data;
-    private String comentarios;
-        @ManyToOne
-    @JoinColumn(name = "paciente_id")
-    private Paciente paciente;
+    private String recebedor;
+    private String pagador;
 }

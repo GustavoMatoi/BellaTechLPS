@@ -13,7 +13,7 @@ import Model.exceptions.PacienteException;
  * @author gutei
  */
 public class ValidaPaciente {
-    public Paciente validaCamposEntrada(String nome, int id, String dataNascimento, String cpf, Endereco endereco, String telefone){   
+    public Paciente validaCamposEntrada(String nome, int id, String dataNascimento, String cpf, String telefone, String email){   
         Paciente novoPaciente = new Paciente();
         ValidaCpf valida = new ValidaCpf();
         if(nome.isEmpty()) throw new PacienteException("Nome não preenchido");
@@ -24,10 +24,10 @@ public class ValidaPaciente {
         novoPaciente.setDataNascimento(dataNascimento);
         if(!valida.validaCPF(cpf)) throw new PacienteException("CPF inválido");
         novoPaciente.setCpf(cpf);
-        if(endereco == null) throw new PacienteException("Endereço inválido");
-        novoPaciente.setEndereco(endereco);
         if(telefone.isEmpty()) throw new PacienteException("Telefone inválido");
         novoPaciente.setTelefone(telefone);
+        if(email.isEmpty()) throw new PacienteException("Email inválido");
+        novoPaciente.setEmail(email);
         return novoPaciente;
     }
 }

@@ -24,7 +24,7 @@ public class ConsultaController {
         this.repositorio = new ConsultaDAO();
     }
 
-    public void cadastrarConsulta(int id, Paciente p, Medico m, String horario, String motivo, Procedimento procedimento){
+    public void cadastrarConsulta(int id, Paciente p, int m, String horario, String motivo, Procedimento procedimento){
         ValidaConsulta valida = new ValidaConsulta();
         Consulta novaConsulta = valida.validaConsulta(p, m, horario, motivo, procedimento );
         if(repositorio.findById(id) == null){ 
@@ -33,11 +33,12 @@ public class ConsultaController {
             throw new ConsultaException("Error - Já existe esse endereço");
         }
     }
-    public void atualizarConsulta(Paciente p, Medico m, String horario, String motivo, Procedimento procedimento){
+    public void atualizarConsulta(int id,Paciente p, int m, String horario, String motivo, Procedimento procedimento){
         ValidaConsulta valid = new ValidaConsulta();
         Consulta novaConsulta = valid.validaConsulta(p, m, horario, motivo, procedimento);
-        
+        novaConsulta.setId(id);
         repositorio.update(novaConsulta);
+        
     }
     
     public Consulta buscarConsulta(int id){

@@ -9,6 +9,8 @@ import Model.Endereco;
 import Model.Usuario;
 import Model.Valid.ValidaUsuario;
 import Model.exceptions.UsuarioException;
+import java.util.List;
+import javax.swing.JTable;
 
 /**
  *
@@ -53,5 +55,11 @@ public class UsuarioController {
         }
     }
     
+    public void atualizarTabela(JTable grd){
+        List lst = repositorio.findAll();
+        TMFuncionario tableModel = new TMFuncionario(lst);
+        grd.setModel(tableModel);
+    }
     
+   
 }

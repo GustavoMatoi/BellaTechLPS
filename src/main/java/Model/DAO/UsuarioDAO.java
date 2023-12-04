@@ -42,52 +42,20 @@ public class UsuarioDAO implements IDAO {
     
     @Override
     public void save(Object objeto) {
-        Usuario usuario = (Usuario) objeto;
-
-        try {
-              Usuario usuarioManaged = entityManager.merge(usuario);
-              entityManager.getTransaction().begin();
-              entityManager.persist(usuarioManaged);
-              entityManager.getTransaction().commit();
-        } catch (Error e){
-            System.out.println(e);
-        } finally {
-            entityManager.close();
-            factory.close();
-        } 
-
-    
+        this.entityManager = DatabaseJPA.getInstance().getEntityManager();
+        this.entityManager.getTransaction().begin();
+        this.entityManager.persist(objeto);
+        this.entityManager.getTransaction().commit();
+        this.entityManager.close();
     }   
 
     @Override
     public void update(Object objeto) {
-        Medico medico = (Medico) objeto;
-        
-        sql = "UPDATE Medico" + 
-                "SET nome = ?, cpf = ?, login = ?, senha = ?, dataNascimento = ?, telefone = ?, cargo = ?, salario = ?" +
-                "WHERE id=?";
-        try{
-            conexao = Persistencia.getConnection();
-            statement = conexao.prepareStatement(sql);
-            conexao = Persistencia.getConnection();
-            statement = conexao.prepareStatement(sql);
-            
-            statement.setString(1, medico.getNome());
-            statement.setString(2, medico.getCpf());
-            statement.setString(3, medico.getLogin());
-            statement.setString(4, medico.getSenha());
-            statement.setString(5, medico.getDataNascimento());
-            statement.setString(6, medico.getTelefone());
-            statement.setString(7, medico.getCargo());
-            statement.setFloat(8, medico.getSalario());
-            
-            statement.execute();
-            statement.close();
-        } catch (SQLException ex){
-            throw new RuntimeException(ex);
-        } finally {
-            Persistencia.closeConnection();
-        }
+        this.entityManager = DatabaseJPA.getInstance().getEntityManager();
+        this.entityManager.getTransaction().begin();
+        this.entityManager.merge(objeto);
+        this.entityManager.getTransaction().commit();
+        this.entityManager.close();
     }
 
     @Override
@@ -97,70 +65,39 @@ public class UsuarioDAO implements IDAO {
         
         Usuario u = this.entityManager.find(Usuario.class, usuario.getId());
         this.entityManager.close();
-        System.out.println(u.getNome());
         return u;
     }
 
     @Override
     public List<Object> findAll() {
-        List <Object> list = new ArrayList<>();
+        this.entityManager = DatabaseJPA.getInstance().getEntityManager();
+        String jpql = " SELECT u " + " FROM Usuario u ";
         
-        /*sql = "SELECT * FROM Usuario ORDER BY upper(id)";
+        Query qry = this.entityManager.createQuery(jpql);
+        List lst = qry.getResultList();
         
-        try{
-            statement = Persistencia.getConnection().prepareStatement(sql);
-            ResultSet resultSet = statement.executeQuery();
-            
-            while (resultSet.next()){
-                Medico m = new Medico();
-                m.setNome(resultSet.getString(2));
-                m.setCpf(resultSet.getString(3));
-                m.setLogin(resultSet.getString(4));
-                m.setSenha(resultSet.getString(5));
-                m.setDataNascimento(resultSet.getString(6));
-                m.setTelefone(resultSet.getString(7));
-                m.setCargo(resultSet.getString(8));
-                m.setSalario(resultSet.getFloat(9));
-                list.add(m);
-            }
-            statement.close();
-        } catch (SQLException ex){
-            throw new RuntimeException(ex);
-        } finally{
-            Persistencia.closeConnection();
-        } */
-        return list;
+        this.entityManager.close();
+        return (List<Object>) lst;
        }
 
     @Override
     public boolean delete(Object objeto) {
-        Usuario m = (Usuario) objeto;
-        
-        sql = "DELETE FROM Usuario WHERE id = ?";
-        
-        try {
-            conexao = Persistencia.getConnection();
-            statement = conexao.prepareStatement(sql);
-            
-            statement.setInt(1, m.getId());
-            
-            statement.execute();
-            statement.close();
-            return true;    
-        } catch (SQLException ex){
-            throw new RuntimeException(ex);
-        } finally {
-            Persistencia.closeConnection();
-        }
+        this.entityManager = DatabaseJPA.getInstance().getEntityManager();
+        this.entityManager.getTransaction().begin();
+        Usuario usuario = (Usuario) objeto;
+        Usuario u = this.entityManager.find(Usuario.class, usuario.getId());
+        this.entityManager.remove(u);
+        this.entityManager.getTransaction().commit();
+        return true;
     }
 
     @Override
     public Object findById(int id) {
         this.entityManager = DatabaseJPA.getInstance().getEntityManager();
         
-        String jpql = "SELECT u " + " FROM Usuario u" + " WHERE u.login like :login";
+        String jpql = "SELECT u " + " FROM Usuario u" + " WHERE u.id like :id";
         Query qry = this.entityManager.createQuery(jpql);
-        qry.setParameter("login", id);
+        qry.setParameter("id", id);
         
         List lst = qry.getResultList();
         
@@ -192,5 +129,7 @@ public class UsuarioDAO implements IDAO {
             return (Usuario) lst.get(0);
         }
     }
+        
+        
     
 }

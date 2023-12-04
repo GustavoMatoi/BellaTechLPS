@@ -5,6 +5,7 @@
 package view.dialog;
 
 import Model.Consulta;
+import Model.Email;
 import Model.Medico;
 import Model.Paciente;
 import Model.Procedimento;
@@ -32,20 +33,22 @@ public class DlgCadastrarConsulta extends javax.swing.JDialog {
     Procedimento procedimento;
     ProcedimentoController procedimentoController;
     Consulta consultaEditando;
+    Email emailEnviado;
     public DlgCadastrarConsulta(java.awt.Frame parent, boolean modal, Consulta c) {
         super(parent, modal);
         initComponents();
         pacienteController = new PacienteController();
         consultaController = new ConsultaController();
         pacienteController.atualizarTabela(grdPacientes);
-        pacienteConsulta = new Paciente();
+        pacienteConsulta = null;
         medicoController = new MedicoController();
-        medicoConsulta = new Medico();
+        medicoConsulta = null;
         medicoController.atualizarTabela(grdMedico);
-        procedimento = new Procedimento();
+        procedimento = null;
         procedimentoController = new ProcedimentoController();
         procedimentoController.atualizarTabela(grdProcedimento);
         this.consultaEditando = c;
+        emailEnviado = new Email();
         this.adicionarMascaraNosCampos();
         this.verificarConsultaEditando();
     }
@@ -58,11 +61,13 @@ public class DlgCadastrarConsulta extends javax.swing.JDialog {
             Logger.getLogger(DlgCadastroPaciente.class.getName()).log(Level.SEVERE, null, e);
         }
     }
-    
+        
+        
         public void verificarConsultaEditando(){
             if(consultaEditando != null){
                 fEdtDataHora.setText(consultaEditando.getHorarioDaConsulta());
                 edtMotivoConsulta.setText(consultaEditando.getMotivoDaConsulta());
+            
             }
         }
         
@@ -296,29 +301,51 @@ public class DlgCadastrarConsulta extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        if(pacienteConsulta.getNome().isEmpty()){
+        if(consultaEditando == null){
+            if(pacienteConsulta == null){
+                JOptionPane.showMessageDialog(null, "Selecione um paciente antes de prosseguir.");
+            } else {
+                if(medicoConsulta== null){
+                    JOptionPane.showMessageDialog(null, "Selecione um médico antes de prosseguir.");
+                } else {
+                    if(procedimento== null){
+                        JOptionPane.showMessageDialog(null, "Selecione um procedimento antes de prosseguir.");
+                    } else {
+                        consultaController.cadastrarConsulta(0, pacienteConsulta,medicoConsulta.getId(), fEdtDataHora.getText(), edtMotivoConsulta.getText(), procedimento);
+                      JOptionPane.showMessageDialog(null, "Consulta cadastrada com sucesso.");
+                        this.dispose();
+                      emailEnviado.enviarEEmail(pacienteConsulta.getNome(), fEdtDataHora.getText(), pacienteConsulta.getEmail());
+                    }
+                }
+        }
+        } else {
+            if(pacienteConsulta == null){
             JOptionPane.showMessageDialog(null, "Selecione um paciente antes de prosseguir.");
-        }
-        if(medicoConsulta.getNome().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Selecione um médico antes de prosseguir.");
-        }
-        if(procedimento == null){
-            JOptionPane.showMessageDialog(null, "Selecione um procedimento antes de prosseguir.");
-        }
-        consultaController.cadastrarConsulta(0, pacienteConsulta,medicoConsulta, fEdtDataHora.getText(), edtMotivoConsulta.getText(), procedimento);
-        JOptionPane.showMessageDialog(null, "Consulta cadastrada com sucesso.");
-        this.dispose();
-     
-
+            } else {
+                if(medicoConsulta== null){
+                    JOptionPane.showMessageDialog(null, "Selecione um médico antes de prosseguir.");
+                } else {
+                    if(procedimento== null){
+                        JOptionPane.showMessageDialog(null, "Selecione um procedimento antes de prosseguir.");
+                    } else {
+                        consultaController.atualizarConsulta(consultaEditando.getId(),pacienteConsulta, medicoConsulta.getId(), fEdtDataHora.getText(), edtMotivoConsulta.getText(), procedimento);
+                        JOptionPane.showMessageDialog(null, "Consulta editada com sucesso.");
+                        this.dispose();
+                    }
+                }
+            }
+       }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void grdPacientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grdPacientesMouseClicked
         int indexSelecionado = grdPacientes.getSelectedRow();
+        pacienteConsulta = new Paciente();
         pacienteConsulta.setNome(grdPacientes.getValueAt(indexSelecionado, 1).toString());
-        System.out.println(pacienteConsulta.getNome());
         pacienteConsulta.setCpf(grdPacientes.getValueAt(indexSelecionado, 2).toString());
         pacienteConsulta.setId(Integer.parseInt(grdPacientes.getValueAt(indexSelecionado,0).toString()));
-        pacienteConsulta.setTelefone(grdPacientes.getValueAt(indexSelecionado, 1).toString());
+        pacienteConsulta.setTelefone(grdPacientes.getValueAt(indexSelecionado, 3).toString());
+        pacienteConsulta.setEmail((String) grdPacientes.getValueAt(indexSelecionado, 5));
+        pacienteConsulta.setDataNascimento((String) grdPacientes.getValueAt(4, 0));;
     }//GEN-LAST:event_grdPacientesMouseClicked
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -327,14 +354,17 @@ public class DlgCadastrarConsulta extends javax.swing.JDialog {
 
     private void grdMedicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grdMedicoMouseClicked
         int indexSelecionado = grdMedico.getSelectedRow();
+        medicoConsulta = new Medico();
         medicoConsulta.setNome(grdMedico.getValueAt(indexSelecionado, 1).toString());
         medicoConsulta.setCpf(grdMedico.getValueAt(indexSelecionado, 2).toString());
         medicoConsulta.setId(Integer.parseInt(grdMedico.getValueAt(indexSelecionado,0).toString()));
-        medicoConsulta.setTelefone(grdMedico.getValueAt(indexSelecionado, 1).toString());
+        medicoConsulta.setTelefone(grdMedico.getValueAt(indexSelecionado, 3).toString());
     }//GEN-LAST:event_grdMedicoMouseClicked
 
     private void grdProcedimentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_grdProcedimentoMouseClicked
         int indexSelecionado = grdProcedimento.getSelectedRow();
+                procedimento = new Procedimento();
+
         procedimento.setId((int) grdProcedimento.getValueAt(indexSelecionado, 0));
         procedimento.setNome((String) grdProcedimento.getValueAt(indexSelecionado, 1));
         procedimento.setDescricao((String) grdProcedimento.getValueAt(indexSelecionado,2));

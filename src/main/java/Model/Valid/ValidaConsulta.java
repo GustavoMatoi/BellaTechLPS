@@ -15,18 +15,18 @@ import Model.exceptions.ConsultaException;
  * @author gutei
  */
 public class ValidaConsulta {
-    public Consulta validaConsulta(Paciente p, Medico m, String horario, String motivo, Procedimento procedimento){
+    public Consulta validaConsulta(Paciente p, int medicoId, String horario, String motivo, Procedimento procedimento){
         Consulta consultaValidada = new Consulta();
-        if(p.getCpf().isEmpty()) throw new ConsultaException("Paciente inválido"); 
-        consultaValidada.setPaciente(p);
-        if(m.getCpf().isEmpty()) throw new ConsultaException("Médico inválido");
-        consultaValidada.setMedico(m);
         if(horario.isEmpty()) throw new ConsultaException("Horário inválido");
         consultaValidada.setHorarioDaConsulta(horario);
         if(motivo.isEmpty()) throw new ConsultaException("Motivo inválido");
         consultaValidada.setMotivoDaConsulta(motivo);
         if(procedimento == null) throw new ConsultaException("Proceidmento inválido");
         consultaValidada.setProcedimento(procedimento);
+        if(p == null) throw new ConsultaException("Paciente Inválido");
+        consultaValidada.setPaciente(p);
+        if(medicoId == -1) throw new ConsultaException("Médico inválido");
+        consultaValidada.setIdMedico(medicoId);
         return consultaValidada;
     } 
 }

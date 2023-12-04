@@ -18,13 +18,14 @@ public class DlgCadastrarUsuario extends javax.swing.JDialog {
 
     SecretariaController sc;
     MedicoController mc;
-    
+    private String cargo;
     public DlgCadastrarUsuario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         sc = new SecretariaController();
         mc = new MedicoController();
         this.adicionarMascaraNosCampos();
+        this.cargo = "";
     }
 
     public void adicionarMascaraNosCampos(){
@@ -43,6 +44,7 @@ public class DlgCadastrarUsuario extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         pnlBackground = new javax.swing.JPanel();
         edtNomeUsuario = new javax.swing.JTextField();
         edtLogin = new javax.swing.JTextField();
@@ -59,11 +61,14 @@ public class DlgCadastrarUsuario extends javax.swing.JDialog {
         lblTitulo = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
         lblDataNascimento = new javax.swing.JLabel();
-        edtCargo = new javax.swing.JTextField();
         lblCargo = new javax.swing.JLabel();
         fEdtCpf = new javax.swing.JFormattedTextField();
         fEdtDataNascimento = new javax.swing.JFormattedTextField();
         fEdtTelefone = new javax.swing.JFormattedTextField();
+        RbtnSecretaria = new javax.swing.JRadioButton();
+        RbtnMedico = new javax.swing.JRadioButton();
+        lblCpf1 = new javax.swing.JLabel();
+        edtSalario = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -127,6 +132,24 @@ public class DlgCadastrarUsuario extends javax.swing.JDialog {
         lblCargo.setForeground(new java.awt.Color(255, 121, 165));
         lblCargo.setText("CARGO:");
 
+        RbtnSecretaria.setText("Secretária");
+        RbtnSecretaria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RbtnSecretariaActionPerformed(evt);
+            }
+        });
+
+        RbtnMedico.setText("Médico");
+        RbtnMedico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RbtnMedicoActionPerformed(evt);
+            }
+        });
+
+        lblCpf1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblCpf1.setForeground(new java.awt.Color(255, 121, 165));
+        lblCpf1.setText("SALÁRIO:");
+
         javax.swing.GroupLayout pnlBackgroundLayout = new javax.swing.GroupLayout(pnlBackground);
         pnlBackground.setLayout(pnlBackgroundLayout);
         pnlBackgroundLayout.setHorizontalGroup(
@@ -137,57 +160,72 @@ public class DlgCadastrarUsuario extends javax.swing.JDialog {
                 .addGap(229, 229, 229))
             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(fEdtDataNascimento)
-                    .addComponent(lblCargo)
-                    .addComponent(lblNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblSenha)
-                    .addComponent(lblLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblDadosPessoais)
-                    .addComponent(lblDataNascimento)
-                    .addComponent(edtCargo, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
-                    .addComponent(edtSenha)
-                    .addComponent(edtLogin)
-                    .addComponent(edtNomeUsuario)
-                    .addComponent(fEdtCpf))
-                .addGap(18, 18, 18)
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(lblLogo)
-                        .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                            .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(27, 27, 27)
-                            .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(lblDadosParaContato)
-                    .addComponent(lblContato)
-                    .addComponent(fEdtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                        .addComponent(RbtnSecretaria, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(29, 29, 29)
+                        .addComponent(RbtnMedico, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(fEdtDataNascimento, javax.swing.GroupLayout.DEFAULT_SIZE, 322, Short.MAX_VALUE)
+                            .addComponent(lblCargo)
+                            .addComponent(lblNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblSenha)
+                            .addComponent(lblLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDadosPessoais)
+                            .addComponent(lblDataNascimento)
+                            .addComponent(edtSenha)
+                            .addComponent(edtLogin)
+                            .addComponent(edtNomeUsuario)
+                            .addComponent(fEdtCpf))
+                        .addGap(18, 18, 18)
+                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(lblLogo)
+                                .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(27, 27, 27)
+                                    .addComponent(btnSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(lblDadosParaContato)
+                            .addComponent(lblContato)
+                            .addComponent(lblCpf1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(edtSalario, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(fEdtTelefone, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 233, Short.MAX_VALUE)))))
                 .addContainerGap(71, Short.MAX_VALUE))
         );
         pnlBackgroundLayout.setVerticalGroup(
             pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                        .addGap(106, 106, 106)
-                        .addComponent(lblDadosPessoais)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblNomeUsuario)
+                        .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                                .addGap(106, 106, 106)
+                                .addComponent(lblDadosPessoais)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblNomeUsuario)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(edtNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(fEdtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lblCpf))
+                            .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                                .addGap(23, 23, 23)
+                                .addComponent(lblTitulo)
+                                .addGap(29, 29, 29)
+                                .addComponent(lblDadosParaContato)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblContato, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(edtNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(fEdtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblCpf))
+                            .addComponent(fEdtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(edtSalario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(pnlBackgroundLayout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(lblTitulo)
-                        .addGap(29, 29, 29)
-                        .addComponent(lblDadosParaContato)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lblContato, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fEdtCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblCpf1)
+                        .addGap(28, 28, 28)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblLogin)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -203,8 +241,10 @@ public class DlgCadastrarUsuario extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblCargo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(edtCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
+                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(RbtnSecretaria)
+                    .addComponent(RbtnMedico))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnCancelar))
@@ -230,28 +270,42 @@ public class DlgCadastrarUsuario extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-       if(edtCargo.getText().equals("medico") || edtCargo.getText().equals("Medico")){
+       if(cargo.equals("medico")){
             System.out.println(edtNomeUsuario.getText());
             float salario = (float) 999.99;
-            mc.cadastrarMedico(0, edtNomeUsuario.getText(), fEdtCpf.getText(), edtLogin.getText(), edtSenha.getText(), fEdtDataNascimento.getText(), fEdtTelefone.getText(), "medico", (float) 999);
+            mc.cadastrarMedico(0, edtNomeUsuario.getText(), fEdtCpf.getText(), edtLogin.getText(), edtSenha.getText(), fEdtDataNascimento.getText(), fEdtTelefone.getText(), "medico", Float.parseFloat(edtSalario.getText()));
             JOptionPane.showMessageDialog(null, "Médico cadastrado com sucesso");
             this.dispose();
-       } else {
-            sc.cadastrarSecretaria(0, edtNomeUsuario.getText(), fEdtCpf.getText(), edtLogin.getText(), edtSenha.getText(), fEdtDataNascimento.getText(), fEdtTelefone.getText(),"secretaria", (float) 999);
+       } else  if (cargo.equals("secretaria")){
+            sc.cadastrarSecretaria(0, edtNomeUsuario.getText(), fEdtCpf.getText(), edtLogin.getText(), edtSenha.getText(), fEdtDataNascimento.getText(), fEdtTelefone.getText(),"secretaria", Float.parseFloat(edtSalario.getText()));
             JOptionPane.showMessageDialog(null, "Secretária cadastrada com sucesso!");
             this.dispose();
+       } else {
+            JOptionPane.showMessageDialog(null, "Selecione um cargo antes de prosseguir.");
+
        }
 
     }//GEN-LAST:event_btnSalvarActionPerformed
 
+    private void RbtnMedicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RbtnMedicoActionPerformed
+        this.cargo = "medico";
+    }//GEN-LAST:event_RbtnMedicoActionPerformed
+
+    private void RbtnSecretariaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RbtnSecretariaActionPerformed
+        this.cargo = "secretaria";
+    }//GEN-LAST:event_RbtnSecretariaActionPerformed
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton RbtnMedico;
+    private javax.swing.JRadioButton RbtnSecretaria;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JTextField edtCargo;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField edtLogin;
     private javax.swing.JTextField edtNomeUsuario;
+    private javax.swing.JTextField edtSalario;
     private javax.swing.JTextField edtSenha;
     private javax.swing.JFormattedTextField fEdtCpf;
     private javax.swing.JFormattedTextField fEdtDataNascimento;
@@ -259,6 +313,7 @@ public class DlgCadastrarUsuario extends javax.swing.JDialog {
     private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblContato;
     private javax.swing.JLabel lblCpf;
+    private javax.swing.JLabel lblCpf1;
     private javax.swing.JLabel lblDadosParaContato;
     private javax.swing.JLabel lblDadosPessoais;
     private javax.swing.JLabel lblDataNascimento;

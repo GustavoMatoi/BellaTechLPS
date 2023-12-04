@@ -8,6 +8,8 @@ import Model.DAO.PagamentoDAO;
 import Model.Pagamento;
 import Model.Valid.ValidaPagamento;
 import Model.exceptions.PagamentoException;
+import java.util.List;
+import javax.swing.JTable;
 
 /**
  *
@@ -19,10 +21,10 @@ public class PagamentoController {
     public PagamentoController(){
         this.repositorio = new PagamentoDAO();
     }
-    
-    public void cadastrarPagamento(float valor, String metodo, String data, String comentarios, int id){
+
+    public void cadastrarPagamento(int id, float valor, String metodo, String data, String recebedor, String pagador){
         ValidaPagamento valid = new ValidaPagamento();
-        Pagamento novoPagamento = valid.validaPagamento(valor, metodo, data, comentarios);
+        Pagamento novoPagamento = valid.validaPagamento( id,  valor,  metodo, data, recebedor, pagador);
         
         if(repositorio.findById(id) == null){ 
             repositorio.save(novoPagamento);
@@ -31,9 +33,9 @@ public class PagamentoController {
         }
     }
     
-    public void atualizarPagamento(float valor, String metodo, String data, String comentarios){
+    public void atualizarPagamento(int id, float valor, String metodo, String data, String recebedor, String pagador){
         ValidaPagamento valid = new ValidaPagamento();
-        Pagamento novoPagamento = valid.validaPagamento(valor, metodo, data, comentarios);
+        Pagamento novoPagamento = valid.validaPagamento( id,  valor,  metodo, data, recebedor, pagador);
         
         repositorio.update(novoPagamento);
     }
@@ -52,4 +54,9 @@ public class PagamentoController {
         }
     }
     
+       public void atualizarTabela(JTable grd, String recebedor){
+        List lst = repositorio.findAllByPagamento(recebedor);
+        TMPagamento tableModel = new TMPagamento(lst);
+        grd.setModel(tableModel);
+    }
 }
