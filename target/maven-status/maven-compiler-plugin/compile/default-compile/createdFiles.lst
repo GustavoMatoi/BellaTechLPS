@@ -102,7 +102,6 @@ Model\Valid\ValidaPaciente.class
 view\dialog\DlgReceberFeedback$1.class
 view\dialog\DlgCadastroProcedimento.class
 view\dialog\DlgEditarPaciente$2.class
-Model\Stripe.class
 view\dialog\DlgReceberPagamento.class
 Model\Medico.class
 view\dialog\DlgVisualizarAgendaDeConsultas$3.class
